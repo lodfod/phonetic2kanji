@@ -71,3 +71,67 @@ Each article is saved as a text file with one sentence per line.
 - Japanese sentence tokenization is handled automatically
 - All text is saved in UTF-8 encoding
 
+
+## Data Processing
+
+After downloading Wikipedia articles, you can process them for phonetic-to-kanji conversion training using the `wiki_dataprocessor.py` script.
+
+### Wiki Data Processor
+
+The `wiki_dataprocessor.py` script converts the downloaded Wikipedia articles into training data for phonetic-to-kanji conversion models. It creates input-output pairs where:
+- Input: Japanese text in phonetic form (katakana with spaces between words)
+- Output: Original text with kanji (with spaces between words)
+
+#### Usage
+
+```
+python preprocess/wiki_dataprocessor.py --input-dir wiki_articles --output-dir formatted_data
+```
+
+
+#### Command Line Arguments
+
+- `--input-dir`: Input directory containing Wikipedia articles (default: 'wiki_articles')
+- `--output-dir`: Output directory for formatted data (default: 'formatted_data')
+- `--train-ratio`: Ratio of training data (default: 0.8)
+- `--val-ratio`: Ratio of validation data (default: 0.1)
+- `--test-ratio`: Ratio of test data (default: 0.1)
+
+#### Output Format
+
+The script produces three JSON files:
+- `wiki_train.json`: Training dataset
+- `wiki_val.json`: Validation dataset
+- `wiki_test.json`: Test dataset
+
+Each file contains a list of input-output pairs in the following format:
+
+```
+[
+{
+"input": "カガク ノ リロン",
+"output": "科学 の 理論"
+},
+...
+]
+```
+
+
+#### Processing Steps
+
+1. For each sentence in the Wikipedia articles:
+   - The original text with kanji is preserved as the output
+   - MeCab is used to get the phonetic representation (katakana) as the input
+   - Spaces are added between words in both input and output for better model training
+   - Punctuation is removed and text is normalized
+
+2. The data is shuffled and split into training, validation, and test sets according to the specified ratios.
+
+#### Requirements
+
+- MeCab with NEologd dictionary (falls back to default dictionary if not available)
+- jaconv (for hiragana to katakana conversion)
+- tqdm (for progress bars)
+
+
+
