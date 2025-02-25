@@ -78,60 +78,87 @@ After downloading Wikipedia articles, you can process them for phonetic-to-kanji
 
 ### Wiki Data Processor
 
-The `wiki_dataprocessor.py` script converts the downloaded Wikipedia articles into training data for phonetic-to-kanji conversion models. It creates input-output pairs where:
-- Input: Japanese text in phonetic form (katakana with spaces between words)
-- Output: Original text with kanji (with spaces between words)
+The `wiki_dataprocessor.py` script converts the downloaded Wikipedia articles into paired .kana and .kanji files for phonetic-to-kanji conversion models:
+- `.kana` files: Japanese text in hiragana form with spaces between characters
+- `.kanji` files: Original text with kanji
 
 #### Usage
 
+Process all articles in all categories:
 ```
-python preprocess/wiki_dataprocessor.py --input-dir wiki_articles --output-dir formatted_data
+python preprocess/wiki_dataprocessor.py --input wiki_articles --output formatted_data
 ```
 
+Process articles from a specific category:
+```
+python preprocess/wiki_dataprocessor.py --input wiki_articles --output formatted_data --category "物理学"
+```
 
 #### Command Line Arguments
 
-- `--input-dir`: Input directory containing Wikipedia articles (default: 'wiki_articles')
-- `--output-dir`: Output directory for formatted data (default: 'formatted_data')
-- `--train-ratio`: Ratio of training data (default: 0.8)
-- `--val-ratio`: Ratio of validation data (default: 0.1)
-- `--test-ratio`: Ratio of test data (default: 0.1)
+- `--input`, `-i`: Path to the input directory containing article files (required)
+- `--output`, `-o`: Directory to save output files (required)
+- `--category`, `-c`: Specific category subfolder to process (optional)
 
 #### Output Format
 
-The script produces three JSON files:
-- `wiki_train.json`: Training dataset
-- `wiki_val.json`: Validation dataset
-- `wiki_test.json`: Test dataset
+The script preserves the directory structure of the input and creates paired .kana and .kanji files:
 
-Each file contains a list of input-output pairs in the following format:
-
-```json
-[
-{
-"input": "カガク ノ リロン",
-"output": "科学 の 理論"
-},
-...
-]
+```
+formatted_data/
+├── 物理学/
+│ ├── 相対性理論.kana
+│ ├── 相対性理論.kanji
+│ ├── 量子力学.kana
+│ ├── 量子力学.kanji
+│ └── ...
+├── 医学/
+│ ├── 解剖学.kana
+│ ├── 解剖学.kanji
+│ └── ...
+└── ...
 ```
 
+Each line in the files is numbered and follows this format:
+
+In .kana files:
+```
+1| こ れ は に ほ ん ご の ぶ ん し ょ う で す
+```
+
+In .kanji files:
+```
+1| これは日本語の文章です
+```
 
 #### Processing Steps
 
-1. For each sentence in the Wikipedia articles:
-   - The original text with kanji is preserved as the output
-   - MeCab is used to get the phonetic representation (katakana) as the input
-   - Spaces are added between words in both input and output for better model training
-   - Punctuation is removed and text is normalized
+1. For each article file:
+   - The original text with kanji is preserved in the .kanji file
+   - Each character is converted to hiragana and spaces are added between characters in the .kana file
+   - Line numbers are added to both files for easy reference
 
-2. The data is shuffled and split into training, validation, and test sets according to the specified ratios.
+2. The directory structure from the input is maintained in the output.
 
 #### Requirements
 
-- MeCab with NEologd dictionary (falls back to default dictionary if not available)
-- jaconv (for hiragana to katakana conversion)
+- jaconv (for hiragana conversion)
 - tqdm (for progress bars)
 
 
+## Example Usage of Entire Pipeline for General Domains
+
+Source and download articles with sentences line-separated into `.txt` files:
+
+```bash
+python preprocess/wiki_dataloader.py --general-domains --max-pages 30 --output-dir wikipedia_articles
+```
+
+Process articles into `.kana` and `.kanji` file pairs:
+
+```bash
+python preprocess/wiki_dataprocessor.py -i wikipedia_articles -o wikipedia_formatted_data
+```
+
+resulting data is now compatible in pairs with `mecab_processor.py`.
 
