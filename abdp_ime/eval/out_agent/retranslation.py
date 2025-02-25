@@ -13,13 +13,13 @@ class RetranOutAgent(OutAgentBase):
             TransformerEncDec(500, 16000).load_from_checkpoint(
                 model_path,
                 hparams_file=hparam_path,
-                map_location=torch.device("cpu"),
+                map_location=torch.device("cuda"),
             )
-            # .cuda()
+            .cuda()
         )
         self.model.eval()
 
-        self.tokenizer = Tokenizer.from_file("vocabs/train_kanji.json")
+        self.tokenizer = Tokenizer.from_file("data/vocabs/train_kanji.json")
 
     def put(self, batch: Sequence[Any]) -> list[int]:
         x, align_truth = batch

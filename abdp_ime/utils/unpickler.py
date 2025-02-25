@@ -51,4 +51,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     decode(args.pkl_path, args.train_vocab_path, args.test_vocab_path, args.policy)
-
