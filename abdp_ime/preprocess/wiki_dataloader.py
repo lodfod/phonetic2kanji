@@ -311,12 +311,6 @@ class WikipediaDataLoader:
 def main():
     parser = argparse.ArgumentParser(description='Download Wikipedia articles with one sentence per line')
     
-    
-    
-   
-    
-    
-   
     parser.add_argument('--category', type=str, help='Category to download articles from')
     parser.add_argument('--titles', type=str, nargs='+', help='Specific article titles to download')
     parser.add_argument('--output-dir', type=str, default='wiki_articles', help='Output directory')
@@ -328,11 +322,11 @@ def main():
     parser.add_argument('--categories-file', type=str, help='File containing category names, one per line')
     parser.add_argument('--general-domains', action='store_true', 
                         help='Download articles from general domains (Physics, Medical, Tech, etc.) in Japanese')
+    parser.add_argument('--discover-categories', action='store_true',
+                        help='Discover and use popular categories automatically')
     
     args = parser.parse_args()
 
-    
-    
     loader = WikipediaDataLoader(language=args.language, output_dir=args.output_dir)
     if args.general_domains:
         saved_files = loader.download_general_domain_articles(
