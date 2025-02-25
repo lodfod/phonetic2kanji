@@ -1,0 +1,39 @@
+2行軌道要素形式（にぎょうきどうようそけいしき、英: Two-line elements ： TLE）は、アメリカ航空宇宙局 (NASA) と北アメリカ航空宇宙防衛司令部 (NORAD) が現在でも使用している、人工衛星の地心座標系におけるケプラー軌道要素のテキスト形式のフォーマットである。
+元来は初期のコンピューターの80桁のパンチカード用としてデザインされたフォーマットであるが、さまざまな分野で非常に普及しており、また他のいかなるフォーマットと比べても遜色なく働くことから、現在でも使用されている。
+応用分野や対象となる軌道にもよるが、更新から30日以上経過した2行軌道要素形式を用いて計算された値は、信頼性に欠ける可能性がある。
+衛星の軌道上の位置は、2行軌道要素形式から、SGP、SGP4、SDP4、SGP8、SDP8 の各アルゴリズムを用いて計算される。
+SGP4 を使用した場合の精度は、位置に関して典型的には誤差 1 km である。
+例えば 300 km 離れた位置からは、これは最大 0.2° の観測誤差を引き起こす。
+フォーマットの詳細 2行軌道要素形式は、テキスト形式の1行69文字の2行 (Line 1 と Line 2) から成る。
+使用可能な文字は、英大文字 A–Z、数字 0–9、小数点.、空白 および + と - の符号のみである。
+実際の利用においては、分かり易いように、Line 1 の前に Line 0 として24文字以内の衛星名を付加することが広く行われている。
+衛星名として使用可能な文字は Line 1 と Line 2 で利用可能な文字よりもやや自由度が大きく、少なくとも英大文字 A–Z、数字 0–9、丸括弧 ( と )、角括弧 [ と ]、+ と - の符号、および空白が利用可能である（その他のASCII文字も利用されている可能性がある）。
+衛星名の24文字という制限は、NORAD および NASA で使用されている衛星名と整合性を保つための慣例である（Line 0 を付加して3行の形式とした場合でも、2行軌道要素形式と呼ばれる）。
+以下の説明は Line 0 を付加した形式で行う。
+一般フォーマット AAAAAAAAAAAAAAAAAAAAAAAA 1 BBBBBC DDEEEFFF GGHHH.HHHHHHHH +.IIIIIIII +JJJJJ-J +KKKKK-K L MMMMN 2 BBBBB PPP.PPPP QQQ.QQQQ RRRRRRR SSS.SSSS TTT.TTTT UU.UUUUUUUUVVVVVW AAAAAAAAAAAAAAAAAAAAAAAA が24桁の衛星名 (Line 0) である。
+また、下記以外の文字は、次で説明するためのシンボルである。
+凡例（一般フォーマットの各項目共通） 1、2、. ： これらはそれぞれ各桁番号および小数点を表す。
+これ以外の文字は来ない。
++ ： 続く数値の符号が来ることを表し、+、-または空白が来る。
+- ： 1桁の数値が続く場合は、その数値の符号であり、+ か - が来る。
+その場合、この符号付の1桁の整数は、先行する数値の10を底とする指数部である。
+この2桁は空白になる場合がある。
+その他 : シンボル 実際の形式の例 以下に具体例をあげる。
+ISS (ZARYA) 1 25544U 98067A 22095.91869325 .00012930 00000-0 23502-3 0 9991 2 25544 51.6452 334.5328 0004408 351.0413 99.6998 15.49890618333972 MIDORI (ADEOS) 1 24277U 96046A 09116.47337938 -.00000023 00000-0 73445-5 0 432 2 24277 98.3597 83.2073 0002090 64.7512 295.3886 14.28595439661547 ORBCOMM FM08 [+] 1 25112U 97084A 09116.51259343 .00000203 00000-0 12112-3 0 2154 2 25112 45.0199 241.1109 0010042 194.4473 165.6089 14.34380830592834 軌道要素間の関係 軌道要素のうち、2行軌道要素形式には次の要素が直接含まれている。
+t 0 {\displaystyle t_{0}} : 元期 (Epoch) i 0 {\displaystyle i_{0}} : 元期における 軌道傾斜角 (inclination) Ω 0 {\displaystyle \Omega _{0}} : 元期における 昇交点赤経 (longitude of the ascending node) e 0 {\displaystyle e_{0}} : 元期における軌道離心率 (Orbital eccentricity) ω 0 {\displaystyle \omega _{0}} : 元期における近点引数 (Argument of periapsis) M 0 {\displaystyle M_{0}} : 元期における平均近点角 (mean anomaly) n 0 {\displaystyle n_{0}} : 元期における平均運動 (Mean Motion) これらの要素は、厳密な二体問題が成立する場合は定数であるが、次のような原因による摂動で変動する。
+地球の重力ポテンシャルの球対称からのずれ 地球の大気による抗力 太陽光圧、太陽風圧 地球以外の天体(月、太陽、他の惑星など)の重力 2行軌道要素形式には、主に平均運動の時間変動を補正する、次のような情報が含まれている。
+n ˙ 0 / 2 {\displaystyle {\dot {n}}_{0}/2} : 元期における平均運動の時間についての1次微分を2で割った値。
+n ¨ 0 / 6 {\displaystyle {\ddot {n}}_{0}/6} : 元期における平均運動の時間についての2次微分を6で割った値。
+B* : 地球大気の抗力による平均運動への影響を表すパラメーター n ˙ 0 / 2 {\displaystyle {\dot {n}}_{0}/2} および n ¨ 0 / 6 {\displaystyle {\ddot {n}}_{0}/6} はSGPで用いられているが、SGP4では用いられていない。
+逆に B* はSGP4で用いられているが、SGPでは用いられていない。
+SGPやSGP4では、地球の重力ポテンシャルのモデルなどを用いて、2行軌道要素形式に含まれる元期 t0 における軌道要素の値から、任意の時刻 t における次の軌道要素の値を予測している。
+i {\displaystyle i} : 時刻 t {\displaystyle t} における軌道傾斜角 Ω {\displaystyle \Omega } : 時刻 t {\displaystyle t} における昇交点赤経 e {\displaystyle e} : 時刻 t {\displaystyle t} における軌道離心率 ω {\displaystyle \omega } : 時刻 t {\displaystyle t} における近点引数 M {\displaystyle M} : 時刻 t {\displaystyle t} における平均近点角 n {\displaystyle n} : 時刻 t {\displaystyle t} おける平均運動 以下の軌道要素は、2行軌道要素形式には元期 t0 における値が直接は含まれていないが、任意の時刻 t における平均運動 n と離心率 e から、t における値を計算可能である。
+a {\displaystyle a} : 時刻 t {\displaystyle t} における軌道長半径(Semimajor axis) l {\displaystyle l} : 時刻 t {\displaystyle t} における半通径(または半直弦)(semi-latus rectum) q {\displaystyle q} : 時刻 t {\displaystyle t} における近点距離 (Periapsis) Q {\displaystyle Q} : 時刻 t {\displaystyle t} における遠点距離 (Ap(o)apsis) T {\displaystyle T} : 時刻 t {\displaystyle t} における軌道周期(Orbital period) これらには、次のような関係がある。
+a = G M E n 2 3 {\displaystyle a={\sqrt[{3}]{\frac {GM_{E}}{n^{2}}}}} l = a ( 1 − e 2 ) {\displaystyle l=a(1-e^{2})} Q = a ( 1 + e ) {\displaystyle Q=a(1+e)} q = a ( 1 − e ) {\displaystyle q=a(1-e)} T = 2 π n {\displaystyle T={\frac {2\pi }{n}}} ここで GME は地心重力定数(万有引力定数と地球質量の積)でありGME = 3.986004418(8)×1014 m3 s−2 である。
+地球中心と衛星間の距離を r とすると、 r は真近点角 ν の関数として次の形に表すことができる。
+r = l 1 + e cos ⁡ ν {\displaystyle r={\frac {l}{1+e\cos \nu }}} また、r は、離心近点角 E の関数として次の形に表すことができる。
+r = a ( 1 − e cos ⁡ E ) {\displaystyle r=a(1-e\cos E)} 真近点角 ν と離心近点角 E の関係は、次のようになる。
+tan ⁡ ν 2 = 1 + e 1 − e tan ⁡ E 2 {\displaystyle \tan {\frac {\nu }{2}}={\sqrt {\frac {1+e}{1-e}}}\tan {\frac {E}{2}}} 離心近点角 E と平均近点角 M の関係は次の式(ケプラー方程式)で表される。
+M = E − e sin ⁡ E {\displaystyle M=E-e\sin E} 平均近点角 M は次の式で表される。
+M = M 0 + n 0 ( t − t 0 ) + δ M {\displaystyle M=M_{0}+{n_{0}}(t-t_{0})+\delta M} δM は摂動による M の変動を表す項であり、摂動がなければ δM = 0 である。
+時刻 t における 平均運動 n は 、時刻 t における平均近点角 M の時間微分である。

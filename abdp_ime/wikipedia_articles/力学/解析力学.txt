@@ -1,0 +1,47 @@
+解析力学（かいせきりきがく、英: analytical mechanics）とは、一般座標系に対して成り立つ運動方程式を導出して展開される力学体系を言う。
+その運動方程式はラグランジアンやハミルトニアンと呼ばれる座標変換に対して不変な量に変分法と最小作用の原理等を適用することで導出される。
+解析力学で用いられる座標変換不変量はふつう相対運動に対しては不変ではないため、座標変換することで運動エネルギーの測定量が変化してしまうような問題は基本的に扱うことができない。
+概要 力学の理論は大別して静力学（statics）と動力学（dynamics）からなる。
+古代より研究されてきた静力学は力の釣り合いの理論であり、力の釣り合いとは、ある力が及ぼす作用に対して別の力が存在し、それらが相殺した結果として生じるものである。
+静力学の目的は、それら相殺が発生する諸法則を一般的な諸原理に基づいて確立することにあり、それら原理は結局のところ梃子の原理（principle of leverage）、力の合成の原理（principle of composition of forces）、仮想仕事の原理（principle of virtual work）の三つの原理に帰着させることができる。
+現代的には、仮想仕事の原理は次のように表される。
+∑ i = 1 n ( X i δ x i + Y i δ y i + Z i δ z i ) = 0 {\displaystyle \sum _{i=1}^{n}(X_{i}\delta x_{i}+Y_{i}\delta y_{i}+Z_{i}\delta z_{i})=0} 一方で動力学は、ガリレオ・ガリレイによって最初の基礎が据えられ、その運動法則を導き出す諸定理はアイザック・ニュートンの『自然哲学の数学的諸原理』（Philosophia Naturalis Principia Mathematica）によって一応の解明がなされた。
+このとき、ニュートン及びライプニッツは微分積分法を同時に開発したため、物体の運動の法則というものを解析的な方程式に帰着させることができるようになった。
+そのため、ニュートン以後に力学を扱った数学者たちは、ニュートンの諸定理を一般化した上でそれらを微分的表現に翻訳するようになった。
+特に、レオンハルト・オイラーは、運動方程式に初めて解析的な表現を与え、さらに定義と論証の連結によって次々に命題を導出する合理的科学として力学体系を提示しようとした。
+このような中で、ジャン・ル・ロン・ダランベールは、1743年に出版した『動力学概論』（Traité de Dynamique）において、動力学の問題を解くか少なくとも方程式に表すため、物体の運動の法則を釣り合いの法則に帰着させる方法を提案した。
+これは、つまり動力学を静力学に還元する試みだった（ダランベールの原理）。
+ここで、ダランベールの原理は現代的には次のように表される。
+∑ i = 1 n { ( F x i − m i x i ¨ ) δ x i + ( F y i − m i y i ¨ ) δ y i + ( F z i − m i z i ¨ ) δ z i } = 0 {\displaystyle \sum _{i=1}^{n}\left\{\left(F_{x_{i}}-m_{i}{\ddot {x_{i}}}\right)\delta x_{i}+\left(F_{y_{i}}-m_{i}{\ddot {y_{i}}}\right)\delta y_{i}+\left(F_{z_{i}}-m_{i}{\ddot {z_{i}}}\right)\delta z_{i}\right\}=0} 数学者、天文学者であったジョゼフ＝ルイ・ラグランジュは、1788年に出版した『解析力学』（Mécanique Analytique）において、それまでの静力学及び動力学の歴史を総括した上で、静力学全体がただ一つの基本公式に帰着させることができたのと同様に、動力学全体も一つの一般公式に帰着させることが可能であるとして、『諸物体の運動に関わる諸問題を論ずるための、簡単でもあり、一般的でもある、一つの方法』を導入したが、これが解析力学の始まりである。
+ラグランジュの言わんとしたことは、上記ダランベールの原理の表式はラグランジアン L というものを導入することで次のように書き換えることができるというものであった。
+∑ i = 1 n { ( ∂ L ∂ x i − d d t ∂ L ∂ x i ˙ ) δ x i + ( ∂ L ∂ y i − d d t ∂ L ∂ y i ˙ ) δ y i + ( ∂ L ∂ z i − d d t ∂ L ∂ z i ˙ ) δ z i } = 0 {\displaystyle \sum _{i=1}^{n}\left\{\left({\frac {\partial L}{\partial x_{i}}}-{\frac {\mathrm {d} }{\mathrm {d} t}}{\frac {\partial L}{\partial {\dot {x_{i}}}}}\right)\delta x_{i}+\left({\frac {\partial L}{\partial y_{i}}}-{\frac {\mathrm {d} }{\mathrm {d} t}}{\frac {\partial L}{\partial {\dot {y_{i}}}}}\right)\delta y_{i}+\left({\frac {\partial L}{\partial z_{i}}}-{\frac {\mathrm {d} }{\mathrm {d} t}}{\frac {\partial L}{\partial {\dot {z_{i}}}}}\right)\delta z_{i}\right\}=0} これはつまり、ラグランジアンから一元的に運動方程式を導出する方法で、一部の力学の問題について計算を簡単にする方法だった。
+幾何光学における変分原理であるフェルマーの原理からの類推で、古典力学において最小作用の原理（モーペルテューイの原理）が発見された。
+これにより、力学系の問題は、作用積分とよばれる量を最小にするような軌道をもとめる数学の問題になった。
+こうして座標が一般座標に拡張され、ラグランジュ方程式が導き出された。
+さらに、ラグランジアンから一般運動量を定義し、座標と運動量のルジャンドル変換によって、ハミルトン力学が導かれた。
+方程式の一般座標化と共変性 直角座標系 x , y {\displaystyle x,y} において、質点の質量を m {\displaystyle m} 、ポテンシャル関数を V ( x , y ) {\displaystyle V(x,y)} とすると、運動方程式は、 m x ¨ = − ∂ V ∂ x , {\displaystyle m{\ddot {x}}=-{\frac {\partial V}{\partial x}},} m y ¨ = − ∂ V ∂ y {\displaystyle m{\ddot {y}}=-{\frac {\partial V}{\partial y}}} と書くことができる。
+これはニュートンの運動方程式をそのまま表しているため見やすく、また座標系を回転してもその式の形状を変えないという性質（共変性；covariant）を持つが、直角座標系が常に便利というわけではない。
+例えば中心力場における運動の解析では極座標系の方が適しており、また場合によっては運動座標系で考えなくてはならないときもある。
+このような新しい座標変数は総称として一般化座標（generalized coordinates）と呼ぶ。
+一般座標系を用いる場合、直角座標系のニュートンの運動方程式から一般座標系の運動方程式への変換などが要求されることになる。
+しかし、ニュートンの運動方程式はこのような一般座標系への変換に対しては一般に共変的ではないため、式の形が変わってしまう。
+例として、ポテンシャル V ( r ) {\displaystyle V(r)} で表される中心力場における質量 m の質点の運動を考える。
+運動は初期位置と初期運動量が決定する平面上で行われることになる。
+その平面上の直角座標系を x , y {\displaystyle x,y} 、極座標を r ( = x 2 + y 2 ) {\displaystyle r(={\sqrt {x^{2}+y^{2}}})} 、 θ ( = arctan ⁡ ( y x ) ) {\displaystyle \theta (=\arctan({\frac {y}{x}}))} とする。
+このとき、極座標系の運動方程式は、 l = m r 2 θ ˙ {\displaystyle l=mr^{2}{\dot {\theta }}} とすると m r ¨ = − ∂ ∂ r ( V + l 2 2 m r 2 ) {\displaystyle m{\ddot {r}}=-{\frac {\partial }{\partial r}}\left(V+{\frac {l^{2}}{2mr^{2}}}\right)} 、 l ˙ = 0 {\displaystyle {\dot {l}}=0} となる。
+これは直角座標系におけるニュートンの運動方程式の形とは形式的に全く異なる（共変性を持たない）。
+このニュートンの運動方程式の一般座標変換に対して共変性を持たないという欠点が解析力学の出発点である。
+つまり解析力学は一般座標について式の形を変えない運動方程式の表現をもたらすことになるが、その要求を満たすものの一つがオイラー＝ラグランジュ方程式である。
+オイラー＝ラグランジュ方程式の共変性 簡単のために、前節に引き続き2次元平面上で考える。
+適当な一般化座標を q1, q2 として、直角座標 x, y を一般化座標で x = x ( q 1 , q 2 ) y = y ( q 1 , q 2 ) {\displaystyle {\begin{aligned}x&=x(q_{1},q_{2})\\y&=y(q_{1},q_{2})\end{aligned}}} とおく (ここでは時間 t に陽には依存しないものとする)。
+両辺を時間 t で微分すると次の式を得る： x ˙ = ∂ x ∂ q 1 q ˙ 1 + ∂ x ∂ q 2 q ˙ 2 , {\displaystyle {\dot {x}}={\frac {\partial x}{\partial q_{1}}}{\dot {q}}_{1}+{\frac {\partial x}{\partial q_{2}}}{\dot {q}}_{2},} y ˙ = ∂ y ∂ q 1 q ˙ 1 + ∂ y ∂ q 2 q ˙ 2 {\displaystyle {\dot {y}}={\frac {\partial y}{\partial q_{1}}}{\dot {q}}_{1}+{\frac {\partial y}{\partial q_{2}}}{\dot {q}}_{2}} 従って ·x, ·y に対して ·q1, ·q2 は線形であり、次の式が成り立つ： ∂ x ˙ ∂ q ˙ i = ∂ x ∂ q i , ∂ y ˙ ∂ q ˙ i = ∂ y ∂ q i ( i = 1 , 2 ) {\displaystyle {\frac {\partial {\dot {x}}}{\partial {\dot {q}}_{i}}}={\frac {\partial x}{\partial q_{i}}},\;\;{\frac {\partial {\dot {y}}}{\partial {\dot {q}}_{i}}}={\frac {\partial y}{\partial q_{i}}}\;\;\;(i=1,2)} ラグランジアン L に対して、直角座標 x, y でのオイラー＝ラグランジュ方程式は d d t ( ∂ L ∂ x ˙ ) − ∂ L ∂ x = 0 d d t ( ∂ L ∂ y ˙ ) − ∂ L ∂ y = 0 {\displaystyle {\begin{aligned}{\frac {d}{dt}}\left({\frac {\partial L}{\partial {\dot {x}}}}\right)-{\frac {\partial L}{\partial x}}&=0\\{\frac {d}{dt}}\left({\frac {\partial L}{\partial {\dot {y}}}}\right)-{\frac {\partial L}{\partial y}}&=0\end{aligned}}} であるが、このとき i = 1, 2 のそれぞれについて d d t ⁡ ( ∂ L ∂ q ˙ i ) = d d t ⁡ ( ∂ L ∂ x ˙ ∂ x ˙ ∂ q ˙ i + ∂ L ∂ y ˙ ∂ y ˙ ∂ q ˙ i ) = d d t ⁡ ( ∂ L ∂ x ˙ ∂ x ∂ q i + ∂ L ∂ y ˙ ∂ y ∂ q i ) = d d t ⁡ ( ∂ L ∂ x ˙ ) ∂ x ∂ q i + d d t ⁡ ( ∂ L ∂ y ˙ ) ∂ y ∂ q i + ∂ L ∂ x ˙ ∂ x ˙ ∂ q i + ∂ L ∂ y ˙ ∂ y ˙ ∂ q i ∂ L ∂ q i = ∂ L ∂ x ∂ x ∂ q i + ∂ L ∂ y ∂ y ∂ q i + ∂ L ∂ x ˙ ∂ x ˙ ∂ q i + ∂ L ∂ x ˙ ∂ x ˙ ∂ q i {\displaystyle {\begin{aligned}\mathop {\frac {d}{dt}} \left({\frac {\partial L}{\partial {\dot {q}}_{i}}}\right)&=\mathop {\frac {d}{dt}} \left({\frac {\partial L}{\partial {\dot {x}}}}{\frac {\partial {\dot {x}}}{\partial {\dot {q}}_{i}}}+{\frac {\partial L}{\partial {\dot {y}}}}{\frac {\partial {\dot {y}}}{\partial {\dot {q}}_{i}}}\right)\\&=\mathop {\frac {d}{dt}} \left({\frac {\partial L}{\partial {\dot {x}}}}{\frac {\partial x}{\partial q_{i}}}+{\frac {\partial L}{\partial {\dot {y}}}}{\frac {\partial y}{\partial q_{i}}}\right)\\&=\mathop {\frac {d}{dt}} \left({\frac {\partial L}{\partial {\dot {x}}}}\right){\frac {\partial x}{\partial q_{i}}}+\mathop {\frac {d}{dt}} \left({\frac {\partial L}{\partial {\dot {y}}}}\right){\frac {\partial y}{\partial q_{i}}}+{\frac {\partial L}{\partial {\dot {x}}}}{\frac {\partial {\dot {x}}}{\partial q_{i}}}+{\frac {\partial L}{\partial {\dot {y}}}}{\frac {\partial {\dot {y}}}{\partial q_{i}}}\\{\frac {\partial L}{\partial q_{i}}}&={\frac {\partial L}{\partial x}}{\frac {\partial x}{\partial q_{i}}}+{\frac {\partial L}{\partial y}}{\frac {\partial y}{\partial q_{i}}}+{\frac {\partial L}{\partial {\dot {x}}}}{\frac {\partial {\dot {x}}}{\partial q_{i}}}+{\frac {\partial L}{\partial {\dot {x}}}}{\frac {\partial {\dot {x}}}{\partial q_{i}}}\end{aligned}}} ∴ d d t ⁡ ( ∂ L ∂ q ˙ i ) − ∂ L ∂ q i = 0 {\displaystyle \therefore \mathop {\frac {d}{dt}} \left({\frac {\partial L}{\partial {\dot {q}}_{i}}}\right)-{\frac {\partial L}{\partial q_{i}}}=0} より、一般化座標 q1, q2 でのオイラー=ラグランジュ方程式も同様に成り立つことが示される。
+座標変換が微分同相であるならば逆も成り立つため、オイラー=ラグランジュ方程式の共変性が示される。
+脚注 注釈 出典 関連項目 変分法 (解析力学) - 有限要素法 ネーターの定理 オイラー＝ラグランジュ方程式 正準方程式 ポアソン括弧 アイコナール方程式 リウヴィルの定理 (物理学) 一般相対性原理 参考文献 洋書 Cornelius Lanczos (1970). The variational principles of mechanics (4th ed.). Dover publications, inc. Analytical Mechanics, L.N. Hand, J.D. Finch, en:Cambridge University Press, 2008, ISBN 978-0-521-57572-0 Classical Mechanics, T.W.B. Kibble, European Physics Series, McGraw-Hill (UK), 1973, ISBN 0-07-084018-0 Arnolʹd, VI (1989). Mathematical methods of classical mechanics (2nd ed.). Springer. ISBN 978-0-387-96890-2. Schaub, H., & Junkins, J. L. (2005). Analytical mechanics of space systems. American Institute of Aeronautics and Astronautics. Lurie, A. I. (2013). Analytical mechanics. en:Springer Science & Business Media. Libermann, P., & Marle, C. M. (2012). Symplectic geometry and analytical mechanics. en:Springer Science & Business Media. De León, M., & Rodrigues, P. R. (2011). Methods of differential geometry in analytical mechanics. Elsevier. Fasano, A., & Marmi, S. (2006). Analytical mechanics: an introduction. OUP Oxford. Johns, O. (2011). Analytical mechanics for relativity and quantum mechanics. OUP Oxford. 和書 高橋陽一郎：「力学と微分方程式」、岩波書店（現代数学への入門）、ISBN 4-00-006875-X (2004年2月5日). 深谷賢治：「解析力学と微分形式」、岩波書店（現代数学への入門）、ISBN 4-00-006884-9 (2004年4月6日). 山内 恭彦『一般力学』（増補第三版）岩波書店、1959年。
+広重徹『物理学史I』 5巻、培風館〈新物理学シリーズ〉、1968年。
+M. フィールツ 著、喜多 秀次,田村 松平(訳) 編『力学の発展史』みすず書房、1977年。
+（付録にラグランジュ（1788）『解析力学』の静力学の部・動力学の部の各部の第１章の訳出がある） エリ・デ・ランダウ、イェ・エム・リフシッツ『力学』（増訂第３版）東京図書〈ランダウ＝リフシッツ理論物理学教程〉、1977年。
+並木美喜雄『解析力学』丸善出版〈パリティ物理学コース〉、1991年。
+山本義隆『解析力学』朝倉書店、1998年。
+ISBN 9784254136715。
+OCLC 287649730。
+伊藤秀一：「常微分方程式と解析力学」、共立出版（共立講座21世紀の数学 11）、ISBN 4-320-01563-0 (1998年1月25日). 村井信行：『拘束系の力学』、日本評論社、ISBN 978-4-535-78249-5 (1998年6月10日). エルンスト マッハ 著、岩野秀明(訳) 編『マッハ力学史 ー古典力学の発展と批判ー』 上・下（原書第九版）、筑摩書房、2006年。

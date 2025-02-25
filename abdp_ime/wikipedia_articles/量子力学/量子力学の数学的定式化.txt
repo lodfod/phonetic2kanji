@@ -1,0 +1,386 @@
+本項では相対論的効果を考えない量子力学の数学的定式化（りょうしりきがくのすうがくてきていしきか）を厳密に述べる。
+本項では量子力学に対する最低限の知識を仮定する。
+状態空間のヒルベルト空間による定式化 量子力学において系 の（純粋）量子状態は、状態ベクトルと呼ばれる単位ベクトルによって表現され、状態ベクトルとその定数倍のなすベクトル空間を状態空間という。
+状態空間はヒルベルト空間という数学的概念によって定式化される。
+そこで本節ではヒルベルト空間の定義を述べる。
+ヒルベルト空間 定義 ヒルベルト空間の概念を定義するため、まずは複素計量ベクトル空間を定義する： 複素計量ベクトルの元 ψ ∈ H {\displaystyle \psi \in {\mathcal {H}}} に対し、内積 ⟨ ⋅ , ⋅ ⟩ {\displaystyle \langle \cdot ,\cdot \rangle } に対応する ψ {\displaystyle \psi } のノルム ‖ ψ ‖ {\displaystyle \|\psi \|} を ‖ ψ ‖ = ⟨ ψ , ψ ⟩ {\displaystyle \|\psi \|={\sqrt {\langle \psi ,\psi \rangle }}} により定義し、 ψ , χ ∈ H {\displaystyle \psi ,\chi \in {\mathcal {H}}} の間の距離を ‖ ψ − χ ‖ {\displaystyle \|\psi -\chi \|} により定義すると H {\displaystyle {\mathcal {H}}} はこの距離に関して距離空間の公理を満たす。
+紛れがなければ以下内積 ⟨ ⋅ , ⋅ ⟩ {\displaystyle \langle \cdot ,\cdot \rangle } を省略し、記号 H {\displaystyle {\mathcal {H}}} だけでヒルベルト空間を表すものとする。
+特に断りがない限り、本項ではヒルベルト空間として可分なもののみを考える。
+上述の定義より、内積 ⟨ ⋅ , ⋅ ⟩ {\displaystyle \langle \cdot ,\cdot \rangle } は、第二成分に関しては線形であるが、第一成分に対しては反線形性 ∀ a , b ∈ C {\displaystyle \forall a,b\in \mathbf {C} } に対し、 ⟨ a ψ + b φ , χ ⟩ = a ¯ ⟨ ψ , χ ⟩ + b ¯ ⟨ φ , χ ⟩ {\displaystyle \langle a\psi +b\varphi ,\chi \rangle ={\bar {a}}\langle \psi ,\chi \rangle +{\bar {b}}\langle \varphi ,\chi \rangle } が成立する。
+なお、ここで提示した内積の定義は量子力学では一般的なものだが、数学の文献では、ここに載せたのとは逆に、第一成分に対して線形、第二成分に対して反線形であるものを用いる事が多い。
+ヒルベルト空間の一意性 ヒルベルト空間 H 1 {\displaystyle {\mathcal {H}}_{1}} 、 H 2 {\displaystyle {\mathcal {H}}_{2}} に対し、全単射線形写像 Φ : H 1 → H 2 {\displaystyle \Phi ~:~{\mathcal {H}}_{1}\to {\mathcal {H}}_{2}} で ⟨ Φ ( ψ ) , Φ ( χ ) ⟩ = ⟨ ψ , χ ⟩ {\displaystyle \langle \Phi (\psi ),\Phi (\chi )\rangle =\langle \psi ,\chi \rangle } が全ての ψ , χ ∈ H 1 {\displaystyle \psi ,\chi \in {\mathcal {H}}_{1}} に対して成立するものが存在するとき、 H 1 {\displaystyle {\mathcal {H}}_{1}} と H 2 {\displaystyle {\mathcal {H}}_{2}} は同型であるという。
+可分な無限次元ヒルベルト空間は同型を除いて１つしか存在しない。
+すなわち以下が成立する： 前述のように本項ではヒルベルト空間として可分なもののみを取り扱う。
+よって本項で登場するヒルベルト空間で次元が無限のものは全て同型である。
+状態空間 量子力学では以下の仮定を課す： 本節では以降、こうした量子力学の仮定を幾つか述べるが、新井の本やHallの本など多くの本ではこうした仮定の事を公理(axiom)と呼んでいる。
+しかしこうした仮定は数学的な意味での公理ではないH13ので、本項ではその事を明確化するため、F15に従い、「公理」と呼ばず「仮定 (postulate)」と呼ぶものとする。
+L2空間 すでに述べたように(可分な)無限次元ヒルベルト空間は全て同型なので、任意に一つ無限次元ヒルベルト空間を持って来れば、原理的にはそのヒルベルト空間を状態空間とみなした量子力学を定式化できる。
+しかし通常の量子力学では、物理的な解釈をわかりやすくするため、L2空間というヒルベルト空間を用いて量子力学を展開する事が多い。
+そこで本節ではL2空間の定義を述べる。
+準備 L2空間を定義するには、測度論の概念を必要とする。
+そこでまず測度論を直観的説明する。
+厳密な説明は当該項目を参照されたい。
+測度空間Xとは、Xの部分集合の「大きさ」の概念が定義された空間で、「大きさ」の具体例としては元の個数、面積、体積などがある。
+測度空間上定義された「大きさ」のことを測度という。
+Xの全ての部分集合に測度が定義されている必要はなく、測度が定義可能な部分集合を可測な部分集合という。
+測度空間上では積分を定義可能な事が知られている。
+ただし測度の場合と同様、全ての関数に対してその積分が定義できるわけではない。
+積分概念を定義可能な関数の事を可測関数という。
+測度空間X上の２つの可測関数ψ、φが Xの可測部分集合AでAの測度が0であるものが存在し、 ∀ x ∈ X ∖ A : ψ ( x ) = φ ( x ) {\displaystyle \forall x\in X\setminus A~:~\psi (x)=\varphi (x)} を満たすとき、ψとφはほとんど至るところ等しいといい、 ψ ( x ) = φ ( x ) {\displaystyle \psi (x)=\varphi (x)} a.e. と表記する（「a.e.」は「almost everywhere」の略）。
+定義 Xを測度空間とする。
+量子力学の文脈ではXは R d {\displaystyle \mathbf {R} ^{d}} の可測部分集合である事が多い。
+X上の可測関数ψで ∫ X | ψ ( x ) | 2 d x < ∞ {\displaystyle \int _{X}|\psi (x)|^{2}\mathrm {d} x<\infty } となるものを考え、こうした関数全体の集合に ψ ∼ φ ⟺ d e f ψ ( x ) = φ ( x ) {\displaystyle \psi \sim \varphi {\overset {def}{\iff }}\psi (x)=\varphi (x)} a.e. という同値類を定義する。
+粒子がk個からなる系の場合、各粒子が3次元分の自由度を持つので、L2(R3k)空間を利用すれば量子力学を自然に展開できる。
+また例えば（ポテンシャルの壁に遮られるなどして）粒子が有限の区間Iの内部しか動けないようなケースに対しても、X=Iの場合のL2空間L2(I)を利用できる。
+注意 以上で述べたように、量子力学の数学的定式化にはヒルベルト空間、特にL2空間の概念が有効である。
+ただし、物理学者が量子力学で用いている議論の全てをヒルベルト空間上で数学的に正当化できる事を意味しているわけではない。
+例えば物理学者が量子力学の記述に通常用いるデルタ関数は、そもそも通常の意味での関数ではないので、L2空間には属さない。
+後の章でL2空間にさらに元を添加する事でデルタ関数をも取り扱う数学的手法についても述べるが、この手法は万能ではなく、例えばデルタ関数同士の積が定義できないという欠点を抱える。
+よって特にデルタ関数同士の内積を定義できず、デルタ関数を添加した空間はヒルベルト空間にはならない。
+こうした数学的な困難を避けるため、以降の議論は、基本的にデルタ関数のような「関数もどき」は慎重に排除した上で展開するものとする。
+有界作用素 ヒルベルト空間上で定義可能な関数のクラスとして最も自然なものの一つに有界作用素があり、量子力学における主要概念の一つであるユニタリ作用素は有界作用素の一つである。
+そこで本節では有界作用素の概念とユニタリ作用素の概念を定式化する。
+次の事実が知られている： したがって有界線形作用素とは、連続線形作用素と言い換えても良い。
+有界線形作用素の例としてユニタリ作用素がある。
+後述するように量子力学ではユニタリ作用素は時間発展を記述するのに用いられる。
+上記の条件をみたすときは、明らかにUは単射なので、Uは全単射である事になる。
+したがってユニタリ作用素とは H {\displaystyle {\mathcal {H}}} から自分自身への同型写像（自己同型写像）である。
+なお、 H {\displaystyle {\mathcal {H}}} が有限次元の場合には、単射性から全射性が従うため、ユニタリ作用素の定義において全射という条件は必要ない。
+しかし H {\displaystyle {\mathcal {H}}} が無限次元の場合には、全射ではない単射線形作用素も存在するため、全射の条件は必須となる。
+定義から明らかに次が成立する： ブラベクトルとケットベクトル 本節では共役ベクトル空間の概念を定義することでディラックのブラベクトル、ケットベクトルの概念を数学的に定式化し、さらにリースの表現定理を導入することで、ブラベクトルの概念を別の角度から再定式化する。
+共役ベクトル空間 ヒルベルト空間 H {\displaystyle {\mathcal {H}}} で使われている足し算「＋」、（スカラーとの）掛け算「・」、および内積 ⟨ ⋅ , ⋅ ⟩ {\displaystyle \langle \cdot ,\cdot \rangle } を明示して、 H {\displaystyle {\mathcal {H}}} を ( H , + , ⋅ , ⟨ ⋅ , ⋅ ⟩ ) {\displaystyle ({\mathcal {H}},+,\cdot ,\langle \cdot ,\cdot \rangle )} と書くことにする。
+定義より、共役ベクトル空間は掛け算以外は元の空間と同一である。
+以下、掛け算を明示しなくても共役ベクトル空間を区別できるようにするため、 H {\displaystyle {\mathcal {H}}} の共役ベクトル空間を H ∗ {\displaystyle {\mathcal {H}}^{*}} と表記する。
+また ψ {\displaystyle \psi } が H ∗ {\displaystyle {\mathcal {H}}^{*}} の元である事が文脈から明らかな場合は、 a × ψ {\displaystyle a\times \psi } を略記して単に a ψ {\displaystyle a\psi } と表記する。
+ブラベクトルとケットベクトル ヒルベルト空間 H {\displaystyle {\mathcal {H}}} 上の内積 ⟨ ⋅ , ⋅ ⟩ {\displaystyle \langle \cdot ,\cdot \rangle } は、第一成分に対して反線形、第二成分に対して線形であった。
+しかし内積の第一成分を共役ベクトル空間を H ∗ {\displaystyle {\mathcal {H}}^{*}} とみなして ( χ , ϕ ) ∈ H ∗ × H → ⟨ χ , ϕ ⟩ ∈ C {\displaystyle (\chi ,\phi )\in {\mathcal {H}}^{*}\times {\mathcal {H}}\to \langle \chi ,\phi \rangle \in \mathbf {C} } だとすれば、内積 ⟨ ⋅ , ⋅ ⟩ {\displaystyle \langle \cdot ,\cdot \rangle } は、第一成分、第二成分双方に関して線形である事になるので便利である。
+そこで量子力学では H {\displaystyle {\mathcal {H}}} の元と H ∗ {\displaystyle {\mathcal {H}}^{*}} の元とを区別して考え、以下のように呼ぶ： リースの表現定理 ブラベクトル ψ ∈ H ∗ {\displaystyle \psi \in {\mathcal {H}}^{*}} に対し、線形作用素 χ ∈ H ↦ ⟨ ψ , χ ⟩ ∈ C {\displaystyle \chi \in {\mathcal {H}}\mapsto \langle \psi ,\chi \rangle \in \mathbf {C} } を考えると、コーシー＝シュワルツの不等式 ⟨ ψ , χ ⟩ ≤ ‖ ψ ‖ ‖ χ ‖ {\displaystyle \langle \psi ,\chi \rangle \leq \|\psi \|\|\chi \|} より、この作用素は有界作用素である。
+実は複素数値の有界線形作用素はこの形のものに限られる事が知られている： なお H {\displaystyle {\mathcal {H}}} が有限次元であれば上に述べた事実は自明であるが、無限次元であってもこの事実が成り立つ所にこの定理の主眼がある。
+以上の事実から、ブラベクトルを以下のように特徴づけられる事がわかる： オブザーバブル 既に述べたように作用素が有界である事はその作用素が連続である事を意味している為、有界性はヒルベルト空間上の作用素の最も自然な概念の一つである。
+しかし量子力学で用いられる作用素の多くは有界ではないし、しかも H {\displaystyle {\mathcal {H}}} の部分領域でしか定義できない。
+この原因は、量子力学で用いられる作用素の多くが微分を用いて定義されており、微分作用素が有界でもなければ H {\displaystyle {\mathcal {H}}} 全域で定義できるわけでもない事にある。
+幸運な事に、これら量子力学で用いる作用素は「稠密に定義された可閉作用素」という、比較的扱いやすいクラスに属している事が知られている。
+そこで本節では、まず「稠密に定義された」という概念と「可閉」という概念を定式化する。
+次に本節では、この「稠密に定義された可閉作用素」の概念をベースとして、量子力学におけるオブザーバブルの概念を定式化する。
+すなわち、稠密に定義された可閉作用素の共役作用素の概念を定式化し、共役作用素の概念を用いて自己共役作用素の概念を定式化し、最後に量子力学におけるオブザーバブルの概念を自己共役作用素により定式化する。
+稠密に定義された作用素 オブザーバブルは状態空間の全域で定義されているとは限らないが、状態空間の稠密部分集合上では定義が可能である。
+そこでまず、稠密に定義された作用素の概念を導入する。
+紛れがなければ H 1 {\displaystyle {\mathcal {H}}_{1}} 上稠密に定義された作用素を単に T : H 1 → H 2 {\displaystyle T~:~{\mathcal {H}}_{1}\to {\mathcal {H}}_{2}} と書く 特に D o m ( T ) = H 1 {\displaystyle \mathrm {Dom} (T)={\mathcal {H}}_{1}} が成立しているとき、Tは H 1 {\displaystyle {\mathcal {H}}_{1}} の全域で定義されているという。
+稠密に定義された作用素に対し以下の拡大の概念を定義できる： 有界作用素に関しては、次の重用な性質が知られている： したがって有界作用素に限定すれば、稠密に定義されている事は全域で定義されている事と実質的な差がない。
+しかし量子力学で用いる作用その多くは有界ではないので、この定理を用いる事ができない。
+可閉作用素 Tが可閉作用素である必要十分条件は、任意の点列ψn∈Dom(T)に対し、n→∞のときψn→0かつT(ψn)→χであればχ=0が成立する事である新井。
+共役作用素 T : H 1 → H 2 {\displaystyle T~:~{\mathcal {H}}_{1}\to {\mathcal {H}}_{2}} を稠密に定義された線形作用素とする。
+ベクトル ψ ∈ H 2 {\displaystyle \psi \in {\mathcal {H}}_{2}} に対し、以下の性質を満たす ψ ′ ∈ H 1 {\displaystyle \psi '\in {\mathcal {H}}_{1}} を考える： 任意の ϕ ∈ D o m ( T ) {\displaystyle \phi \in \mathrm {Dom} (T)} に対し、 ⟨ ψ ′ , ϕ ⟩ = ⟨ ψ , T ( ϕ ) ⟩ {\displaystyle \langle \psi ',\phi \rangle =\langle \psi ,T(\phi )\rangle } このような ψ ′ {\displaystyle \psi '} は常に存在するとは限らないが、存在すれば一意である事を示せる新井。
+そこで共役作用素を以下のように定義する： 定義より明らかに 任意の x ∈ D o m ( T ) ∩ D o m ( T ∗ ∗ ) {\displaystyle x\in \mathrm {Dom} (T)\cap \mathrm {Dom} (T^{**})} に対し、 T ∗ ∗ ( x ) = T ( x ) {\displaystyle T^{**}(x)=T(x)} であるが、Tが有界とは限らない時、Tが稠密に定義されていたとしてもT*が稠密に定義されることもT**とTの定義域が一致する事も無条件には保証されない新井が、Tが可閉であればこれらは保証される： 自己共役作用素とオブザーバブル 量子力学では以下の仮定を課す： 自己共役作用素とその関連概念の性質 明らかに次が成立する： しかし逆向きは一般には成り立たない。
+与えられた作用素が自己共役かどうかを決定する問題を自己共役性の問題といい、それだけで一冊の本が書けるほど難しい問題である新井。
+自己共役作用素とその関連概念に対し以下が知られている： 上記定理の性質3はTが可閉作用素である必要十分条件はT*が稠密に定義されることと性質2から従う新井。
+性質1より、以下本項ではTが本質的に自己共役な場合には、紛れがなければTと T ¯ {\displaystyle {\bar {T}}} を混用する。
+自己共役作用素は必ず掛け算作用素として表現できる事が知られている： オブザーバブルの具体例 本節では H = L 2 ( R d ) {\displaystyle {\mathcal {H}}=L^{2}(\mathbf {R} ^{d})} の場合に対して、オブザーバブルの具体例を述べる。
+微分作用素 量子力学で登場する代表的なオブザーバブルは、いずれも偏微分を用いて表現できるので、まず本節では微分作用素の定義と性質を述べる。
+本節の目標は、微分作用素Dのうち性質の良いものを H = L 2 ( R d ) {\displaystyle {\mathcal {H}}=L^{2}(\mathbf {R} ^{d})} 上定義されたオブザーバブルとみなす事である。
+しかしそもそも偏微分 ∂ ∂ x j ψ ( x ) {\displaystyle {\partial \over \partial x_{j}}\psi (x)} は ψ ( x ) ∈ L 2 ( R d ) {\displaystyle \psi (x)\in L^{2}(\mathbf {R} ^{d})} が可微分でなければそもそも定義できないので、単純にDを H = L 2 ( R d ) {\displaystyle {\mathcal {H}}=L^{2}(\mathbf {R} ^{d})} の元に作用させることはできない。
+そこで以下の事実を用いる： 微分作用素DはC∞0(Rd)上で明らかに定義可能であり、しかもC∞0(Rd)の元をL2(Rd)に写すので、以下の系が従う： 位置作用素 上記の定理は以下のように証明できる。
+可測性から C 0 ∞ ( R d ) ⊂ D o m ( M f ) {\displaystyle C_{0}^{\infty }(\mathbf {R} ^{d})\subset \mathrm {Dom} (M_{f})} なのでMfは稠密に定義された作用素であり、しかも明らかにMfは対称作用素である。
+さらに ϕ ∈ D o m ( M f ∗ ) {\displaystyle \phi \in \mathrm {Dom} (M_{f}{}^{*})} とすれば、任意の ψ ∈ D o m ( M f ) {\displaystyle \psi \in \mathrm {Dom} (M_{f})} に対し、 ⟨ χ , ψ ⟩ = ⟨ ϕ , M f ( ψ ) ⟩ {\displaystyle \langle \chi ,\psi \rangle =\langle \phi ,M_{f}(\psi )\rangle } をみたすので、 ∫ R d χ ( x ) ψ ( x ) d x = ⟨ χ , ψ ⟩ {\displaystyle \int _{\mathbf {R} ^{d}}\chi (x)\psi (x)\mathrm {d} x=\langle \chi ,\psi \rangle } = ⟨ ϕ , M f ( ψ ) ⟩ = ∫ R d f ( x ) ϕ ( x ) ψ ( x ) d x {\displaystyle =\langle \phi ,M_{f}(\psi )\rangle =\int _{\mathbf {R} ^{d}}f(x)\phi (x)\psi (x)\mathrm {d} x} である。
+ψ ∈ D o m ( M f ) {\displaystyle \psi \in \mathrm {Dom} (M_{f})} の任意性より、これは χ ( x ) = f ( x ) ϕ ( x ) {\displaystyle \chi (x)=f(x)\phi (x)} a.eを意味する。
+χの自乗可積分性とDom(Mf)の定義より、 ϕ ∈ D o m ( M f ) {\displaystyle \phi \in \mathrm {Dom} (M_{f})} である。
+よってDom(Mf*)=Dom(Mf)であり、掛け算作用素Mjは自己共役作用素である。
+運動量作用素、軌道角運動量作用素 (A1)の形の微分作用素Dが自己共役である事の証明は本項の範囲を超えるため省略するが、Dが対称作用素である事は以下のように示すことができる。
+φ, ψ ∈C∞0(Rd)に対し、部分積分の公式から ⟨ − i ∂ j ϕ , ψ ⟩ = ∫ R d ( − i ∂ j ϕ ( x ) ) ∗ ψ ( x ) d x {\displaystyle \langle -i{\partial _{j}}\phi ,\psi \rangle =\int _{\mathbf {R} ^{d}}(-i{\partial _{j}}\phi (x))^{*}\psi (x)\mathrm {d} x} = i ∂ j ∫ R d ϕ ( x ) ψ ( x ) d x − ∫ R d ϕ ∗ ( x ) ( − i ∂ j ψ ( x ) ) d x = ⟨ ϕ , − i ∂ j ψ ⟩ {\displaystyle =i\partial _{j}\int _{\mathbf {R} ^{d}}\phi (x)\psi (x)\mathrm {d} x-\int _{\mathbf {R} ^{d}}\phi ^{*}(x)(-i{\partial _{j}}\psi (x))\mathrm {d} x=\langle \phi ,-i\partial _{j}\psi \rangle } である。
+(A1)の形の微分作用素は − i ∂ j {\displaystyle -i\partial _{j}} の実数係数多項式であるので、 ⟨ D ( ϕ ) , ψ ⟩ = ⟨ ϕ , D ( ψ ) ⟩ {\displaystyle \langle D(\phi ),\psi \rangle =\langle \phi ,D(\psi )\rangle } が成立する。
+Dの定義域C∞0(Rd)は H = L 2 ( R d ) {\displaystyle {\mathcal {H}}=L^{2}(\mathbf {R} ^{d})} で稠密だったので、これはDが対称作用素である事を意味する。
+シュレディンガー作用素 量子力学では時刻tに依存するかもしれないポテンシャルと呼ばれる実数値局所可積分関数V(x,t)を固定し、シュレディンガー作用素と呼ばれる作用素 H = − ∑ j = 1 n ℏ 2 m j ( ∂ 2 ∂ x j , 1 2 + ⋅ + ∂ 2 ∂ x j , ℓ 2 ) + V ( x , t ) {\displaystyle H=-\sum _{j=1}^{n}{\hbar \over 2m_{j}}\left({\partial ^{2} \over \partial x_{j,1}{}^{2}}+\cdot +{\partial ^{2} \over \partial x_{j,\ell }{}^{2}}\right)+V(x,t)} を考える。
+ここでmjは何らかの定数で、物理的にはj番目の粒子の質量を表す。
+またlは次元であり、物理学的なセッティングでは3である。
+各時刻tに対しシュレディンガー作用素は常に対称作用素であるが新井、本質的に自己共役であるか否かはポテンシャルによる。
+ここで L p ( R ℓ ) + L ∞ ( R ℓ ) {\displaystyle L^{p}(\mathbb {R} ^{\ell })+L^{\infty }(\mathbb {R} ^{\ell })} は L p ( R ℓ ) {\displaystyle L^{p}(\mathbb {R} ^{\ell })} の元と L ∞ ( R ℓ ) {\displaystyle L^{\infty }(\mathbb {R} ^{\ell })} の元の和で書ける関数の集合である。
+超関数によるデルタ関数の定式化 量子力学を定式化するため、ディラックはデルタ関数 δ ( x ) = { ∞ if x = 0 0 otherwise {\displaystyle \delta (x)={\begin{cases}\infty &{\text{if }}x=0\\0&{\text{otherwise}}\end{cases}}} を導入した。
+数学的に見た場合、このような「関数」は存在しないものの関数概念を一般化した「超関数」の概念を使う事でデルタ関数を数学的に定式化でき、これによりディラックの議論をある程度の部分まで数学的に正当化ができる（全ての議論を正当化できるわけではない。
+詳細後述）。
+そこで本稿では超関数の概念を導入し、デルタ関数を超関数の概念を使って定式化し、超関数の性質を調べる。
+準備 本節では超関数の概念を定式化するのに必要な概念を導入する。
+C∞0(Ω)と S ( R d ) {\displaystyle {\mathcal {S}}(\mathbf {R} ^{d})} 性質 明らかに C 0 ∞ ( R d ) ⊂ S ( R d ) {\displaystyle C_{0}^{\infty }(\mathbf {R} ^{d})\subset {\mathcal {S}}(\mathbf {R} ^{d})} である。
+また前述したようにC∞0(Rd)はL2(Rd)の稠密部分空間なので、次の事実が成り立つ： S ( R d ) {\displaystyle {\mathcal {S}}(\mathbf {R} ^{d})} はL2(Rd)の稠密部分空間である新井。
+定義から明らかなように S ( R d ) {\displaystyle {\mathcal {S}}(\mathbf {R} ^{d})} は次を満たす ψ(x1,...,xn)∈ S ( R d ) {\displaystyle {\mathcal {S}}(\mathbf {R} ^{d})} なら、任意のα=(α1,...,αd)、β=(β1,...,βd)に対し、 x α ∂ β ψ ( x ) ∈ S ( R d ) {\displaystyle x{}^{\alpha }\partial ^{\beta }\psi (x)\in {\mathcal {S}}(\mathbf {R} ^{d})} よって特に、位置作用素や運動量作用素は S ( R d ) {\displaystyle {\mathcal {S}}(\mathbf {R} ^{d})} の元を S ( R d ) {\displaystyle {\mathcal {S}}(\mathbf {R} ^{d})} の元に写す。
+収束 C∞0(Ω)の元の列および S ( R d ) {\displaystyle {\mathcal {S}}(\mathbf {R} ^{d})} の元の列の収束性を定義する。
+超関数の定義 シュワルツ超関数の定義 ΩをRdの領域とし、ψ : Ω → Cを局所可積分関数とするとき、C∞0(Ω)上の線形汎関数Tψを T ψ : C 0 ∞ ( Ω ) → C {\displaystyle T_{\psi }~:~C_{0}^{\infty }(\Omega )\to \mathbf {C} } 、 ϕ ↦ ∫ R d ϕ ( x ) ψ ( x ) d x {\displaystyle \phi \mapsto \int _{\mathbf {R} ^{d}}\phi (x)\psi (x)\mathrm {d} x} により定義することで、局所可積分関数ψにC∞0(Ω)上の線形汎関数Tψを対応させる事ができる。
+この対応関係が単射な事は容易に確かめられるので、ψとTψを自然に同一視することにすると、C∞0(Ω)上の線形汎関数の集合は局所可積分関数の集合を部分集合として含むことになるので、C∞0(Ω)上の線形汎関数を局所可積分関数よりも広いクラスの「関数」であるとみなせる。
+そこでC∞0(Ω)上の線形汎関数で「連続」なものの事を「シュワルツ超関数」、あるいは単に「超関数」と呼ぶことにする。
+２つの超関数に対してその線形和を自然に定義できるため、超関数全体の集合はベクトル空間をなす。
+同様に緩増加超関数を以下のように定義する： 以下、超関数Tと局所可積分関数ψに対し、 ⟨ T , ψ ⟩ := T ( ψ ) {\displaystyle \langle T,\psi \rangle :=T(\psi )} と表記する。
+緩増加超関数に対しても同様の表記を用いる。
+なお上述の表記は内積に似ているが、内積の定義では複素共役を取っている事が原因で、 ⟨ T ϕ , ψ ⟩ = ⟨ ϕ ∗ , ψ ⟩ {\displaystyle \langle T_{\phi },\psi \rangle =\langle \phi ^{*},\psi \rangle } となることに注意されたい。
+超関数と緩増加超関数の関係 Tを緩増加超関数とするとき、Tの定義域を S ( R d ) {\displaystyle {\mathcal {S}}(\mathbf {R} ^{d})} の部分集合C∞0(Rd)に制限した T | C 0 ∞ ( R d ) : C 0 ∞ ( R d ) → C {\displaystyle T|_{C_{0}^{\infty }(\mathbf {R} ^{d})}~:~C_{0}^{\infty }(\mathbf {R} ^{d})\to \mathbf {C} } は超関数になる。
+よって制限写像により緩増加超関数全体の集合 S ′ ( R d ) {\displaystyle {\mathcal {S}}'(\mathbf {R} ^{d})} から超関数全体の集合 D ′ ( R d ) {\displaystyle {\mathcal {D}}'(\mathbf {R} ^{d})} への写像 S ′ ( R d ) → D ′ ( R d ) {\displaystyle {\mathcal {S}}'(\mathbf {R} ^{d})\to {\mathcal {D}}'(\mathbf {R} ^{d})} 、 T ↦ T | C 0 ∞ ( R d ) {\displaystyle T\mapsto T|_{C_{0}^{\infty }(\mathbf {R} ^{d})}} を考える事ができる。
+この写像は単射である事が知られているので、この写像により自然に S ′ ( R d ) {\displaystyle {\mathcal {S}}'(\mathbf {R} ^{d})} を D ′ ( R d ) {\displaystyle {\mathcal {D}}'(\mathbf {R} ^{d})} の部分集合とみなすことができる。
+デルタ超関数 ディラックのデルタ関数の概念は、緩増加超関数の概念を用いて定式化する事ができる。
+内積の定義より、これは ⟨ δ , ϕ ⟩ = ϕ ( 0 ) {\displaystyle \langle \delta ,\phi \rangle =\phi (0)} を意味する。
+上式をL2空間における内積の定義と照らし合わせると、上式はディラックの議論における ∫ Ω δ ( x ) ϕ ( x ) d x = ϕ ( 0 ) {\displaystyle \int _{\Omega }\delta (x)\phi (x)\mathrm {d} x=\phi (0)} を数学的に正当化したものとみなせる。
+超関数の偏微分 超関数に対する偏微分の概念を定義する為、まずはC∞0(Ω)の元の偏微分に関して簡単な考察をする。
+φ、ψをC∞0(Ω)の２つの元とするとき、C∞0(Ω)の定義よりφ(x)、ψ(x)が0でないxの集合は有界閉集合であるのに対し、ΩをRdの開集合であるので、Ωの境界上ではφ(x)、ψ(x)は0になる。
+よって微分積分学の基本定理から、 ∫ Ω ∂ x i ( ψ ( x ) ϕ ( x ) ) d x = 0 {\displaystyle \int _{\Omega }\partial _{x_{i}}(\psi (x)\phi (x))\mathrm {d} x=0} が成立する。
+よってライプニッツルールにより ⟨ ∂ x i ψ , ϕ ⟩ = ∫ Ω ∂ x i ( ψ ( x ) ) ϕ ( x ) d x {\displaystyle \langle \partial _{x_{i}}\psi ,\phi \rangle =\int _{\Omega }\partial _{x_{i}}(\psi (x))\phi (x)\mathrm {d} x} = − ∫ Ω ψ ( x ) ∂ x i ( ϕ ( x ) ) d x = − ⟨ ψ , ∂ x i ϕ ⟩ {\displaystyle =-\int _{\Omega }\psi (x)\partial _{x_{i}}(\phi (x))\mathrm {d} x=-\langle \psi ,\partial _{x_{i}}\phi \rangle } が成立する。
+そこで上式を参考にして、超関数の偏微分を以下のように定義する： C∞0(Ω)の元は無限回微分可能なので、上記の定義は常に意味を持つ。
+より一般に微分作用素を ( ∑ α : | α | ≤ m ψ α ( x ) ∂ x 1 α 1 ⋯ ∂ x d α d ) T := ∑ α : | α | ≤ m ψ α ( x ) ∂ x 1 α 1 ⋯ ∂ x d α d T {\displaystyle \left(\sum {}_{\alpha ~:~|\alpha |\leq m}\psi _{\alpha }(x)\partial _{x_{1}}^{\alpha _{1}}\cdots \partial _{x_{d}}^{\alpha _{d}}\right)T:=\sum {}_{\alpha ~:~|\alpha |\leq m}\psi _{\alpha }(x)\partial _{x_{1}}^{\alpha _{1}}\cdots \partial _{x_{d}}^{\alpha _{d}}T} も定義可能である。
+ここで注意すべきことは、局所可積分関数ψそれ自身が偏微分不能な関数であっても、 ∂ x i T ψ {\displaystyle \partial _{x_{i}}T_{\psi }} は定義可能な事である。
+これはψの偏微分は通常の関数としては存在しなくとも、超関数の中にはψ（と同一視されるTψ）の偏微分が存在する事が原因である。
+紛れがなければ以下 ∂ x i T ψ {\displaystyle \partial _{x_{i}}T_{\psi }} の事を単に ∂ x i ψ {\displaystyle \partial _{x_{i}}\psi } と書き、 ∂ x i ψ {\displaystyle \partial _{x_{i}}\psi } をψの超関数としての偏微分と呼ぶ。
+また通常の関数の場合、仮に二階偏微分可能であっても ∂ x i ∂ x j ψ {\displaystyle \partial _{x_{i}}\partial _{x_{j}}\psi } と ∂ x j ∂ x i ψ {\displaystyle \partial _{x_{j}}\partial _{x_{i}}\psi } が異なる関数になる場合があるが、超関数としての微分を考えた場合、 ∂ x i ∂ x j T ψ {\displaystyle \partial _{x_{i}}\partial _{x_{j}}T_{\psi }} と ∂ x j ∂ x i T ψ {\displaystyle \partial _{x_{j}}\partial _{x_{i}}T_{\psi }} は必ず同一の超関数になる事を簡単に確認できる。
+限界 以上で示したように、超関数の概念を用いる事でディラックによるデルタ関数の議論の一部を数学的に正当化できるが、超関数を用いても全ての議論を正当化できるわけではない。
+例えば以下の議論は超関数では正当化されない： 公式 ⟨ δ ( x − λ ) , δ ( x − τ ) ⟩ = δ ( λ − τ ) {\displaystyle \langle \delta (x-\lambda ),\delta (x-\tau )\rangle =\delta (\lambda -\tau )} ：そもそも超関数同士の積は定義不可能である。
+（詳細はシュワルツ超関数の項目を参照されたい） C∞0(Ω)以外のL2空間の元とデルタ関数との内積を取ること：前述した内積の定義は超関数とC∞0(Ω)の元との間にのみ定義されているので、C∞0(Ω)に属していない元とは内積を取れない。
+デルタ関数は超関数であり、L2空間の元ではないので、デルタ関数をあたかも通常の状態ベクトルであるかのように扱う議論は必ずしも正当化できない。
+弱微分 関数ψの超関数としての微分が関数で書けるとき、その関数をψの弱微分という： フーリエ変換 本節では、関数 f: R → C のフーリエ変換 F ( f ) ( ξ ) := 1 ( 2 π ) d / 2 ∫ − ∞ ∞ f ( x ) e − i x ξ d x {\displaystyle {\mathcal {F}}(f)(\xi ):={1 \over (2\pi )^{d/2}}\int _{-\infty }^{\infty }f(x)\ e^{-ix\xi }\,\mathrm {d} x} とその逆変換に当たるフーリエ逆変換 F ∗ ( g ) ( x ) := 1 ( 2 π ) d / 2 ∫ − ∞ ∞ g ( ξ ) e i x ξ d x {\displaystyle {\mathcal {F}}^{*}(g)(x):={1 \over (2\pi )^{d/2}}\int _{-\infty }^{\infty }g(\xi )\ e^{ix\xi }\,\mathrm {d} x} の厳密な定義を述べ、その性質を調べ、そして最後に位置作用素と運動量作用素が（換算プランク定数を除いて）フーリエ変換で移り合う関係にある事を見る。
+フーリエ変換とその逆変換を定義する上で問題になるのは、fやgがどのようなクラスに属すればこれらの変換が定義でき、変換によってできあがる関数 F ( f ) {\displaystyle {\mathcal {F}}(f)} 、 F ∗ ( g ) {\displaystyle {\mathcal {F}}^{*}(g)} がどのようなクラスに属するか、という事である。
+本節ではまずシュワルツ空間という関数空間のクラスを定義し、フーリエ変換がシュワルツ空間上の全単射になっている事を示す。
+次に本節では、シュワルツ空間上の線型汎函数である「緩増加超関数」に対してもフーリエ変換が定義可能なことを見る。
+そして最後にフーリエ変換がL2空間上の全単射になっている事を見る。
+S ( R d ) {\displaystyle {\mathcal {S}}(\mathbf {R} ^{d})} と S ′ ( R d ) {\displaystyle {\mathcal {S}}'(\mathbf {R} ^{d})} の上のフーリエ変換 S ( R d ) {\displaystyle {\mathcal {S}}(\mathbf {R} ^{d})} 上のフーリエ変換 次が成立する事を簡単な計算で確かめることができる： またこれらの変換は連続である： シュワルツ関数の埋め込み ψ , χ ∈ S ( R d ) {\displaystyle \psi ,\chi \in {\mathcal {S}}(\mathbf {R} ^{d})} に対し、超関数の時と同様 T ψ ( χ ) := ∫ R d ψ ( x ) χ ( x ) d x {\displaystyle T_{\psi }(\chi ):=\int _{\mathbf {R} ^{d}}\psi (x)\chi (x)\mathrm {d} x} と定義する事で、シュワルツ関数 ψ ∈ S ( R d ) {\displaystyle \psi \in {\mathcal {S}}(\mathbf {R} ^{d})} に緩増加超関数Tψを対応させることができる。
+S ′ ( R d ) {\displaystyle {\mathcal {S}}'(\mathbf {R} ^{d})} 上のフーリエ変換 S ( R d ) {\displaystyle {\mathcal {S}}(\mathbf {R} ^{d})} の元ψ、χに対し、プランシュレルの定理 ∫ R d F ( ψ ) ( ξ ) F ∗ ( χ ) ( ξ ) d ξ {\displaystyle \int _{\mathbf {R} ^{d}}{\mathcal {F}}(\psi )(\xi ){\mathcal {F}}^{*}(\chi )(\xi )\mathrm {d} \xi } = ∫ R d ψ ( x ) χ ( x ) ∗ d x {\displaystyle =\int _{\mathbf {R} ^{d}}\psi (x)\chi (x)^{*}\mathrm {d} x} が成り立つので、 φ ( x ) = F ( χ ) ( x ) {\displaystyle \varphi (x)={\mathcal {F}}(\chi )(x)} とする事で、 ∫ R d F ( ψ ) ( ξ ) φ ( ξ ) d ξ {\displaystyle \int _{\mathbf {R} ^{d}}{\mathcal {F}}(\psi )(\xi )\varphi (\xi )\mathrm {d} \xi } = ∫ R d ψ ( x ) F ( φ ) ( x ) d x {\displaystyle =\int _{\mathbf {R} ^{d}}\psi (x){\mathcal {F}}(\varphi )(x)\mathrm {d} x} となる事が分かる。
+これを参考にして緩増加超関数Tのフーリエ変換を以下のように定義する： これらの変換は緩増加超関数全体の集合 S ′ ( R d ) {\displaystyle {\mathcal {S}}'(\mathbf {R} ^{d})} で逆写像の関係にある事を以下のように簡単に示すことができる： F ( F ∗ ( T ) ) ( ψ ) := T ( F ( F ∗ ( ψ ) ) ) {\displaystyle {\mathcal {F}}({\mathcal {F}}^{*}(T))(\psi ):=T({\mathcal {F}}({\mathcal {F}}^{*}(\psi )))} = T ( ψ ) {\displaystyle =T(\psi )} S ( R d ) {\displaystyle {\mathcal {S}}(\mathbf {R} ^{d})} 上のフーリエ変換が連続であることから、上に定義した S ′ ( R d ) {\displaystyle {\mathcal {S}}'(\mathbf {R} ^{d})} 上のフーリエ変換も連続である事が従う。
+L2空間上のフーリエ変換 定義 L2関数ψに緩増加超関数 T ψ ( χ ) := ∫ R d ψ ( x ) χ ( x ) d x {\displaystyle T_{\psi }(\chi ):=\int _{\mathbf {R} ^{d}}\psi (x)\chi (x)\mathrm {d} x} を自然に対応させることで、L2空間を S ′ ( R d ) {\displaystyle {\mathcal {S}}'(\mathbf {R} ^{d})} の部分集合とみなせる。
+よって S ′ ( R d ) {\displaystyle {\mathcal {S}}'(\mathbf {R} ^{d})} 上でフーリエ変換の定義域をL2空間に制限する事でL2空間にもフーリエ変換が定義できる。
+次の事実が成り立つことが知られている： 実はこのような性質を満たすフーリエ変換の拡張は一意である： 性質 L2関数ψのフーリエ変換は 1 ( 2 π ) d / 2 ∫ − ∞ ∞ ψ ( x ) e − i x ξ d x {\displaystyle {1 \over (2\pi )^{d/2}}\int _{-\infty }^{\infty }\psi (x)\ e^{-ix\xi }\,\mathrm {d} x} という形式で書くことがでるとは限らない。
+なぜならψがL2関数の場合は上述の積分は一般には定義できるとは限らないからである。
+しかし F R ( ψ ) := 1 ( 2 π ) d / 2 ∫ | x | ≤ R ψ ( x ) e − i x ξ d x {\displaystyle F_{R}(\psi ):={1 \over (2\pi )^{d/2}}\int _{|x|\leq R}\psi (x)\ e^{-ix\xi }\,\mathrm {d} x} は定義でき新井、L2関数のフーリエ変換は以下を満たすことが知られている： 運動量作用素のフーリエ変換 最後に、位置作用素と運動量作用素とがフーリエ変換で移り合う関係にある事を見る。
+そのためにより一般に微分作用素 D = ∑ α : | α | ≤ m ( − i ) | α | a α ∂ α ∂ α 1 x 1 ⋯ ∂ α d x d , {\displaystyle D=\sum _{\alpha ~:~|\alpha |\leq m}(-i)^{|\alpha |}a_{\alpha }{\frac {\partial ^{\alpha }}{\partial ^{\alpha _{1}}x_{1}\cdots \partial ^{\alpha _{d}}x_{d}}},} ∀ α : a α ∈ R {\displaystyle \forall \alpha ~:~a_{\alpha }\in \mathbf {R} } (の閉包作用素)を考え、多項式Fを F ( x 1 , … , x d ) = ∑ α : | α | ≤ m a α x 1 α 1 ⋯ x d α d {\displaystyle F(x_{1},\ldots ,x_{d})=\sum _{\alpha ~:~|\alpha |\leq m}a_{\alpha }x_{1}{}^{\alpha _{1}}\cdots x_{d}{}^{\alpha _{d}}} と定義すると、以下が成立することが知られている新井： ここでMFはFを乗じる掛け算作用素である。
+よって特に運動量作用素 P j = − i ℏ ∂ ∂ x j {\displaystyle P_{j}=-i\hbar {\partial \over \partial x_{j}}} （の閉包作用素）は以下を満たす： xj倍する掛け算作用素は位置作用素であったことから、上式は換算プランク定数を除いて位置作用素と運動量作用素が移り合うことを意味する。
+スペクトル スペクトルとは、有限次元における固有値・固有ベクトルの理論の「無限次元版」であり、量子力学では物理量を観測する時に得られる値の集合となる。
+本節の目標は、ヒルベルト空間上定義された自己共役作用素のスペクトルの概略を述べる。
+有限次元における固有値 無限次元におけるスペクトル理論について述べる前に、まず有限次元の固有値の性質を調べる。
+λが A : H → H {\displaystyle A~:~{\mathcal {H}}\to {\mathcal {H}}} の固有値である事は明らかに ker ⁡ ( A − λ I ) ≠ { 0 } {\displaystyle \ker(A-\lambda I)\neq \{0\}} を意味し、これはA-λIは単射ではない事を意味する。
+H {\displaystyle {\mathcal {H}}} が有限次元であれば線形写像が単射である事は全射である事と同値なので、λがAの固有値である事はA-λIが全単射でない事と同値である。
+したがってλがAの固有値ではない場合、A-λIは全単射である為、 R λ := ( A − λ I ) − 1 {\displaystyle R_{\lambda }:=(A-\lambda I)^{-1}} が存在し、逆にRλが存在すればλはAの固有値ではない。
+しかし無限次元の場合には 単射ではない全射線形作用素 全射ではない単射線形作用素 が存在するため、このような単純な関係は存在しない。
+スペクトル理論は、上述のような作用素の存在を考慮した上で、固有値・固有ベクトルの理論を適切に「無限次元化」したものである。
+スペクトルの定義 これまで同様 H {\displaystyle {\mathcal {H}}} をヒルベルト空間とし、 A : H → H {\displaystyle A~:~{\mathcal {H}}\to {\mathcal {H}}} を稠密に定義された（有界とは限らない）閉作用素とし、λを複素数とする。
+恒等写像Iは全域で定義されているので、A-λIもAと同一の定義域を持つ作用素として定義できる。
+なお、本稿で述べているレゾルベント集合を狭義のレゾルベント集合と呼び、「レゾルベント集合」という語には別の意味を与えているテキストも存在するので注意されたい。
+レゾルベント 次の事実が知られている： なお本稿ではAが閉作用素の場合に限定してレゾルベント集合を定義したが、Aが閉作用素でない場合にレゾルベント集合の定義を拡張する際は、A-λIが全単射になり、しかもRλが有界になるλの全体をレゾルベント集合と定義する新井。
+点スペクトル スペクトルσ(A)の定義より、λがσ(A)に属する場合、A-λIは全単射でない。
+すなわちA-λIは「全射でない」かもしくは「単射でない」事を意味する。
+λがσP(A)の元であれば明らかに ker ⁡ ( A − λ I ) ≠ { 0 } {\displaystyle \ker(A-\lambda I)\neq \{0\}} であるので、 A ψ = λ ψ {\displaystyle A\psi =\lambda \psi } となる0でない ψ ∈ D o m ( A ) {\displaystyle \psi \in \mathrm {Dom} (A)} が存在する。
+すなわち点スペクトルσP(A)の元はAの固有値であるK12。
+σP(A)の元λに対し、 ker ⁡ ( A − λ I ) {\displaystyle \ker(A-\lambda I)} の0でない元をAのλに対応する固有ベクトルといい、 dim ⁡ ker ⁡ ( A − λ I ) {\displaystyle \dim \ker(A-\lambda I)} をλの多重度というK12。
+有限次元の場合と違い、A-λIが単射であるにもかかわらず、全射ではない事が起こりうる。
+よって σ ( A ) ∖ σ P ( A ) {\displaystyle \sigma (A)\setminus \sigma _{P}(A)} は一般には空集合ではない。
+σ ( A ) ∖ σ P ( A ) {\displaystyle \sigma (A)\setminus \sigma _{P}(A)} の詳細については後述する。
+剰余スペクトル、連続スペクトル スペクトルσ(A)に属するλのうち、A-λIが単射でないもの全体が点スペクトルσP(A)であった。
+それ以外のσ(A)の元、すなわちA-λIが単射ではあるが全射でないものは２つのタイプに分類できる。
+λがAの剰余スペクトルもしくは連続スペクトルに属していれば、A-λIは単射であるので、A-λIの像 ( A − λ I ) ( D o m ( A ) ) {\displaystyle (A-\lambda I)(\mathrm {Dom} (A))} の上定義された逆写像 ( A − λ I ) − 1 {\displaystyle (A-\lambda I)^{-1}} を定義できる。
+この意味において、レゾルベント集合においてもA-λIの逆写像が定義できるので、この意味で剰余スペクトルや連続スペクトルはレゾルベント集合に類似しているが、違いは逆写像の定義域にある。
+レゾルベント集合においては ( A − λ I ) − 1 {\displaystyle (A-\lambda I)^{-1}} は H {\displaystyle {\mathcal {H}}} の全域で定義され、しかも（Aが閉作用素であれば） ( A − λ I ) − 1 {\displaystyle (A-\lambda I)^{-1}} は必ず有界である。
+それに対し連続スペクトルの場合は ( A − λ I ) − 1 {\displaystyle (A-\lambda I)^{-1}} の H {\displaystyle {\mathcal {H}}} の稠密部分空間で定義されているに過ぎず、しかも ( A − λ I ) − 1 {\displaystyle (A-\lambda I)^{-1}} は有界ではない新井。
+さらに剰余スペクトルにおいては ( A − λ I ) − 1 {\displaystyle (A-\lambda I)^{-1}} の定義域は H {\displaystyle {\mathcal {H}}} で稠密ですらない。
+以上で定義した概念をまとめると次のようになる。
+なお連続スペクトルは本稿で述べたのとは別の定義があり、その定義を採用した場合には連続スペクトルと剰余スペクトルは排他的になるとは限らないK12。
+点スペクトルσP(A)以外ではA-λIが単射になるので、A-λIの像の上で逆写像 ( A − λ I ) − 1 {\displaystyle (A-\lambda I)^{-1}} が定義できるが、剰余スペクトルでは ( A − λ I ) − 1 {\displaystyle (A-\lambda I)^{-1}} の定義域は有界ではなく、連続スペクトルでは稠密に定義されているが有界ではなく、レゾルベント集合では全域で定義されていてしかも有界である。
+自己共役作用素のスペクトル 本節では以下、 A : H → H {\displaystyle A~:~{\mathcal {H}}\to {\mathcal {H}}} を（稠密に定義された有界とは限らない）自己共役作用素とする。
+このときσ(A)は実数体Rの閉部分集合である事が知られているH13。
+またσ(A)の元は必ずしも点スペクトルではないため、 ( A − λ I ) ψ {\displaystyle (A-\lambda I)\psi } が0となるψ≠0が存在するとは限らないが、 ( A − λ I ) ψ {\displaystyle (A-\lambda I)\psi } をいくらでも0に近く取る事ができるH13： なお上の後半の性質を満たすλ全体の集合をσapp(A)と書き、近似スペクトルというS12。
+したがって上述の事実は、自己共役作用素のスペクトルは近似スペクトルと一致する事を意味する。
+さらに次が成立する事が知られている： 以上をまとめると、以下が成立する。
+スペクトル分解と観測 スペクトル分解とは、有限次元ベクトル空間における線形作用素の固有値分解を無限次元に拡張したものであるが、単純に有限次元の固有値分解を無限次元に拡張することはできない。
+これは無限次元の場合、有限次元と違って連続スペクトルが存在し、連続スペクトルには点スペクトル（＝固有値）と違い、対応する固有ベクトルが存在しないことに起因する。
+本稿では自己共役作用素をスペクトル分解する方法として、以下の３種類を紹介する： 直積分によるスペクトル分解 スペクトル測度によるスペクトル分解 ゲルファントの３つ組によるスペクトル分解 これら３つのスペクトル分解のうちで、量子力学において通常用いられるスペクトル分解の定式化、すなわちデルタ関数を用いたスペクトル分解に最も近いのは最後にあげたゲルファントの三つ組によるものである。
+しかしこのゲルファントの三つ組によるスペクトル分解は、すべての自己共役作用素に対して適応できるわけではないという欠点を持つ上、この手法でスペクトル分解するには数学的な準備が必要となる。
+そこでこの手法によるスペクトル分解は後の節にまわし、本節では残り２つのスペクトル分解を紹介し、これらをもとに、量子状態の観測の概念を数学的に定式化する。
+直積分によるスペクトル分解 H {\displaystyle {\mathcal {H}}} が有限次元の場合、 H {\displaystyle {\mathcal {H}}} を H = ⨁ λ ∈ σ ( A ) H λ {\displaystyle {\mathcal {H}}=\bigoplus _{\lambda \in \sigma (A)}{\mathcal {H}}_{\lambda }} のように直和として表記可能である。
+ここでAは H {\displaystyle {\mathcal {H}}} 上の自己共役作用素であり、 H λ {\displaystyle {\mathcal {H}}_{\lambda }} は固有値λに対応する固有空間である。
+さらに任意の ψ ∈ H λ {\displaystyle \psi \in {\mathcal {H}}_{\lambda }} に対し、 A ( ψ ) = λ ψ {\displaystyle A(\psi )=\lambda \psi } である。
+一方 H {\displaystyle {\mathcal {H}}} が無限次元の場合には、Aは非可算無限個のスペクトル点を持ちうるので、単純に上式を無限次元に拡張する事はできない。
+しかしベクトル空間の「直和」の代わりに「直積分」という概念を用いる事で無限次元の場合も同種の公式が成立する事が知られており、これをAの直積分によるスペクトル分解と呼ぶ。
+本節では直積分の概念を数学的に定式化し、直積分を用いて上式を無限次元の場合に拡張する。
+直積分の定義 直積分の概念を定式化するため、「切断」の概念を導入する： さらに２つの切断 s = ( s ( λ ) ) λ ∈ X {\displaystyle s=(s(\lambda ))_{\lambda \in X}} 、 t = ( t ( λ ) ) λ ∈ X {\displaystyle t=(t(\lambda ))_{\lambda \in X}} に対し、sとtの内積を ⟨ s , t ⟩ := ∫ X ⟨ s ( λ ) , t ( λ ) ⟩ d μ {\displaystyle \langle s,t\rangle :=\int _{X}\langle s(\lambda ),t(\lambda )\rangle \mathrm {d} \mu } により定義することができる。
+直積分は前述した内積に関して完備であることが知られており、よって直積分はヒルベルト空間になるH13。
+可測性の定義 前節でペンディングしていた s = ( s ( λ ) ) λ ∈ X {\displaystyle s=(s(\lambda ))_{\lambda \in X}} の可測性の定義を述べる。
+s = ( s ( λ ) ) λ ∈ X {\displaystyle s=(s(\lambda ))_{\lambda \in X}} 可測性を定義するには、 ( H λ ) λ ∈ X {\displaystyle ({\mathcal {H}}_{\lambda })_{\lambda \in X}} に技術的な付加構造を加える必要がある（よって直積分は ( H λ ) λ ∈ X {\displaystyle ({\mathcal {H}}_{\lambda })_{\lambda \in X}} にこの付加構造を付け加えた場合のみ定義可能である）。
+まずその付加構造を定義する： なお、写像 λ ∈ X ↦ d i m H λ ∈ [ 0 , ∞ ] {\displaystyle \lambda \in X\mapsto \mathrm {dim} {\mathcal {H}}_{\lambda }\in [0,\infty ]} が可測であるときは、 ( H λ ) λ ∈ X {\displaystyle ({\mathcal {H}}_{\lambda })_{\lambda \in X}} は必ず同時正規直交基底を持つことが知られている。
+スペクトル分解 以上の準備のもと、直積分によるスペクトル分解を定式化する： 上述の定理は H {\displaystyle {\mathcal {H}}} が無限次元の場合も、 H {\displaystyle {\mathcal {H}}} をAの「固有空間」 H λ {\displaystyle {\mathcal {H}}_{\lambda }} の直積分に分解でき、しかも直積分の元sのAUによる像AU(s)の「 H λ {\displaystyle {\mathcal {H}}_{\lambda }} 成分」である(AU(s))(λ)はsの「 H λ {\displaystyle {\mathcal {H}}_{\lambda }} 成分」s(λ)を「固有値」λ倍したものになっている事を意味するように見えるので、 H λ {\displaystyle {\mathcal {H}}_{\lambda }} をλに対応するAの一般化した固有空間、 H λ {\displaystyle {\mathcal {H}}_{\lambda }} の元をλに対応するAの一般化した固有ベクトルであるとみなし得るH13。
+実際、スペクトル点τ∈σ(A)においてμ({τ})>0であれば、sτ∈ H τ {\displaystyle {\mathcal {H}}_{\tau }} に対し切断を s ( λ ) = { s τ if λ = τ 0 otherwise {\displaystyle s(\lambda )={\begin{cases}s_{\tau }&{\text{if }}\lambda =\tau \\0&{\text{otherwise}}\end{cases}}} により定義すると、写像 m τ : s τ ∈ H τ ↦ s ( τ ) ∈ ∫ σ ( A ) ⊕ H λ d μ A {\displaystyle m_{\tau }~:~s_{\tau }\in {\mathcal {H}}_{\tau }\mapsto s(\tau )\in \int _{\sigma (A)}^{\oplus }{\mathcal {H}}_{\lambda }\mathrm {d} \mu _{A}} は ⟨ s , s ⟩ = ∫ σ ( A ) ⟨ s ( λ ) , s ( λ ) ⟩ λ d μ A {\displaystyle \langle s,s\rangle =\int _{\sigma (A)}\langle s(\lambda ),s(\lambda )\rangle _{\lambda }\mathrm {d} \mu _{A}} ≥ ⟨ s τ s τ ⟩ μ A ( { τ } ) ≩ 0 if s τ ≠ 0 {\displaystyle \geq \langle s_{\tau }s_{\tau }\rangle \mu _{A}(\{\tau \})\gvertneqq 0\quad {\text{if }}s_{\tau }\neq 0} を満たすので、 m τ ( H τ ) {\displaystyle m_{\tau }({\mathcal {H}}_{\tau })} の元はAUの0でない固有ベクトルになる。
+しかしμ({τ})=0の場合にはmτが恒等的に0である為、 H τ {\displaystyle {\mathcal {H}}_{\tau }} は通常の意味での固有空間にはならない。
+直積分によるスペクトル定理は、前述した掛け算作用素によるスペクトル定理から容易に従う。
+実際、掛け算作用素によるスペクトル定理より、 H {\displaystyle {\mathcal {H}}} は何らかのL2空間 L 2 ( X , μ ) {\displaystyle L^{2}(X,\mu )} と同型で、Aは L 2 ( X , μ ) {\displaystyle L^{2}(X,\mu )} 上で実数値関数 h ( x ) {\displaystyle h(x)} を乗じる作用素として表現できるので、hの像である実数直線R上に測度h*(μ)を入れれば、 L 2 ( X , μ ) ≃ ∫ R ⊕ H λ d h ∗ ( μ ) {\displaystyle L^{2}(X,\mu )\simeq \int _{\mathbf {R} }^{\oplus }{\mathcal {H}}_{\lambda }\mathrm {d} h_{*}(\mu )} 、 ここで H λ = h − 1 ( λ ) {\displaystyle {\mathcal {H}}_{\lambda }=h^{-1}(\lambda )} と表記できる。
+H λ = h − 1 ( λ ) {\displaystyle {\mathcal {H}}_{\lambda }=h^{-1}(\lambda )} が{0}でないλの集合がσ(A)と一致する事を容易に確認できるので、上記の積分をσ(A)に制限すれば、直積分によるスペクトル定理が従う。
+スペクトル測度によるスペクトル分解 本節の目標は、非有界作用素のもう一つのスペクトル分解方法であるスペクトル測度によるスペクトル分解を定式化する事である。
+まず、スペクトル測度の概念を定式化する動機を与える為に、有限次元における固有値分解を復習する。
+H {\displaystyle {\mathcal {H}}} を有限次元のヒルベルト空間とし、Aを H {\displaystyle {\mathcal {H}}} 上の自己共役作用素とする。
+有限次元の場合、自己共役作用素は必ず固有値分解可能な事が知られている。
+すなわちAの固有値をλ1、…、λnとし、これらの固有値に対応する固有空間をV1、…、Vnとすると、 H {\displaystyle {\mathcal {H}}} の元ψは必ず ψ=ψ1＋…＋ψn、 ψ1∈V1、…、ψn∈Vn と表現でき、 Aψ=λ1ψ1＋…＋λnψn が成立する。
+そこで H {\displaystyle {\mathcal {H}}} の元のVjへの射影変換をPjとすると、明らかに A = ∑ j = 1 n λ j P j {\displaystyle A=\sum _{j=1}^{n}\lambda _{j}P_{j}} が成立する。
+スペクトル測度μは、以上の考察を無限次元に拡張する事を可能にする概念であり、Rのボレル可測部分集合Bに対し、 H {\displaystyle {\mathcal {H}}} の閉部分線形空間への正射影変換μ(B)を対応させる。
+スペクトル測度μの概念を直観的に説明するため、再び有限次元の場合を考えると、Bとスペクトルσ(A)={λ1,…,λn}の共通部分が { λ j 1 , … , λ j m } {\displaystyle \{\lambda _{j_{1}},\ldots ,\lambda _{j_{m}}\}} であるとき、スペクトル測度μによるBの像μ(B)は、 H {\displaystyle {\mathcal {H}}} の元を H {\displaystyle {\mathcal {H}}} の部分空間 V λ j 1 ⊕ ⋯ ⊕ V λ j m {\displaystyle V_{\lambda _{j_{1}}}\oplus \cdots \oplus V_{\lambda _{j_{m}}}} に射影する射影変換である。
+スペクトル測度 スペクトル測度の概念を厳密に定式化する。
+なお、スペクトル測度の概念それ自身は、Aのスペクトルとは無関係に定義する。
+スペクトル測度の概念がAのスペクトルと結びつくのは、後述するスペクトル定理においてである。
+P ( H ) {\displaystyle {\mathcal {P}}({\mathcal {H}})} を H {\displaystyle {\mathcal {H}}} の元を H {\displaystyle {\mathcal {H}}} の閉部分線形空間に対応させる正射影作用素全体の集合とする。
+すなわち P ∈ P ( H ) ⟺ ∃ V ⊂ H {\displaystyle P\in {\mathcal {P}}({\mathcal {H}})\iff \exists V\subset {\mathcal {H}}} （閉部分線形空間） s.t. P : ϕ = ϕ V + ϕ V ⊥ ∈ V ⊕ V ⊥ = H ↦ ϕ V ∈ V ⊂ H {\displaystyle P~:~\phi =\phi _{V}+\phi _{V}^{\bot }\in V\oplus V^{\bot }={\mathcal {H}}\mapsto \phi _{V}\in V\subset {\mathcal {H}}} さらに B ( R ) {\displaystyle {\mathcal {B}}(\mathbf {R} )} をR上のボレル加法族とする。
+直観的にはこのRは、自己共役作用素のスペクトルやレゾルベントの取りうる値の集合である。
+スペクトル分解 μ : B ( R d ) → P ( H ) {\displaystyle \mu ~:~{\mathcal {B}}(\mathbf {R} ^{d})\to {\mathcal {P}}({\mathcal {H}})} をスペクトル測度とするとき、次の事実が成り立つことが知られているH13新井。
+ここで ⟨ ⋅ , ⋅ ⟩ {\displaystyle \langle \cdot ,\cdot \rangle } は H {\displaystyle {\mathcal {H}}} の内積である： 上述のように定義される測度を μ ψ ( B ) = ⟨ ψ , μ ( B ) ψ ⟩ {\displaystyle \mu _{\psi }(B)=\langle \psi ,\mu (B)\psi \rangle } と書くとき、次が成立する事が知られている： なお任意の可測関数fに対しDom(Ff)は H {\displaystyle {\mathcal {H}}} で稠密であることが知られているのでH13、作用素値積分は H {\displaystyle {\mathcal {H}}} 上稠密に定義された線形作用素である。
+またfが実数値可測関数の場合は作用素値積分は必ず自己共役作用素になる事も知られているH13。
+以上の準備のもと、スペクトル定理を定式化する： なお、μはAのレゾルベント集合上で0になる事が知られているのでH13、上述の積分を A = ∫ σ ( A ) λ d μ {\displaystyle A=\int _{\sigma (A)}\lambda \mathrm {d} \mu } と書き表す事もできる。
+スペクトル分解定理は前述した有限次元の場合の固有値分解 A = ∑ j = 1 n λ j P j {\displaystyle A=\sum _{j=1}^{n}\lambda _{j}P_{j}} の無限次元版である。
+実際、ディラック測度δx(B)を δ x ( B ) = { 0 , x ∉ B ; 1 , x ∈ B {\displaystyle \delta _{x}(B)={\begin{cases}0,&x\not \in B;\\1,&x\in B\end{cases}}} により定義し、スペクトル測度μを μ ( B ) = ∑ j = 1 n δ λ j ( B ) P j {\displaystyle \mu (B)=\sum _{j=1}^{n}\delta _{\lambda _{j}}(B)P_{j}} とすれば、両者が一致する事を確認できる。
+直積分によるスペクトル分解との関係 スペクトル測度によるスペクトル分解定理は直積分によるスペクトル定理から容易に従う。
+実際、直積分によるスペクトル定理から H {\displaystyle {\mathcal {H}}} は直積分 ∫ σ ( A ) ⊕ H λ d μ A {\displaystyle \int _{\sigma (A)}^{\oplus }{\mathcal {H}}_{\lambda }\mathrm {d} \mu _{A}} として表現できるので、B⊂σ(A)に対してμ(B)を ∫ σ ( A ) ⊕ H λ d μ A → ∫ B ⊕ H λ d μ A , s ( λ ) ↦ χ B ( λ ) s ( λ ) {\displaystyle \int _{\sigma (A)}^{\oplus }{\mathcal {H}}_{\lambda }\mathrm {d} \mu _{A}\to \int _{B}^{\oplus }{\mathcal {H}}_{\lambda }\mathrm {d} \mu _{A},~~s(\lambda )\mapsto \chi _{B}(\lambda )s(\lambda )} とすればよい。
+ここでχBはBの特性関数である。
+観測 観測確率 Aを何らかの物理量を表す自己共役作用素とし、μをAのスペクトル測度とする。
+量子力学では以下を仮定する： 直積分を使うと、上の仮定をより直観的に表現できる。
+状態空間 H {\displaystyle {\mathcal {H}}} をAのスペクトルでスペクトル分解して H ≃ ∫ σ ( A ) ⊕ H λ d μ A {\displaystyle {\mathcal {H}}\simeq \int _{\sigma (A)}^{\oplus }{\mathcal {H}}_{\lambda }\mathrm {d} \mu _{A}} と直積分で書き表し、ψを直積分の切断として ψ ≃ { ψ ( λ ) } λ ∈ σ ( A ) {\displaystyle \psi \simeq \{\psi (\lambda )\}_{\lambda \in \sigma (A)}} と書き表すと、直積分とスペクトル測度の関係により、状態ψにある系でAを観測した観測値λがボレル集合 B ⊂ R {\displaystyle B\subset \mathbf {R} } に属している確率は ∫ σ ( A ) ∩ B ‖ ψ ( λ ) ‖ 2 d μ A {\displaystyle \int _{\sigma (A)\cap B}\|\psi (\lambda )\|^{2}\mathrm {d} \mu _{A}} に一致する。
+また簡単な計算により、Aを観測した観測値の期待値が ⟨ ψ , A ( ψ ) ⟩ {\displaystyle \langle \psi ,A(\psi )\rangle } となる事を確かめられる新井。
+波束の収縮 量子力学では以下を仮定する： 上述の仮定では観測値が固有値、すなわち点スペクトルに属していた場合の事を述べているが、観測値が連続スペクトルに属していた場合については何も規定していない事に注意されたい。
+ゲルファントの３つ組によるスペクトル分解 前節までで見たように、状態空間 H {\displaystyle {\mathcal {H}}} が無限次元である場合のスペクトル分解においては連続スペクトルが生じるため、全てのスペクトル点に対して対応する「固有関数」が存在するわけではないという困難を抱える。
+そこでディラックは、状態空間 H {\displaystyle {\mathcal {H}}} にデルタ関数のような超関数を添加し、これら超関数を一種の固有関数だとみなす事でこの困難を解消する道筋を建てた。
+本節では、このディラックのアイデアを拡張することで得られるゲルファントの三つ組の概念を用いて、自己共役作用素をスペクトル分解する方法を説明する。
+ゲルファントの三つ組 ゲルファントの三つ組の定義の基本的な雛形は、（緩増加）超関数の概念である。
+そこで、まず、緩増加超関数の定義を振り返る。
+今シュワルツ空間 S ( R d ) {\displaystyle {\mathcal {S}}(\mathbf {R} ^{d})} からヒルベルト空間 H = L 2 ( R d ) {\displaystyle {\mathcal {H}}=L^{2}(\mathbf {R} ^{d})} へは自然な単射 ι : S ( R d ) ↪ H {\displaystyle \iota ~:~{\mathcal {S}}(\mathbf {R} ^{d})\hookrightarrow {\mathcal {H}}} が存在する。
+ψ ∈ H {\displaystyle \psi \in {\mathcal {H}}} に対し、写像ι†(ψ)を ι † ( ψ ) : S ( R d ) → C , {\displaystyle \iota ^{\dagger }(\psi )~:~{\mathcal {S}}(\mathbf {R} ^{d})\to \mathbf {C} ,~~} φ ↦ ⟨ ψ , ι ( φ ) ⟩ {\displaystyle \varphi \mapsto \langle \psi ,\iota (\varphi )\rangle } と定義すると、 ι † ( ψ ) ∈ S ′ ( R d ) {\displaystyle \iota ^{\dagger }(\psi )\in {\mathcal {S}}'(\mathbf {R} ^{d})} なので、写像 ι † : H ↪ S ′ ( R d ) , {\displaystyle \iota ^{\dagger }~:~{\mathcal {H}}\hookrightarrow {\mathcal {S}}'(\mathbf {R} ^{d}),~~} ψ ↦ ι † ( ψ ) {\displaystyle \psi \mapsto \iota ^{\dagger }(\psi )} を定義する事ができ、ι†は反線形写像となる。
+定義 以上の議論を踏まえ、より一般に位相の定義されたベクトル空間 G {\displaystyle {\mathcal {G}}} からヒルベルト空間 H {\displaystyle {\mathcal {H}}} への連続な単射 ι : G ↪ H {\displaystyle \iota ~:~{\mathcal {G}}\hookrightarrow {\mathcal {H}}} があるとき、 G {\displaystyle {\mathcal {G}}} の双対空間 G ′ {\displaystyle {\mathcal {G}}'} を G ′ := { T : G → C {\displaystyle {\mathcal {G}}':=\{T~:~{\mathcal {G}}\to \mathbf {C} } 、連続かつ線形 } {\displaystyle \}} と定義すると、シュワルツ空間 S ( R d ) {\displaystyle {\mathcal {S}}(\mathbf {R} ^{d})} のときと同様の方法により、反線形写像 ι † : H ↪ G ′ {\displaystyle \iota ^{\dagger }~:~{\mathcal {H}}\hookrightarrow {\mathcal {G}}'} 、 を定義できる。
+ブラ-ケットベクトルによる解釈 写像 ι † : H ↪ G ′ {\displaystyle \iota ^{\dagger }~:~{\mathcal {H}}\hookrightarrow {\mathcal {G}}'} は反線形な埋め込み写像なので、 H {\displaystyle {\mathcal {H}}} 、 G ′ {\displaystyle {\mathcal {G}}'} の共役線形空間をそれぞれ H ∗ {\displaystyle {\mathcal {H}}^{*}} 、 G ′ ∗ {\displaystyle {\mathcal {G}}'^{*}} とすると、 ι † : H ∗ ↪ G ′ {\displaystyle \iota ^{\dagger }~:~{\mathcal {H}}^{*}\hookrightarrow {\mathcal {G}}'} ι † : H ↪ G ′ ∗ {\displaystyle \iota ^{\dagger }~:~{\mathcal {H}}\hookrightarrow {\mathcal {G}}'^{*}} はいずれも線形な埋め込みとなる。
+物理学的に見た場合、 H {\displaystyle {\mathcal {H}}} 、 H ∗ {\displaystyle {\mathcal {H}}^{*}} はそれぞれブラベクトル、ケットベクトルの空間であったので、それを含んでいる G ′ {\displaystyle {\mathcal {G}}'} 、 G ′ ∗ {\displaystyle {\mathcal {G}}'^{*}} もやはり（一般化された意味での）ブラベクトル、ケットベクトルの空間とみなすことにする。
+既に述べたように、連続スペクトルに対応する「固有ベクトル」は H {\displaystyle {\mathcal {H}}} や H ∗ {\displaystyle {\mathcal {H}}^{*}} の中には存在しなかった。
+そこでブラベクトル、ケットベクトルの空間を H {\displaystyle {\mathcal {H}}} や H ∗ {\displaystyle {\mathcal {H}}^{*}} より広い空間である G ′ {\displaystyle {\mathcal {G}}'} や G ′ ∗ {\displaystyle {\mathcal {G}}'^{*}} へと拡張し、 G ′ {\displaystyle {\mathcal {G}}'} や G ′ ∗ {\displaystyle {\mathcal {G}}'^{*}} から連続スペクトルに対応する「固有ベクトル」を探す、というのがゲルファントの三つ組の基本的なアイデアである。
+とくに G = S ( R d ) {\displaystyle {\mathcal {G}}={\mathcal {S}}(\mathbf {R} ^{d})} である場合は、 G ′ {\displaystyle {\mathcal {G}}'} は緩増加超関数の空間 S ′ ( R d ) {\displaystyle {\mathcal {S}}'(\mathbf {R} ^{d})} に一致するので、「固有ベクトル」として G ′ {\displaystyle {\mathcal {G}}'} からデルタ超関数を選ぶ事ができる。
+したがってこの場合は、ゲルファントの三つ組のアイデアはディラックの元々のアイデアと合致する。
+ゲルファントの三つ組に関する諸概念 先に進む前にゲルファントの三つ組に関する諸概念を定義する。
+φを H {\displaystyle {\mathcal {H}}} の元とするとき、 ⟨ ι † ( φ ) , ψ ⟩ = ι † ( φ ) ( ψ ) = ⟨ φ , ι ( ψ ) ⟩ = ⟨ φ , ι ( ψ ) ⟩ {\displaystyle \langle \iota ^{\dagger }(\varphi ),\psi \rangle =\iota ^{\dagger }(\varphi )(\psi )=\langle \varphi ,\iota (\psi )\rangle =\langle \varphi ,\iota (\psi )\rangle } となるので、上述した内積は H {\displaystyle {\mathcal {H}}} 上の内積と両立する。
+言い換えるとこれは G ″ {\displaystyle {\mathcal {G}}''} にはweak-*位相を入れたものを考えるという事である。
+一般化固有ベクトル ディラックがデルタ関数を量子力学に導入したそもそもの動機は、デルタ関数を位置作用素に対する「固有ベクトル」とみなすというものであった。
+すなわち、第j方向の位置作用素 M x j ( ψ ) = x j ψ ( x ) {\displaystyle M_{x_{j}}(\psi )=x_{j}\psi (x)} に形式的に δ a ( x ) = δ ( x − a ) {\displaystyle \delta _{a}(x)=\delta (x-a)} を代入すると、この関数はa以外で0になる事から、 M x j ( δ a ) = x j δ ( x − a ) = a j δ ( x − a ) {\displaystyle M_{x_{j}}(\delta _{a})=x_{j}\delta (x-a)=a_{j}\delta (x-a)} であり、したがってδaは M x j {\displaystyle M_{x_{j}}} の「固有値」ajに対応する「固有ベクトル」であるとみなせるのである。
+数学的に見た場合、ヒルベルト空間 H = L 2 ( R d ) {\displaystyle {\mathcal {H}}=L^{2}(\mathbf {R} ^{d})} において自己共役作用素 M x j {\displaystyle M_{x_{j}}} はそもそも固有値を持たないし、当然それに対応する固有ベクトルも存在しない。
+しかしこれはそもそもデルタ関数が H = L 2 ( R d ) {\displaystyle {\mathcal {H}}=L^{2}(\mathbf {R} ^{d})} に属さない事に起因しており、ゲルファントの三つ組の概念を用いれば、こうしたデルタ関数による固有値・固有ベクトルの概念を正当化できる。
+本節ではまず、固有値概念の一般化であるスペクトルの概念を定式化し、ゲルファントの三つ組においてスペクトルに対応する固有ベクトル概念に相当する一般化固有ベクトルの概念を定式化する。
+定義 ( H , G , ι ) {\displaystyle ({\mathcal {H}},{\mathcal {G}},\iota )} をゲルファントの三つ組とし、Aを H {\displaystyle {\mathcal {H}}} 上の自己共役作用素とする。
+本節の目標は H {\displaystyle {\mathcal {H}}} よりも広い空間である G ′ {\displaystyle {\mathcal {G}}'} からAの固有ベクトルを探す事にあるが、そもそもAは H {\displaystyle {\mathcal {H}}} 上でしか定義されていないので、 G ′ {\displaystyle {\mathcal {G}}'} の元をAの固有ベクトルとみなすには、まずAの定義域を G ′ {\displaystyle {\mathcal {G}}'} 上に拡張する必要がある。
+そこでAとして以下の２性質を満たすものを考えるF15。
+なおこの２性質を満たすとき、Aは ( H , G , ι ) {\displaystyle ({\mathcal {H}},{\mathcal {G}},\iota )} に付随するゲルファントの三つ組と両立するという： G ⊂ D o m ( A ) {\displaystyle {\mathcal {G}}\subset \mathrm {Dom} (A)} A ( G ) ⊂ G {\displaystyle A({\mathcal {G}})\subset {\mathcal {G}}} Aが上述の性質を満たす時、 T ∈ G ′ {\displaystyle T\in {\mathcal {G}}'} に対し、写像A'(T)を A ′ ( T ) : ψ ∈ G ↦ ⟨ T , A ( ψ ) ⟩ ∈ C {\displaystyle A'(T)~:~\psi \in {\mathcal {G}}\mapsto \langle T,A(\psi )\rangle \in \mathbf {C} } により定義すると、前述の２性質からこの定義はwell-definedであり、 A ′ ( T ) ∈ G ′ {\displaystyle A'(T)\in {\mathcal {G}}'} となる事を確かめられる。
+よって G ′ {\displaystyle {\mathcal {G}}'} 上の線形写像 A ′ : T ∈ G ′ ↦ A ′ ( T ) ∈ G ′ {\displaystyle A'~:~T\in {\mathcal {G}}'\mapsto A'(T)\in {\mathcal {G}}'} が定義できる。
+上述のように定義したA'は埋め込み写像ι†と A = A ′ ∘ ι † {\displaystyle A=A'\circ \iota ^{\dagger }} という関係を満たすという意味でAの拡張になっている。
+実際、任意の φ ∈ H , ψ ∈ G {\displaystyle \varphi \in {\mathcal {H}},\psi \in {\mathcal {G}}} に対し、Aの対称性から ⟨ A ′ ∘ ι † ( φ ) , ψ ⟩ = ⟨ φ , ι ( A ( ψ ) ) ⟩ = ⟨ φ , A ( ψ ) ⟩ = ⟨ A ( φ ) , ψ ⟩ {\displaystyle \langle A'\circ \iota ^{\dagger }(\varphi ),\psi \rangle =\langle \varphi ,\iota (A(\psi ))\rangle =\langle \varphi ,A(\psi )\rangle =\langle A(\varphi ),\psi \rangle } であるので、φ、ψの任意性から上述の事実が従う。
+そこで一般化固有値・固有ベクトルを以下のように定義する： なお、 T ∈ G ′ {\displaystyle T\in {\mathcal {G}}'} なので、ここでいう「一般化固有ベクトル」はブラベクトルであるが、共役線形空間を考えることで、ケットベクトルの空間 G ′ ∗ {\displaystyle {\mathcal {G}}'^{*}} 上にも同様に一般化固有ベクトルの概念を考える事ができる。
+A = A ′ ∘ ι † {\displaystyle A=A'\circ \iota ^{\dagger }} であったので、Aの通常の意味での固有ベクトルは一般化固有ベクトルでもある。
+定義から明らかなように、一般化固有ベクトルの定義は ( H , G , ι ) {\displaystyle ({\mathcal {H}},{\mathcal {G}},\iota )} に依存している。
+Aと両立する ( H , G , ι ) {\displaystyle ({\mathcal {H}},{\mathcal {G}},\iota )} は複数考えられるので、 ( H , G , ι ) {\displaystyle ({\mathcal {H}},{\mathcal {G}},\iota )} の取り方に依存して異なる一般化固有ベクトルの概念が存在する事になる。
+完全性 有限次元のベクトル空間の場合、自己共役作用素の固有値分解を行うと、ベクトル空間上の任意のベクトルは、固有ベクトルの線形和として書き表す事ができる事が知られている。
+この性質を満たす時、自己共役作用素は固有ベクトルの完全系を持つというが、一般化固有ベクトルの場合も類似した完全系の概念を考える事ができる。
+実数λ∈Rに対し、一般化固有値λに属する一般化固有ベクトル全体の集合(すなわちλの（一般化）固有空間) E ( λ ) := K e r ( λ i d − A ′ ) ⊂ G ′ {\textstyle E(\lambda ):=\mathrm {Ker} (\lambda \mathrm {id} -A')\subset {\mathcal {G}}'} を考える。
+ψ ∈ G {\displaystyle \psi \in {\mathcal {G}}} に対し、ψとの内積 T ∈ G ′ ↦ ⟨ T , ψ ⟩ ∈ C {\textstyle T\in {\mathcal {G}}'\mapsto \langle T,\psi \rangle \in \mathbf {C} } のE(λ)への制限写像 ψ ^ λ : T ∈ E ( λ ) ↦ ⟨ T , ψ ⟩ ∈ C {\textstyle {\hat {\psi }}_{\lambda }~:~T\in E(\lambda )\mapsto \langle T,\psi \rangle \in \mathbf {C} } はE(λ)の双対空間E(λ)'の元である： ψ ^ λ ∈ E ( λ ) ′ {\textstyle {\hat {\psi }}_{\lambda }\in E(\lambda )'} 有限次元空間の場合であれば ψ ^ λ {\textstyle {\hat {\psi }}_{\lambda }} は「ψのE(λ)方向成分」に相当するものであるので、完全系の概念を以下のように定義する： なお、Aが運動量作用素である場合は、上述した写像 ψ ↦ ψ ^ {\textstyle \psi \mapsto {\hat {\psi }}} は、フーリエ変換と自然に同一視できる事が知られている（詳細後述）。
+そこで上述した写像のことを一般化フーリエ変換というF15。
+完全形の概念はweak-*位相の言葉を用いても定式化できることが知られている： 具体例 G = S ( R ) {\displaystyle {\mathcal {G}}={\mathcal {S}}(\mathbf {R} )} の場合に対し、運動量作用素と位置作用素の一般化固有ベクトルを調べる。
+運動量作用素 運動量作用素 P = − i ℏ d d x {\displaystyle P=-i\hbar {\mathrm {d} \over \mathrm {d} x}} が S ( R ) {\displaystyle {\mathcal {S}}(\mathbf {R} )} と両立する事は既に述べた。
+T ∈ S ′ ( R ) {\displaystyle T\in {\mathcal {S}}'(\mathbf {R} )} に対し、 P ′ ( T ) : ψ ∈ S ( R ) ↦ ⟨ T , P ( ψ ) ⟩ ∈ C {\displaystyle P{}'(T)~:~\psi \in {\mathcal {S}}(\mathbf {R} )\mapsto \langle T,P(\psi )\rangle \in \mathbf {C} } とすると、一般化固有値λ対する P ′ {\displaystyle P'} の一般化固有ベクトル T λ {\displaystyle T_{\lambda }} は P ′ ( T λ ) = λ T λ {\displaystyle P'(T_{\lambda })=\lambda T_{\lambda }} を満たすので、任意の ψ ∈ S ( R ) {\displaystyle \psi \in {\mathcal {S}}(\mathbf {R} )} に対し、 λ ⟨ T λ , ψ ⟩ = ⟨ P ′ ( T λ ) , ψ ⟩ = ⟨ T λ , P ( ψ ) ⟩ = − i ℏ ⟨ T λ , d d x ( ψ ) ⟩ = i ℏ ⟨ d d x T λ , ψ ⟩ {\displaystyle \lambda \langle T_{\lambda },\psi \rangle =\langle P'(T_{\lambda }),\psi \rangle =\langle T_{\lambda },P(\psi )\rangle =-i\hbar \langle T_{\lambda },{\mathrm {d} \over \mathrm {d} x}(\psi )\rangle =i\hbar \langle {\mathrm {d} \over \mathrm {d} x}T_{\lambda },\psi \rangle } となる。
+よって λ T λ = i ℏ d d x T λ {\displaystyle \lambda T_{\lambda }=i\hbar {\mathrm {d} \over \mathrm {d} x}T_{\lambda }} という微分方程式の解が T λ {\displaystyle T_{\lambda }} となる。
+したがって T λ = c e − i λ x j / ℏ {\displaystyle T_{\lambda }=c\mathrm {e} ^{-i\lambda x_{j}/\hbar }} for some c ∈ C {\displaystyle c\in \mathbf {C} } という形のものは全て解となる。
+ここで上式右辺は c e − i λ x j / ℏ {\displaystyle c\mathrm {e} ^{-i\lambda x_{j}/\hbar }} を乗じて積分する超関数を表す。
+またこれ以外に解がない事も知られているF15。
+以上の議論から P {\displaystyle P} の一般化固有値λに対応する一般化固有空間E(λ)は E ( λ ) = { c e − i λ x / ℏ ∣ c ∈ C } {\displaystyle E(\lambda )=\{c\mathrm {e} ^{-i\lambda x/\hbar }\mid c\in \mathbf {C} \}} である。
+これは一次元空間なので、 E ( λ ) ≃ C {\displaystyle E(\lambda )\simeq \mathbf {C} } である。
+したがって ψ ∈ S ( R ) {\displaystyle \psi \in {\mathcal {S}}(\mathbf {R} )} に対し、 ψ ^ λ : T ∈ E ( λ ) ↦ ⟨ T , ψ ⟩ ∈ C {\textstyle {\hat {\psi }}_{\lambda }~:~T\in E(\lambda )\mapsto \langle T,\psi \rangle \in \mathbf {C} } は、 ψ ^ λ ( c e − i λ x / ℏ ) = ∫ R c e − i λ x / ℏ ψ ( x ) d x {\displaystyle {\hat {\psi }}_{\lambda }(c\mathrm {e} ^{-i\lambda x/\hbar })=\int _{\mathbf {R} }c\mathrm {e} ^{-i\lambda x_{/}\hbar }\psi (x)\mathrm {d} x} である。
+すなわち c ∈ C → ∼ c e − i λ x / ℏ {\displaystyle c\in \mathbf {C} {\overset {\sim }{\to }}c\mathrm {e} ^{-i\lambda x/\hbar }} を ∫ R e − i λ x / ℏ ψ ( x ) d x {\displaystyle \int _{\mathbf {R} }\mathrm {e} ^{-i\lambda x/\hbar }\psi (x)\mathrm {d} x} 倍する写像である。
+したがって P {\displaystyle P} に関する ψ ∈ S ( R ) {\displaystyle \psi \in {\mathcal {S}}(\mathbf {R} )} の一般化フーリエ変換 ψ ^ = { ψ ^ λ } λ ∈ R {\textstyle {\hat {\psi }}=\{{\hat {\psi }}_{\lambda }\}_{\lambda \in \mathbf {R} }} は自然に { ∫ R e − i λ x / ℏ ψ ( x ) d x } λ ∈ R {\displaystyle \left\{\int _{\mathbf {R} }\mathrm {e} ^{-i\lambda x/\hbar }\psi (x)\mathrm {d} x\right\}_{\lambda \in \mathbf {R} }} と同一視できる。
+これは ψ ∈ S ( R ) {\displaystyle \psi \in {\mathcal {S}}(\mathbf {R} )} をフーリエ変換したものに相当する。
+これが ψ ^ = { ψ ^ λ } λ ∈ R {\textstyle {\hat {\psi }}=\{{\hat {\psi }}_{\lambda }\}_{\lambda \in \mathbf {R} }} を一般化フーリエ変換と呼ぶ理由であるF15。
+位置作用素 位置作用素 X = x {\displaystyle X=x} と T ∈ S ′ ( R ) {\displaystyle T\in {\mathcal {S}}'(\mathbf {R} )} に対し、 X ′ ( T ) : ψ ∈ S ( R ) ↦ ⟨ T , X ( ψ ) ⟩ ∈ C {\displaystyle X'(T)~:~\psi \in {\mathcal {S}}(\mathbf {R} )\mapsto \langle T,X(\psi )\rangle \in \mathbf {C} } とすると、 X ′ {\displaystyle X'} の一般化固有値λ対する一般化固有ベクトル T λ {\displaystyle T_{\lambda }} は λ ⟨ T λ , ψ ⟩ = ⟨ X ′ ( T λ ) , ψ ⟩ = ⟨ T λ , X ( ψ ) ⟩ = ⟨ T λ , x ψ ⟩ = ⟨ x T λ , ψ ⟩ {\displaystyle \lambda \langle T_{\lambda },\psi \rangle =\langle X'(T_{\lambda }),\psi \rangle =\langle T_{\lambda },X(\psi )\rangle =\langle T_{\lambda },x\psi \rangle =\langle xT_{\lambda },\psi \rangle } を満たすので、 λ T λ = x T λ {\displaystyle \lambda T_{\lambda }=xT_{\lambda }} デルタ関数の定数倍 T λ = c δ ( x − λ ) {\displaystyle T_{\lambda }=c\delta (x-\lambda )} がこの解になる事を簡単に確認でき、しかもこれ以外に解がない事も知られているF15。
+以上の議論から X j {\displaystyle X_{j}} の一般化固有値λに対応する一般化固有空間E(λ)は E ( λ ) = { c δ ( x − λ ) ∣ c ∈ C } {\displaystyle E(\lambda )=\{c\delta (x-\lambda )\mid c\in \mathbf {C} \}} である。
+これは一次元空間なので、 E ( λ ) ≃ C {\displaystyle E(\lambda )\simeq \mathbf {C} } である。
+したがって ψ ∈ S ( R ) {\displaystyle \psi \in {\mathcal {S}}(\mathbf {R} )} に対し、 ψ ^ λ : T ∈ E ( λ ) ↦ ⟨ T , ψ ⟩ ∈ C {\textstyle {\hat {\psi }}_{\lambda }~:~T\in E(\lambda )\mapsto \langle T,\psi \rangle \in \mathbf {C} } は、 ψ ^ λ ( c δ ( x − λ ) ) = ∫ R c δ ( x − λ ) ψ ( x ) d x = c ψ ( λ ) {\displaystyle {\hat {\psi }}_{\lambda }(c\delta (x-\lambda ))=\int _{\mathbf {R} }c\delta (x-\lambda )\psi (x)\mathrm {d} x=c\psi (\lambda )} である。
+すなわち c ∈ C → ∼ c δ ( x − λ ) {\displaystyle c\in \mathbf {C} {\overset {\sim }{\to }}c\delta (x-\lambda )} を ψ ( λ ) {\displaystyle \psi (\lambda )} 倍する写像である。
+したがって X {\displaystyle X} に関する ψ ∈ S ( R ) {\displaystyle \psi \in {\mathcal {S}}(\mathbf {R} )} の一般化フーリエ変換 ψ ^ = { ψ ^ λ } λ ∈ R {\textstyle {\hat {\psi }}=\{{\hat {\psi }}_{\lambda }\}_{\lambda \in \mathbf {R} }} は自然に { ψ ( λ ) } λ ∈ R {\displaystyle \{\psi (\lambda )\}_{\lambda \in \mathbf {R} }} と同一視でき、これは ψ {\displaystyle \psi } それ自身と同一視できる。
+よって X {\displaystyle X} に関する ψ ∈ S ( R ) {\displaystyle \psi \in {\mathcal {S}}(\mathbf {R} )} の一般化フーリエ変換は ψ {\displaystyle \psi } それ自身である。
+スペクトル定理 本節では ( H , G , ι ) {\displaystyle ({\mathcal {H}},{\mathcal {G}},\iota )} に付随するゲルファントの三つ組に対するスペクトル定理について述べる。
+このスペクトル定理は、 G {\displaystyle {\mathcal {G}}} が核型フレシェ空間、もしくはより一般に核型局所凸空間の場合に対して成立するF15。
+核型局所凸空間の定義はテクニカルなものなので、本項ではその定義について述べるのは避けるが、重要なのは以下の集合がいずれも核型局所凸空間になるという事である： C 0 ∞ ( Ω ) {\displaystyle C_{0}^{\infty }(\Omega )} 、ここでΩはRdの開集合F15 S ( R d ) {\displaystyle {\mathcal {S}}(\mathbf {R} ^{d})} F15 既に述べたように完全系は一般化フーリエ変換であるとみなせるが、このようにみなした場合最後の式はプランシュレルの定理に対応しているF15。
+なお、スペクトル分解が固有値分解の「無限次元版」であったことを考えると、上述したスペクトル定理における積分区間をR全体ではなくσ(A)に置き換えたほうが自然である。
+しかし G ′ {\displaystyle {\mathcal {G}}'} におけるAのスペクトルは H {\displaystyle {\mathcal {H}}} におけるAのスペクトルより大きくなる事があるのでA97、積分区間のRをσ(A)に置き換えられない。
+Rをσ(A)に置き換えられるとき、 ( H , G , ι ) {\displaystyle ({\mathcal {H}},{\mathcal {G}},\iota )} はAにtightly riggingしているというA97。
+時間発展 本節では、ポテンシャルが時間に依存しない場合に対する系の時間発展について述べる。
+シュレディンガー方程式 H {\displaystyle {\mathcal {H}}} を状態空間とし、 H {\displaystyle {\mathcal {H}}} 上の自己共役作用素Hを任意に固定し、ハミルトニアンと呼ぶことにする。
+量子力学ではHが − ∑ j = 1 n ℏ 2 m j Δ j + V ( x ) {\textstyle -\sum _{j=1}^{n}{\hbar \over 2m_{j}}\Delta _{j}+V(x)} という形で書き表せる場合を扱うが、本節の議論はHが必ずしもこの形でなくとも成立する。
+ここで微分は強微分の意味で考える。
+すなわち lim t → t 0 ‖ ψ ( t ) − ψ ( t 0 ) t − t 0 − χ ‖ = 0 {\displaystyle \lim _{t\to t_{0}}\left\|{\psi (t)-\psi (t_{0}) \over t-t_{0}}-\chi \right\|=0} を満たす χ ∈ H {\displaystyle \chi \in {\mathcal {H}}} が存在する時、 χ {\displaystyle \chi } をt=t0における ψ ( t ) {\displaystyle \psi (t)} の強微分といい、 d d t ψ ( t ) | t = t 0 = χ {\displaystyle \left.{\mathrm {d} \over \mathrm {d} t}\psi (t)\right|_{t=t_{0}}=\chi } と書き表す。
+量子力学では、 ψ ∈ H {\displaystyle \psi \in {\mathcal {H}}} の時間発展がシュレディンガー方程式に従う事を仮定する。
+Hが有界作用素の場合のシュレディンガー方程式の解 Hが有界作用素であれば、シュレディンガー方程式を以下のように解くことができる。
+まず e x p ( − i t ℏ H ) := ∑ n = 0 ∞ 1 n ! ⋅ ( − i t ℏ ) n H n {\displaystyle \mathrm {exp} \left(-{it \over \hbar }H\right):=\sum _{n=0}^{\infty }{1 \over n!}\cdot (-{it \over \hbar })^{n}H^{n}} と定義すると、右辺が一様作用素位相で収束する事をHの有界性から示すことができるM16。
+そこで ψ ( t ) := e x p ( − i t ℏ H ) ( ψ ) {\displaystyle \psi (t):=\mathrm {exp} \left(-{it \over \hbar }H\right)(\psi )} と定義する。
+これを形式的に微分すると、 i ℏ d d t ψ ( t ) = i ℏ d d t e x p ( − i t ℏ H ) ψ {\displaystyle i\hbar {\mathrm {d} \over \mathrm {d} t}\psi (t)=i\hbar {\mathrm {d} \over \mathrm {d} t}\mathrm {exp} \left(-{it \over \hbar }H\right)\psi } = H d d t e x p ( − i t ℏ H ) ψ = H ψ ( t ) {\displaystyle =H{\mathrm {d} \over \mathrm {d} t}\mathrm {exp} \left(-{it \over \hbar }H\right)\psi =H\psi (t)} となり、シュレディンガー方程式を満たす事になる。
+詳細は省略するが、この形式的な議論は数学的にも正当化可能である。
+しかしHが有界作用素ではない場合はテイラー展開 e x p ( − i t ℏ H ) := ∑ n = 0 ∞ 1 n ! ⋅ ( − i t ℏ ) n H n {\displaystyle \mathrm {exp} \left(-{it \over \hbar }H\right):=\sum _{n=0}^{\infty }{1 \over n!}\cdot (-{it \over \hbar })^{n}H^{n}} は一般には意味を持たない。
+実際、たとえHが H {\displaystyle {\mathcal {H}}} で稠密に定義されていたとしても D o m ( H 2 ) {\displaystyle \mathrm {Dom} (H^{2})} は H {\displaystyle {\mathcal {H}}} で稠密になるとは限らない為、上述のテイラー展開が意味を持つ集合は非常に小さくなってしまうかもしれない。
+またたとえψが ⋂ n D o m ( H n ) {\displaystyle \bigcap _{n}\mathrm {Dom} (H^{n})} に入っていたとしても、 ∑ n = 0 ∞ 1 n ! ⋅ ( − i t ℏ ) n H n ψ {\textstyle \sum _{n=0}^{\infty }{1 \over n!}\cdot (-{it \over \hbar })^{n}H^{n}\psi } が収束するとは限らないM16。
+そこで本節ではテイラー展開に頼らず e x p ( − i t ℏ H ) {\textstyle \mathrm {exp} \left(-{it \over \hbar }H\right)} を定義する作用素解析という手法を導入し、 e x p ( − i t ℏ H ) {\textstyle \mathrm {exp} \left(-{it \over \hbar }H\right)} に関するストーンの定理を導入する事で上述の問題を解決する。
+作用素解析 H {\displaystyle {\mathcal {H}}} を状態空間とし、Hを H {\displaystyle {\mathcal {H}}} 上の（有界とは限らない）自己共役作用素とする。
+スペクトル測度によるスペクトル定理より、スペクトル測度μが一意に存在し、 H = ∫ σ ( H ) λ d μ {\displaystyle H=\int _{\sigma (H)}\lambda \mathrm {d} \mu } が成立する。
+そこで有界可測関数 f : σ ( A ) → C {\displaystyle f~:~\sigma (A)\to \mathbf {C} } に対し、線形作用素f(A)を f ( H ) := ∫ σ ( H ) f ( λ ) d μ {\displaystyle f(H):=\int _{\sigma (H)}f(\lambda )\mathrm {d} \mu } により定義する事ができるH13新井。
+この手法により線形作用素f(A)を定義する手法を作用素解析新井(operational calculus)という。
+特に関数fとして指数関数を選ぶことで、 e x p ( H ) := ∫ σ ( H ) e x p ( λ ) d μ {\displaystyle \mathrm {exp} (H):=\int _{\sigma (H)}\mathrm {exp} (\lambda )\mathrm {d} \mu } を定義できる。
+ストーンの定理 作用素解析により、 U t := e x p ( i t H ) {\displaystyle U_{t}:=\mathrm {exp} (itH)} と定義すると、Utはユニタリ変換であり、しかも準同型性を満たす。
+すなわち任意の s , t ∈ R {\displaystyle s,t\in \mathbf {R} } に対し、 U t U s = U t + s {\displaystyle U_{t}U_{s}=U_{t+s}} が成立する事が知られているH13。
+さらにUtはtに関して強連続である。
+すなわち任意の ψ ∈ H {\displaystyle \psi \in {\mathcal {H}}} と任意の t ∈ R {\displaystyle t\in \mathbf {R} } に対し、 lim s → t ‖ U s ( ψ ) − U t ( ψ ) ‖ = 0 {\displaystyle \lim _{s\to t}\|U_{s}(\psi )-U_{t}(\psi )\|=0} であるH13。
+一般に H {\displaystyle {\mathcal {H}}} 上のユニタリ変換の族 { U t } t ∈ R {\displaystyle \{U_{t}\}_{t\in \mathbf {R} }} で準同型性と強連続性とを満たすものを強連続１パラメータユニタリ群というH13。
+実は強連続１パラメータ変換は、上述した指数関数のものに限られる事が知られている： 以上の事から、写像 A ↦ { e x p ( i t A ) } t ∈ R {\displaystyle A\mapsto \{\mathrm {exp} (itA)\}_{t\in \mathbf {R} }} により、 H {\displaystyle {\mathcal {H}}} 上の自己共役作用素に強連続１パラメータ変換を対応させる事ができ、逆に { U t } t ∈ R {\displaystyle \{U_{t}\}_{t\in \mathbf {R} }} に対してその無限小生成元対応させる事で、強連続１パラメータ変換に自己共役作用素を対応させる事ができる。
+両者は逆写像の関係になっており、自己共役作用素と強連続１パラメータ変換は１対１に対応するH13： A ( ψ ) = lim t → 0 1 i e x p ( i t A ) ( ψ ) − ψ t {\displaystyle A(\psi )=\lim _{t\to 0}{1 \over i}{\mathrm {exp} (itA)(\psi )-\psi \over t}} 一般の場合のシュレディンガー方程式の解 H {\displaystyle {\mathcal {H}}} を状態空間とし、Hを H {\displaystyle {\mathcal {H}}} 上の（有界とは限らない）自己共役作用素とする。
+このとき e x p ( t H ) {\displaystyle \mathrm {exp} (tH)} を作用素解析の手法により定義し、 ψ ( t ) := e x p ( − i t ℏ H ) ( ψ ) {\displaystyle \psi (t):=\mathrm {exp} \left(-{it \over \hbar }H\right)(\psi )} とすると次が成立する： 実際、前節で述べた事と強微分の定義から、 i ℏ d d t ψ ( t ) {\displaystyle i\hbar {\mathrm {d} \over \mathrm {d} t}\psi (t)} = i ℏ lim t → 0 e x p ( − i t ℏ H ) ( ψ ) − ψ t {\displaystyle =i\hbar \lim _{t\to 0}{\mathrm {exp} \left(-{it \over \hbar }H\right)(\psi )-\psi \over t}} = H ( ψ ) {\displaystyle =H(\psi )} が成立する。
+さらに作用素解析の定義より、 e x p ( 0 H ) {\displaystyle \mathrm {exp} \left(0H\right)} = ∫ σ ( H ) e x p ( 0 λ ) d μ ( ψ ) {\displaystyle =\int _{\sigma (H)}\mathrm {exp} (0\lambda )\mathrm {d} \mu (\psi )} = ∫ σ ( H ) d μ ( ψ ) = i d {\displaystyle =\int _{\sigma (H)}\mathrm {d} \mu (\psi )=\mathrm {id} } である。
+最後の等号は作用素値積分の定義より従う。
+よって ψ ( 0 ) = e x p ( 0 H ) ( ψ ) = ψ {\displaystyle \psi (0)=\mathrm {exp} \left(0H\right)(\psi )=\psi } となり、ψ(t)はシュレディンガー方程式の解となる。
+ハイゼンベルク描像 これまで我々はいわゆるシュレディンガー描像で時間発展を記述してきた。
+すなわち任意のオブザーバブルAは時間に関して不変であり、状態ベクトルψの方が U t = e x p ( − i t ℏ H ) {\displaystyle U_{t}=\mathrm {exp} \left(-{it \over \hbar }H\right)} により ψ ( t ) = U t ( ψ ) {\displaystyle \psi (t)=U_{t}(\psi )} と時間発展するとみなしてきた。
+一方同じ時間発展をハイゼンベルク描像で記述することも可能である。
+この場合状態ベクトルψは時間に対して不変であり、オブザーバブルAの方が A t = U − t A U t {\displaystyle A_{t}=U_{-t}AU_{t}} と時間発展するとみなせる。
+ハイゼンベルクの運動方程式 Hを H {\displaystyle {\mathcal {H}}} 上の自己共役作用素とし、Aを H {\displaystyle {\mathcal {H}}} 上の自己共役作用素で、 A ( D o m ( H ) ) ⊂ D o m ( H ) {\displaystyle A(\mathrm {Dom} (H))\subset \mathrm {Dom} (H)} を満たすものとし、 ψ ∈ D o m ( H ) {\displaystyle \psi \in \mathrm {Dom} (H)} を取り、 A t = U − t A U t {\displaystyle A_{t}=U_{-t}AU_{t}} 、ここで U t = e x p ( − i t ℏ H ) {\displaystyle U_{t}=\mathrm {exp} \left(-{it \over \hbar }H\right)} とすると、これまでの議論から、 A t ( ψ ) ∈ D o m ( H ) {\displaystyle A_{t}(\psi )\in \mathrm {Dom} (H)} が任意の t ∈ R {\displaystyle t\in \mathbf {R} } に対して成立し、しかも d A t ( ψ ) d t = [ H , A t ] ( ψ ) {\displaystyle {\mathrm {d} A_{t}(\psi ) \over \mathrm {d} t}=[H,A_{t}](\psi )} が成立する事が示せる新井。
+ここで上式左辺の時間微分は強微分である新井。
+一般に自己共役作用素の族 { B t } t ∈ R {\displaystyle \{B_{t}\}_{t\in \mathbf {R} }} と、 H {\displaystyle {\mathcal {H}}} の元ψに対し、 d B t ( ψ ) d t = [ H , B t ] ( ψ ) {\displaystyle {\mathrm {d} B_{t}(\psi ) \over \mathrm {d} t}=[H,B_{t}](\psi )} という形の { B t } t ∈ R {\displaystyle \{B_{t}\}_{t\in \mathbf {R} }} に関する方程式をハイゼンベルクの運動方程式という新井。
+上述した A t {\displaystyle A_{t}} に関する議論は、ハイゼンベルクの運動方程式の解が存在する十分条件を示した事になる。
+ネーターの定理 １変数の場合 H {\displaystyle {\mathcal {H}}} を状態空間とし、 H {\displaystyle {\mathcal {H}}} 上の（有界とは限らない）自己共役作用素Hをハミルトニアンとして固定し、 U t = e x p ( − i t ℏ H ) {\displaystyle U_{t}=\mathrm {exp} \left(-{it \over \hbar }H\right)} とする。
+{ V s } s ∈ R {\displaystyle \{V_{s}\}_{s\in \mathbf {R} }} を強連続１パラメータユニタリ変換群とし、Aをその無限小生成元とする。
+このとき以下が成立する： これは以下に述べる理由により量子力学におけるネーターの定理M16であるとみなせる。
+まず最初の条件 V − s H V s = H {\displaystyle V_{-s}HV_{s}=H} は、ハミルトニアンHが強連続１パラメータユニタリ変換群 { V s } s ∈ R {\displaystyle \{V_{s}\}_{s\in \mathbf {R} }} に対して不変である事を示している。
+すなわち、Hによって記述される系は対称性 { V s } s ∈ R {\displaystyle \{V_{s}\}_{s\in \mathbf {R} }} を持つ。
+一方２番目の条件は U − t A U t = A {\displaystyle U_{-t}AU_{t}=A} の左辺はハイゼンベルク描像で見たときのAの時間発展であるので、この条件は対称性 { V s } s ∈ R {\displaystyle \{V_{s}\}_{s\in \mathbf {R} }} を定義する無限小生成元が運動の不変量である事を意味している。
+解析力学におけるネーターの定理は系の対称性の無限小変換が運動の不変量になり、その逆も成り立つというものだったので、上述した２条件の同値性は量子力学におけるネーターの定理であると解釈できる。
+なお３番目の条件は、時間発展してから対称性 V s {\displaystyle V_{s}} で系を動かす行為と、対称性 V s {\displaystyle V_{s}} で系を動かしてから時間発展する事とが同一である事を意味している。
+なお、ほとんどの物理の教科書では、上述した量子力学におけるネーターの定理を時間微分と交換子を用いて記述しているがM16、そのような記述方法は作用素の定義域に関する多くの問題点を含むM16。
+一般の場合 H {\displaystyle {\mathcal {H}}} 上のユニタリ変換全体の集合を U ( H ) {\displaystyle {\mathcal {U}}({\mathcal {H}})} と表記すると、強連続１パラメータユニタリ変換群 { V s } s ∈ R {\displaystyle \{V_{s}\}_{s\in \mathbf {R} }} は実数にユニタリ変換を対応させる準同型写像 s ∈ R ↦ V s ∈ U ( H ) {\displaystyle s\in \mathbf {R} \mapsto V_{s}\in {\mathcal {U}}({\mathcal {H}})} とみなす事ができる。
+解析力学におけるネーターの定理はこうした実数からの写像だけでなく、一般の有限次元リー群からの写像に対しても成立していた。
+そこで本節では量子力学における有限次元リー群のネーターの定理を見出す。
+有限次元リー群Gから U ( H ) {\displaystyle {\mathcal {U}}({\mathcal {H}})} への写像 Π : G → U ( H ) {\displaystyle \Pi ~:~G\to {\mathcal {U}}({\mathcal {H}})} で準同型性 ∀ g , h ∈ G : Π ( g h ) = Π ( g ) Π ( h ) {\displaystyle \forall g,h\in G~:~\Pi (gh)=\Pi (g)\Pi (h)} と強連続性 ∀ { g n } n ∈ N ⊂ G ∀ g ∈ g : {\displaystyle \forall \{g_{n}\}_{n\in \mathbf {N} }\subset G~\forall g\in g~:~} lim n → ∞ g n = g ⇒ lim n → ∞ ‖ Π ( g n ) − Π ( g ) ‖ = 0 {\displaystyle \lim _{n\to \infty }g_{n}=g\Rightarrow \lim _{n\to \infty }\|\Pi (g_{n})-\Pi (g)\|=0} とを満たすものをGの H {\displaystyle {\mathcal {H}}} 上のユニタリ表現というH13。
+なおここで「強」連続と呼ぶのは、弱位相における連続性と区別するためである。
+g {\displaystyle {\mathfrak {g}}} をGのリー環とし、Xを g {\displaystyle {\mathfrak {g}}} の元とする時、 V s := Π ( e x p ( s X ) ) {\displaystyle V_{s}:=\Pi (\mathrm {exp} (sX))} とすると（上式のexpはリー環の元にリー群の元を対応させる写像である）、 { V s } s ∈ R {\displaystyle \{V_{s}\}_{s\in \mathbf {R} }} は強連続１パラメータユニタリ変換群になるので、ストーンの定理より、 Π ( e x p ( s X ) ) = e x p ( i t A X ) {\displaystyle \Pi (\mathrm {exp} (sX))=\mathrm {exp} (itA_{X})} を満たす自己共役作用素AXが存在する（ここで左辺のexpは前述の通りリー環の元にリー群の元を対応させる写像、右辺のexpは自己共役作用素に1パラメータ変換を対応させる写像）。
+よって g {\displaystyle {\mathfrak {g}}} の元に自己共役作用素を対応させる写像 π : X ∈ g ↦ A X {\displaystyle \pi ~:~X\in {\mathfrak {g}}\mapsto A_{X}} が定義可能である。
+H {\displaystyle {\mathcal {H}}} 上の自己共役作用素Hをハミルトニアンとして固定し、 U t = e x p ( − i t ℏ H ) {\displaystyle U_{t}=\mathrm {exp} \left(-{it \over \hbar }H\right)} とすると、強連続１パラメータユニタリ変換群に関するネーターの定理から、以下の３つは同値である： 任意の s ∈ R {\displaystyle s\in \mathbf {R} } に対し V − s H V s = H {\displaystyle V_{-s}HV_{s}=H} 任意の t ∈ R {\displaystyle t\in \mathbf {R} } に対し U − t π ( X ) U t = π ( X ) {\displaystyle U_{-t}\pi (X)U_{t}=\pi (X)} 任意の s , t ∈ R {\displaystyle s,t\in \mathbf {R} } に対し U t V s = V s U t {\displaystyle U_{t}V_{s}=V_{s}U_{t}} これが一般のリー群に関するネーターの定理であるが、強連続１パラメータユニタリ変換群に関するネーターの定理と違い、さらに g {\displaystyle {\mathfrak {g}}} のリー括弧に関しても、以下の性質が言える事であるH13： なお、自己共役作用素の括弧積 [ A , B ] := A B − B A {\displaystyle [A,B]:=AB-BA} は D o m ( A ) ∩ D o m ( B ) {\displaystyle \mathrm {Dom} (A)\cap \mathrm {Dom} (B)} が H {\displaystyle {\mathcal {H}}} の稠密部分集合になる場合にしか自己共役作用素ならないが、 H {\displaystyle {\mathcal {H}}} のユニタリ表現の場合には ∀ D ∈ g : W ⊂ D o m ( π ( X ) ) {\displaystyle \forall D\in {\mathfrak {g}}~:~W\subset \mathrm {Dom} (\pi (X))} を満たす H {\displaystyle {\mathcal {H}}} の稠密部分集合Dが必ず存在する事が知られているので、括弧積は必ず自己共役作用素となるH13。
+フォン・ノイマンの一意性定理 位置作用素 Q j ( ψ ) := x j ⋅ ψ {\displaystyle Q_{j}(\psi ):=x_{j}\cdot \psi } と運動量作用素 P j ( ψ ) = − i ℏ ∂ ∂ x j ( ψ ) {\displaystyle P_{j}(\psi )=-i\hbar {\partial \over \partial x_{j}}(\psi )} は、状態空間 H = L 2 ( R d ) {\displaystyle {\mathcal {H}}=L^{2}(\mathbf {R} ^{d})} の稠密部分集合 S ( R d ) {\displaystyle {\mathcal {S}}(\mathbf {R} ^{d})} で定義された作用素である。
+よってこれらの交換子も H {\displaystyle {\mathcal {H}}} の稠密部分集合 S ( R d ) {\displaystyle {\mathcal {S}}(\mathbf {R} ^{d})} 上で定義可能であり、以下の関係式（正準交換関係）を満たす。
+ここでIは単位行列であり、 δ j , k {\displaystyle \delta _{j,k}} はクロネッカーのデルタである： ∀ j , k = 1 , … , d : [ Q j , P k ] = i ℏ δ j , k I , {\displaystyle \forall j,k=1,\ldots ,d~:~[Q_{j},P_{k}]=i\hbar \delta _{j,k}I,\quad } [ Q j , Q k ] = 0 , [ P j , P k ] = 0 {\displaystyle [Q_{j},Q_{k}]=0,\quad [P_{j},P_{k}]=0} なおBLT定理より、これらの交換子は H {\displaystyle {\mathcal {H}}} の全域に拡張可能であり、上式は H {\displaystyle {\mathcal {H}}} の全域で成立する。
+フォン・ノイマンの一意性定理新井（「ストーン＝フォン・ノイマンの定理」ともH13）は、正準交換関係のやや強いバージョンである「ヴァイルの関係式」を満たす有限個の「既約な」作用素の組は同型を除いて、位置作用素と運動量作用素に限られるというものである。
+なお、フォン・ノイマンの一意性定理を示すには、「ヴァイルの関係式」をはじめとした正準交換関係よりも強い仮定を課す事が必須であり、正準交換関係を満たすにもかかわらずフォン・ノイマンの一意性定理が成立しない反例で、物理的にも興味深い例が存在する新井。
+定義 フォン・ノイマンの一意性定理を定式化するために必要な概念を定義する。
+ヴァイルの関係式 H {\displaystyle {\mathcal {H}}} 上の自己共役作用素 A j , B k j , k = 1 , … , d {\displaystyle A_{j},B_{k}\quad j,k=1,\ldots ,d} に対し、正準交換関係を指数関数の上に乗せた下記の式をヴァイルの関係式という新井H13： ∀ j , k = 1 , … , d , ∀ s , t ∈ R : {\displaystyle \forall j,k=1,\ldots ,d,\forall s,t\in \mathbf {R} ~:~} e x p ( − i s A j ) e x p ( − i t B k ) e x p ( i s A j ) e x p ( i t B j ) = e x p ( i ℏ δ j , k ) , {\displaystyle \mathrm {exp} (-isA_{j})\mathrm {exp} (-itB_{k})\mathrm {exp} (isA_{j})\mathrm {exp} (itB_{j})=\mathrm {exp} (i\hbar \delta _{j,k}),} e x p ( − i s A j ) e x p ( − i t A k ) e x p ( i s A j ) e x p ( i t A j ) = I , {\displaystyle \mathrm {exp} (-isA_{j})\mathrm {exp} (-itA_{k})\mathrm {exp} (isA_{j})\mathrm {exp} (itA_{j})=I,} e x p ( − i s B j ) e x p ( − i t B k ) e x p ( i s B j ) e x p ( i t B j ) = I . {\displaystyle \mathrm {exp} (-isB_{j})\mathrm {exp} (-itB_{k})\mathrm {exp} (isB_{j})\mathrm {exp} (itB_{j})=I.} 通常の正準交換関係の場合には、 A j , B k {\displaystyle A_{j},B_{k}} の定義域の共通部分が H {\displaystyle {\mathcal {H}}} で稠密でないとそもそも交換子が定義できないという問題を抱えていたが、ヴァイルの関係式の場合、 A j , B k {\displaystyle A_{j},B_{k}} を指数関数の上に乗せた結果出来上がるユニタリ変換を取り扱っており、しかもBLT定理よりこれらのユニタリ変換の定義域は H {\displaystyle {\mathcal {H}}} 全体であるので、こうした定義域の問題は起こらない。
+正準交換関係をヴァイル関係式で表す事を、正準交換関係のヴァイル表現という。
+なお、一般には通常の正準交換関係よりもヴァイルの関係式の方が強い制約条件であり、両者は同値ではない。
+規約性 H {\displaystyle {\mathcal {H}}} 上の自己共役作用素 A j , B k j , k = 1 , … , d {\displaystyle A_{j},B_{k}\quad j,k=1,\ldots ,d} がヴァイル表現として規約であるとは、 e x p ( i s A j ) , e x p ( i t B k ) j , k = 1 , … , d , s , t ∈ R {\displaystyle \mathrm {exp} (isA_{j}),\mathrm {exp} (itB_{k})\quad j,k=1,\ldots ,d,~s,t\in \mathbf {R} } の共通の不変真部分閉空間が { 0 } {\displaystyle \{0\}} のみである事をいう。
+すなわち閉部分空間 K ⊊ H {\displaystyle {\mathcal {K}}\subsetneq {\mathcal {H}}} が ∀ j , k = 1 , … , d ∀ s , t ∈ R : e x p ( i s A j ) ( K ) ⊂ K , {\displaystyle \forall j,k=1,\ldots ,d~\forall s,t\in \mathbf {R} ~:~\mathrm {exp} (isA_{j})({\mathcal {K}})\subset {\mathcal {K}},\quad } e x p ( i t B k ) ( K ) ⊂ K {\displaystyle \mathrm {exp} (itB_{k})({\mathcal {K}})\subset {\mathcal {K}}} をみたすなら K = { 0 } {\displaystyle {\mathcal {K}}=\{0\}} である事をいう。
+定理 次の事実をフォン・ノイマンの一意性定理という： ハイゼンベルク群による表現 フォン・ノイマンの一意性定理は、量子力学に重要なリー群であるハイゼンベルク群を用いる事でより簡潔に表現できる。
+ハイゼンベルク群 d次のハイゼンベルク群とは、 H d = R d × R d × R {\displaystyle \mathbf {H} _{d}=\mathbf {R} ^{d}\times \mathbf {R} ^{d}\times \mathbf {R} } に以下のような積を入れる事で定義されるリー群であるW： ( p , q , c ) ⋅ ( p ′ , q ′ , c ′ ) := ( p + p ′ , q + q ′ , c + c ′ + 1 2 ( p q ′ − q p ′ ) ) {\displaystyle (\mathbf {p} ,\mathbf {q} ,c)\cdot (\mathbf {p} ',\mathbf {q} ',c'):=(\mathbf {p} +\mathbf {p} ',\mathbf {q} +\mathbf {q} ',c+c'+{1 \over 2}(\mathbf {p} \mathbf {q} '-\mathbf {q} \mathbf {p} '))} ここで p q ′ {\displaystyle \mathbf {p} \mathbf {q} '} 、 q p ′ {\displaystyle \mathbf {q} \mathbf {p} '} は R d {\displaystyle \mathbf {R} ^{d}} 上の内積である。
+ハイゼンベルクリー環 ハイゼンベルク群が量子力学で重要なのは、対応するリー環（ハイゼンベルクリー環）が正準交換関係（で ℏ = 1 {\displaystyle \hbar =1} にしたもの）を満たすからである。
+すなわち、d次のハイゼンベルクリー環は、 h d = R d × R d × R {\displaystyle {\mathfrak {h}}_{d}=\mathbf {R} ^{d}\times \mathbf {R} ^{d}\times \mathbf {R} } と表記でき、j=1,…,dのとき、j=d+1,…,2dのとき、j=2d+1のときそれぞれ、座標軸 ( 0 , … , 0 , 1 ˇ j , 0 , … , 0 ) {\displaystyle (0,\ldots ,0,{\overset {j}{\check {1}}},0,\ldots ,0)} の事を P → j {\displaystyle {\vec {P}}_{j}} 、 Q → j {\displaystyle {\vec {Q}}_{j}} 、 I → {\displaystyle {\vec {I}}} と書くと、これらのリー・ブラケットは ∀ j , k = 1 , … , d : [ Q → j , P → k ] = δ j , k I → , {\displaystyle \forall j,k=1,\ldots ,d~:~[{\vec {Q}}_{j},{\vec {P}}_{k}]=\delta _{j,k}{\vec {I}},\quad } [ Q → j , Q → k ] = 0 , [ P → j , P → k ] = 0 {\displaystyle [{\vec {Q}}_{j},{\vec {Q}}_{k}]=0,\quad [{\vec {P}}_{j},{\vec {P}}_{k}]=0} を満たすW。
+ハイゼンベルク群によるフォン・ノイマンの一意性定理 まずフォン・ノイマンの一意性定理の仮定をハイゼンベルク群を用いて表現する。
+H {\displaystyle {\mathcal {H}}} をヒルベルト空間とし、 U ( H ) {\displaystyle {\mathcal {U}}({\mathcal {H}})} を H {\displaystyle {\mathcal {H}}} 上のユニタリ作用素全体の集合とする。
+Π : H d → U ( H ) {\displaystyle \Pi ~:~\mathbf {H} _{d}\to {\mathcal {U}}({\mathcal {H}})} を Π ( I → ) = i ℏ I {\displaystyle \Pi ({\vec {I}})=i\hbar I} を満たす強連続な写像とし、さらに A j := Π ( Q → j ) , B j := Π ( P → j ) {\displaystyle A_{j}:=\Pi ({\vec {Q}}_{j}),\quad B_{j}:=\Pi ({\vec {P}}_{j})} とする。
+するとフォン・ノイマンの一意性定理の条件であるヴァイルの関係式は、Πが準同型である事を意味している。
+すなわちヴァイルの関係式を満たすΠはハイゼンベルク群の強連続なユニタリ表現である。
+このように見た時、ヴァイル表現に関する規約性の条件は、このヴァイル表現が規約である事と同値である。
+なお、ハイゼンベルク群のニタリ表現の事をシュレディンガー表現というZ13。
+一方、フォン・ノイマンの一意性定理の結論部分は、このユニタリ表現が同型を除いて一意であり、その唯一のユニタリ表現による Q → j , P → k {\displaystyle {\vec {Q}}_{j},~{\vec {P}}_{k}} の像がそれぞれ まとめると、以下の結論が得られるW： Mackeyの定理 Mackeyはより弱い条件のもとフォン・ノイマンの一意性定理を示しているM16： 注釈 参考文献 [新井97] 新井朝雄 (1997/1/25). ヒルベルト空間と量子力学. 共立講座２１世紀の数学１６. 共立出版 [A97] J. P. Antoine (所属：ルーヴァン・カトリック大学). “Quantum Mechanics beyond Hilbert space” (pdf). CiteSeerX. 2017年2月9日閲覧。
+appearing in Irreversibility and Causality, Semigroups and Rigged Hilbert Spaces, Arno Bohm, Heinz-Dietrich Doebner, Piotr Kielanowski, eds., Springer-Verlag. [BG] Franz Berger, Melanie Graf. “Hibert Spaces” (pdf). ウィーン工科大学. 2017年2月9日閲覧。
+[F15] Stephan Fackler (2015年7月17日). “Mathematical Foundations of Quantum Mechanics” (pdf). Ulm University. 2017年2月23日閲覧。
+[H13] Brian C.Hall (2013/7/1). Quantum Theory for Mathematicians. Graduate Texts in Mathematics 267. Springer [K12] Konrad Schmüdgen (2012). Unbounded Self-adjoint Operators on Hilbert Space. Graduate Texts in Mathematics 265. Springer [L04]N.P. Landsman (2004年12月20日). “Lecture Notes on Hilbert Spaces and Quantum Mechanics” (pdf). ラドバウド大学. 2017年3月8日閲覧。
+[M07]Richard Melrose (2007年12月15日). “Tempered distributions and the Fourier transform” (pdf). Introduction to Microlocal Analysis. Massachusetts Institute of Technology. 2017年3月8日閲覧。
+[M66] K. Maurin (1966年). “General Eigenfunction Expansions And Group Representations” (pdf). ICTP. 2017年2月9日閲覧。
+[M16] Valter Moretti (2016年7月4日). “Mathematical Foundations of Quantum Mechanics: An Advanced Short Course” (pdf). arXiv. 2017年2月9日閲覧。
+[P01] A. Pankov (2001年12月7日). “Introduction to spectral theory of SchrÖndinger operators” (pdf). Applied Mathematics E-Notes Bulletin Board. 2017年2月9日閲覧。
+[S12] Roland Schnaubelt (2012年8月6日). “Lecture Notes Spectral Theory” (pdf). カールスルーエ工科大学. 2017年2月9日閲覧。
+[W]Peter Woit. “Topics in Representation Theory: The Heisenberg Algebra” (pdf). コロンビア大学. 2017年7月26日閲覧。
+[Z13] Steve Zelditch (Northwestern University) (2013年). “HEISENBERG GROUP” (pdf). 2013 Graduate Summer School Program Lecture Notes. プリンストン高等研究所. 2017年7月26日閲覧。

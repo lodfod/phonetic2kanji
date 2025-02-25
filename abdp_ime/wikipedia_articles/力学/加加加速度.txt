@@ -1,0 +1,49 @@
+加加加速度（かかかそくど、加々加速度とは書かない）は、単位時間あたりの加加速度（躍度）の変化率である。
+文中では「位置に対する時間の4次関数での微分」と表現されることがある。
+単位は「ベクトル量の時間4階微分」に分類される。
+本項目では位置ベクトルの4階微分の単位である「加加加速度（Snap, m/s4）」から10階微分の単位の「Put」（m/s10）までを紹介する。
+概要 時間 t の関数である位置ベクトル r に対して、時間微分は t に関して永遠に計算することができる。
+これらの派生は、運動学、制御理論、工学および他の科学の研究において共通の有用が可能な応用力学の単位である。
+速度 v = d r d t {\displaystyle \mathbf {v} ={\frac {\mathrm {d} \mathbf {r} }{\mathrm {d} t}}} 加速度 a = d v d t = d 2 r d t 2 {\displaystyle \mathbf {a} ={\frac {\mathrm {d} \mathbf {v} }{\mathrm {d} t}}={\frac {\mathrm {d} ^{2}\mathbf {r} }{\mathrm {d} t^{2}}}} 加加速度（躍度） j = d a d t = d 2 v d t 2 = d 3 r d t 3 {\displaystyle \mathbf {j} ={\frac {\mathrm {d} \mathbf {a} }{\mathrm {d} t}}={\frac {\mathrm {d} ^{2}\mathbf {v} }{\mathrm {d} t^{2}}}={\frac {\mathrm {d} ^{3}\mathbf {r} }{\mathrm {d} t^{3}}}} 位置ベクトルの1階微分、2階微分、3階微分に対するこれらの名前（速度、加速度、加加速度）は一般的にも幅広く使用されている。
+これらの高次元単位は同様の方法で計算可能であり、研究におけるベクトル量の時間変位の近似を改善することができる。
+加加加速度 英語圏では「Snap」と呼ばれている。
+特に加加加速度が定数sの場合には、以下の式が成り立つ。
+s → = d ȷ → d t = d 2 a → d t 2 = d 3 v → d t 3 = d 4 r → d t 4 {\displaystyle {\vec {s}}={\frac {d\,{\vec {\jmath }}}{dt}}={\frac {d^{2}{\vec {a}}}{dt^{2}}}={\frac {d^{3}{\vec {v}}}{dt^{3}}}={\frac {d^{4}{\vec {r}}}{dt^{4}}}} ȷ → = ȷ → 0 + s → t , {\displaystyle {\vec {\jmath }}={\vec {\jmath }}_{0}+{\vec {s}}t,} a → = a → 0 + ȷ → 0 t + 1 2 s → t 2 , {\displaystyle {\vec {a}}={\vec {a}}_{0}+{\vec {\jmath }}_{0}t+{\frac {1}{2}}{\vec {s}}t^{2},} v → = v → 0 + a → 0 t + 1 2 ȷ → 0 t 2 + 1 6 s → t 3 , {\displaystyle {\vec {v}}={\vec {v}}_{0}+{\vec {a}}_{0}t+{\frac {1}{2}}{\vec {\jmath }}_{0}t^{2}+{\frac {1}{6}}{\vec {s}}t^{3},} r → = r → 0 + v → 0 t + 1 2 a → 0 t 2 + 1 6 ȷ → 0 t 3 + 1 24 s → t 4 , {\displaystyle {\vec {r}}={\vec {r}}_{0}+{\vec {v}}_{0}t+{\frac {1}{2}}{\vec {a}}_{0}t^{2}+{\frac {1}{6}}{\vec {\jmath }}_{0}t^{3}+{\frac {1}{24}}{\vec {s}}t^{4},} ここで s → {\displaystyle {\vec {s}}} は加加加速度, ȷ → 0 {\displaystyle {\vec {\jmath }}_{0}} は初加加速度（初躍度）, ȷ → {\displaystyle {\vec {\jmath }}} は加加速度（躍度）, a → 0 {\displaystyle {\vec {a}}_{0}} は初加速度, a → {\displaystyle {\vec {a}}} は加速度, v → 0 {\displaystyle {\vec {v}}_{0}} は初速度, v → {\displaystyle {\vec {v}}} は速度, r → 0 {\displaystyle {\vec {r}}_{0}} は初期位置, r → {\displaystyle {\vec {r}}} は位置, t {\displaystyle t} は時間。
+加加加速度の表記 s → {\displaystyle {\vec {s}}} (ヴィザーらが論文の中で用いた表記）は、一般に同じ表記が用いられる変位ベクトルと同じ表記であるため、混同しないよう注意を要する。
+加加加速度の次元は、L/T4である。
+国際単位系では、m/s4、あるいはm・s-4が用いられ、CGS単位系では100G/s²もしくは100G・s⁻²に等しい。
+使用例 加加速度（躍度）が時間でどのように変化していくか、その時間あたりの度合いを調べる際に使われる単位であり、CiNiiやJ-STAGEなどの日本語学術公開サイト、特許の取得文章での使用例が確認できる。
+精密な宇宙工学や交通工学の分野での検証、地震や心理学、音響学の「ヒトへの影響」に関する検証に用いられる。
+工学系や力学系として確立されている。
+れっきとした国際単位系の単位であるが、加加加速度と書かれることが少なく、英呼称の「Snap」と表記されていることが多い。
+乗り物酔いの防止や、利用客の嘔吐中枢に過度の刺激を与えない絶叫マシンなどの、開発、研究段階で躍度とともにGの変化率としてグラフで示される時がある。
+特に自動車や楽器の製造会社はこの加加加速度までであれば、大手メーカーでも使用されている例がある。
+加加加速度（躍度の変化率、Snap）以上までの計測ができるドライバー用のアプリ『G-Bowl』が、App Storeで一般向けに販売中である。
+位置の5階微分より先の変位 位置ベクトルの5段階以上の時間微分が現れるのは文中においてもほとんど稀である。
+加加加速度、加加速度、加速度、速度、位置までは特許文章において使用例がみられる。
+時間の関数としての加加加速度と位置の4、5、6階微分は「時にとても幾分な滑稽さを含んで」Snap（躍度/秒、加加加速度）、Crackle（Snapの変化度）、Pop（Crackleの変化度）と呼ばれる。
+命名者である論文の著者によると、4～6段階微分の3つの単位名の俗称はケロッグのコーンシリアルの広告キャラクターの名前に触発されたとの記述があり、これら3体のキャラクターの呼称はそれぞれ「Snap＝ピッチー」「Crackle＝パッチー」「Pop＝プッチー」である。
+Crackle Crackle(単位)は位置ベクトルを時間で5段階微分した、加加加速度の時間あたりの変化度である。
+定数c、時間を定数tと置くと次の式が成立する。
+c → = d s → d t = d 2 ȷ → d t 2 = d 3 a → d t 3 = d 4 v → d t 4 = d 5 r → d t 5 {\displaystyle {\vec {c}}={\frac {d{\vec {s}}}{dt}}={\frac {d^{2}{\vec {\jmath }}}{dt^{2}}}={\frac {d^{3}{\vec {a}}}{dt^{3}}}={\frac {d^{4}{\vec {v}}}{dt^{4}}}={\frac {d^{5}{\vec {r}}}{dt^{5}}}} s → = s → 0 + c → t {\displaystyle {\vec {s}}={\vec {s}}_{0}+{\vec {c}}\,t} ȷ → = ȷ → 0 + s → 0 t + 1 2 c → t 2 {\displaystyle {\vec {\jmath }}={\vec {\jmath }}_{0}+{\vec {s}}_{0}\,t+{\tfrac {1}{2}}{\vec {c}}\,t^{2}} a → = a → 0 + ȷ → 0 t + 1 2 s → 0 t 2 + 1 6 c → t 3 {\displaystyle {\vec {a}}={\vec {a}}_{0}+{\vec {\jmath }}_{0}\,t+{\tfrac {1}{2}}{\vec {s}}_{0}\,t^{2}+{\tfrac {1}{6}}{\vec {c}}\,t^{3}} v → = v → 0 + a → 0 t + 1 2 ȷ → 0 t 2 + 1 6 s → 0 t 3 + 1 24 c → t 4 {\displaystyle {\vec {v}}={\vec {v}}_{0}+{\vec {a}}_{0}\,t+{\tfrac {1}{2}}{\vec {\jmath }}_{0}\,t^{2}+{\tfrac {1}{6}}{\vec {s}}_{0}\,t^{3}+{\tfrac {1}{24}}{\vec {c}}\,t^{4}} r → = r → 0 + v → 0 t + 1 2 a → 0 t 2 + 1 6 ȷ → 0 t 3 + 1 24 s → 0 t 4 + 1 120 c → t 5 {\displaystyle {\vec {r}}={\vec {r}}_{0}+{\vec {v}}_{0}\,t+{\tfrac {1}{2}}{\vec {a}}_{0}\,t^{2}+{\tfrac {1}{6}}{\vec {\jmath }}_{0}\,t^{3}+{\tfrac {1}{24}}{\vec {s}}_{0}\,t^{4}+{\tfrac {1}{120}}{\vec {c}}\,t^{5}} このとき、 c → {\displaystyle {\vec {c}}} :Crackle s → 0 {\displaystyle {\vec {s}}_{0}} :初加加加速度 s → {\displaystyle {\vec {s}}} :加加加速度 ȷ → 0 {\displaystyle {\vec {\jmath }}_{0}} :初加加速度（初躍度） ȷ → {\displaystyle {\vec {\jmath }}} :加加速度（躍度） a → 0 {\displaystyle {\vec {a}}_{0}} :初加速度 a → {\displaystyle {\vec {a}}} : ,加速度 v → 0 {\displaystyle {\vec {v}}_{0}} : 初速度 v → {\displaystyle {\vec {v}}} : 速度 r → 0 {\displaystyle {\vec {r}}_{0}} : 初期位置 r → {\displaystyle {\vec {r}}} : 位置 t {\displaystyle t} : 時間 この単位の変化度の次元は、L/T−5と表せる。
+これは 1m/s5 （メートル毎秒毎秒毎秒毎秒毎秒）または100 G/s³（100ガル毎秒毎秒毎秒）と書かれる。
+pop Pop（単位）は位置ベクトルを時間で6段階微分した単位である。
+加加加速度/時間2が定数pと時間を定数tとおいた場合、下の等式が成り立つ。
+p → = d c → d t = d 2 s → d t 2 = d 3 ȷ → d t 3 = d 4 a → d t 4 = d 5 v → d t 5 = d 6 r → d t 6 {\displaystyle {\vec {p}}={\frac {d{\vec {c}}}{dt}}={\frac {d^{2}{\vec {s}}}{dt^{2}}}={\frac {d^{3}{\vec {\jmath }}}{dt^{3}}}={\frac {d^{4}{\vec {a}}}{dt^{4}}}={\frac {d^{5}{\vec {v}}}{dt^{5}}}={\frac {d^{6}{\vec {r}}}{dt^{6}}}} p → = c → 0 + p → t {\displaystyle {\vec {p}}={\vec {c}}_{0}+{\vec {p}}\,t} s → = s → 0 + c → 0 t + 1 2 p → t 2 {\displaystyle {\vec {s}}={\vec {s}}_{0}+{\vec {c}}_{0}\,t+{\tfrac {1}{2}}{\vec {p}}\,t^{2}} ȷ → = ȷ → 0 + s → 0 t + 1 2 c → 0 t 2 + 1 6 p → t 3 {\displaystyle {\vec {\jmath }}={\vec {\jmath }}_{0}+{\vec {s}}_{0}\,t+{\tfrac {1}{2}}{\vec {c}}_{0}\,t^{2}+{\tfrac {1}{6}}{\vec {p}}\,t^{3}} a → = a → 0 + ȷ → 0 t + 1 2 s → 0 t 2 + 1 6 c → 0 t 3 + 1 24 p → t 4 {\displaystyle {\vec {a}}={\vec {a}}_{0}+{\vec {\jmath }}_{0}\,t+{\tfrac {1}{2}}{\vec {s}}_{0}\,t^{2}+{\tfrac {1}{6}}{\vec {c}}_{0}\,t^{3}+{\tfrac {1}{24}}{\vec {p}}\,t^{4}} v → = v → 0 + a → 0 t + 1 2 ȷ → 0 t 2 + 1 6 s → 0 t 3 + 1 24 c → 0 t 4 + 1 120 p → t 5 {\displaystyle {\vec {v}}={\vec {v}}_{0}+{\vec {a}}_{0}\,t+{\tfrac {1}{2}}{\vec {\jmath }}_{0}\,t^{2}+{\tfrac {1}{6}}{\vec {s}}_{0}\,t^{3}+{\tfrac {1}{24}}{\vec {c}}_{0}\,t^{4}+{\tfrac {1}{120}}{\vec {p}}\,t^{5}} r → = r → 0 + v → 0 t + 1 2 a → 0 t 2 + 1 6 ȷ → 0 t 3 + 1 24 s → 0 t 4 + 1 120 c → 0 t 5 + 1 720 p → t 6 {\displaystyle {\vec {r}}={\vec {r}}_{0}+{\vec {v}}_{0}\,t+{\tfrac {1}{2}}{\vec {a}}_{0}\,t^{2}+{\tfrac {1}{6}}{\vec {\jmath }}_{0}\,t^{3}+{\tfrac {1}{24}}{\vec {s}}_{0}\,t^{4}+{\tfrac {1}{120}}{\vec {c}}_{0}\,t^{5}+{\tfrac {1}{720}}{\vec {p}}\,t^{6}} このとき p → {\displaystyle {\vec {p}}} : pop c → 0 {\displaystyle {\vec {c}}_{0}} : Crackleの初期値 c → {\displaystyle {\vec {c}}} : Crackle s → 0 {\displaystyle {\vec {s}}_{0}} : 初加加加速度 s → {\displaystyle {\vec {s}}} : 加加加速度 ȷ → 0 {\displaystyle {\vec {\jmath }}_{0}} : 初加加速度（初躍度） ȷ → {\displaystyle {\vec {\jmath }}} : 加加速度（躍度） a → 0 {\displaystyle {\vec {a}}_{0}} : 初加速度 a → {\displaystyle {\vec {a}}} : 加速度 v → 0 {\displaystyle {\vec {v}}_{0}} : 初速度 v → {\displaystyle {\vec {v}}} : 速度 r → 0 {\displaystyle {\vec {r}}_{0}} : 初期位置 r → {\displaystyle {\vec {r}}} : 位置 t {\displaystyle t} : 時間 popの次元はLT−6。
+単位は1m/s6、もしくは100G/s4である。
+その先の単位（7～10段階）について また、英語圏ではその先の呼び方が存在しており、Lock（時間あたりのpopの変化度）、Drop（時間当たりのlockの変化度）、Shot（単位時間当たりのDropの変化度）、Put（単位時間当たりのShotの変化度）と呼ばれる。
+Lock(ロック) Lock（ロック）は位置ベクトルを時間で7段階微分した単位。
+次元はLT−7。
+単位は1m/s7、もしくは100G/s5である。
+Drop（ドロップ） Drop（ドロップ）は位置ベクトルを時間で8段階微分した単位。
+次元はLT−8。
+単位は1m/s8、もしくは100G/s6である。
+Shot（ショット） Shot（ショット）は位置ベクトルを時間で9段階微分した単位。
+次元はLT−9。
+単位は1m/s9、もしくは100G/s7である。
+Put（プット） Put（プット）は位置ベクトルを時間で10段階微分した単位。
+Putの次元はLT−10。
+単位は1m/s10、もしくは100G/s8である。
+3次元以上の空間での一般化 位置ベクトルの単位時間における導関数の次元は通常の数（非負整数）に対して定義され、国際単位系における単位次元はL/T11、L/T12と増えてゆくが、2021年9月現在、応用力学における正式な3次元空間以上の一般化はなされていない。
+脚注 関連項目 運動生理学 スポーツ科学 応用力学 量の次元 乗り物酔い（加速度病）- この加加加速度と躍度が大いに関係する。
+外部リンク Cosmography: cosmology without the Einstein equations, Matt Visser, School of Mathematics, Statistics and Computer Science, Victoria University of Wellington, 2004. 「G-Bowl」, App Store: - Ike Takahiro制作の加加加速度まで計測ができる初心者ドライバー向けのアプリ,iOS 9以降に対応。

@@ -1,0 +1,25 @@
+Sパラメータ(Scattering parameters)とは、高周波電子回路や高周波電子部品の特性を表すために使用される回路網パラメータのひとつ。
+散乱行列（S行列）または散乱パラメータとも呼ばれる。
+回路網の通過・反射電力特性を表現する。
+定義 n端子対回路網の定義 n対の端子を持つ電気回路において、入力方向に進む波の振幅をa1・・・an 、出力方向に進む波の振幅をb1・・・bnとしたとき、次のように記述する。
+b1 = S11a1 + S12a2 + ・・・ + S1nan b2 = S21a1 + S22a2 + ・・・ + S2nan ・・・ bn = Sn1a1 + Sn2a2 + ・・・ + Snnan これらの式を行列を用いて次のように表現する。
+( b 1 ⋮ b n ) = ( S 11 ⋯ S 1 n ⋮ ⋱ ⋮ S n 1 ⋯ S n n ) ( a 1 ⋮ a n ) {\displaystyle {\begin{pmatrix}b_{1}\\\vdots \\b_{n}\end{pmatrix}}={\begin{pmatrix}S_{11}&\cdots &S_{1n}\\\vdots &\ddots &\vdots \\S_{n1}&\cdots &S_{nn}\end{pmatrix}}{\begin{pmatrix}a_{1}\\\vdots \\a_{n}\end{pmatrix}}} このS11・・・Snnを要素とする行列が散乱行列であり、行列の要素がSパラメータである。
+Sパラメータの各要素は複素数表現であり、回路の振幅に対する影響に加えて位相に対する影響も内包する。
+進行波の振幅 a i {\displaystyle a_{i}} ， b i {\displaystyle b_{i}} は、電力の平方根の次元を持つように定義されることが多い．しかし， | a i | 2 {\displaystyle |a_{i}|^{2}} ， | b i | 2 {\displaystyle |b_{i}|^{2}} が実際に電力になるとは限らない．また， a i {\displaystyle a_{i}} ， b i {\displaystyle b_{i}} を電圧進行波や電流進行波とする流儀もある． 2端子対回路網の定義 2対の端子を持つ回路網（二端子対回路、すなわち4端子回路網）にて使われることが多く、入力側の端子対を端子対1、出力側の端子対を端子対2とした場合には次のように定義される。
+( b 1 b 2 ) = ( S 11 S 12 S 21 S 22 ) ( a 1 a 2 ) {\displaystyle {\begin{pmatrix}b_{1}\\b_{2}\end{pmatrix}}={\begin{pmatrix}S_{11}&S_{12}\\S_{21}&S_{22}\end{pmatrix}}{\begin{pmatrix}a_{1}\\a_{2}\end{pmatrix}}\,} ここで、 a 1 {\displaystyle a_{1}} は 端子1から入力される電力の平方根。
+a 2 {\displaystyle a_{2}} は 端子2から入力される電力の平方根。
+b 1 {\displaystyle b_{1}} は 端子1から出力される電力の平方根。
+b 2 {\displaystyle b_{2}} は 端子2から出力される電力の平方根。
+S 11 {\displaystyle S_{11}} は 端子1から信号を入力したときに、端子1に反射する信号。
+絶対値のデシベル表示は、端子1の反射損失 (リターンロス) を示す。
+S 21 {\displaystyle S_{21}} は 端子1から信号を入力したときに、端子2に通過する信号。
+絶対値のデシベル表示は、端子1から端子2の挿入損失 (インサーションロス) を示す。
+S 12 {\displaystyle S_{12}} は 端子2から信号を入力したときに、端子1に通過する信号。
+絶対値のデシベル表示は、端子2から端子1の挿入損失 (インサーションロス) を示す。
+S 22 {\displaystyle S_{22}} は 端子2から信号を入力したときに、端子2に反射する信号。
+絶対値のデシベル表示は、端子2の反射損失 (リターンロス) を示す。
+測定方法・表示方法 Sパラメータの測定にはしばしばネットワークアナライザが利用される。
+S11とS22の利得が定在波比 (VSWR) を示すため、Sパラメータの利得のデシベル表示は、 20 log 10 ⁡ | S j i | {\displaystyle 20\log _{10}\left|S_{ji}\right|} [dB] と表示される。
+脚注 参考文献 Collin, Robert E. (2001), Foundations for Microwave Engineering, IEEE Press Series on Electromagnetic Wave Theory (2nd ed.), Wiley, ISBN 978-0780360310 市川古都美、市川裕一『高周波回路設計のためのSパラメータ詳解』CQ出版社、2008年。
+ISBN 978-4789830256。
+http://www.cqpub.co.jp/hanbai/books/30/30251.htm。
