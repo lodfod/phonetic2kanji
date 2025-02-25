@@ -2,4 +2,4 @@ logs/
 __pycache__/
 */__pycache__/
 mecab-ipadic-neologd/
-*/wikipedia_articles
+*/wikipedia_articles/
