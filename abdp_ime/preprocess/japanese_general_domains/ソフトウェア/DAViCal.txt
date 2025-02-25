@@ -1,6 +1,0 @@
-DAViCalとは、CalDAV、CardDAVを使用したカレンダーサーバおよび連絡先サーバーである。
-概要 DAViCalはCalDAVに基づいて開発されており、Linux系OS、Apache HTTP Server、PostgreSQL、PHPが利用できる環境で構築できる。
-また、CalDAVとCardDAVはWebDAVを使用するためWebサーバでのWebDAVサポートが必須である。
-更に、任意ではあるが80番ポートのhttpをそのまま使用するとセキュリティ問題が発生するためSSLのサポートが可能である必要がある。
-対応クライアント Chandler Evolution Sunbird / Lightning Mulberry iCal iOSに搭載されているカレンダー その他、CalDAVに対応しているもの その他のCalDAVサーバー 現段階でフリーで使用できるCalDAVサーバーは、DAViCalの他にChandler Serverがあるがあまり存在していない。
-その他、有償で付属するものとしてmacOS Serverに付属されているiCal Serverがある。

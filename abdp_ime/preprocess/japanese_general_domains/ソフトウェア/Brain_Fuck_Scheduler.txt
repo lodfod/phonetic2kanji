@@ -1,6 +1,0 @@
-Brain Fuck Scheduler (BFS) は、Linuxカーネルにおけるタスクスケジューラの一つ。
-Linux kernel 2.6.23以降にマージされたCompletely Fair SchedulerとO(1) schedulerに代わるものとして、2009年夏にカーネルプログラマであるCon Kolivasによって開発された。
-概要 BFSの目的は、他のスケジューラと比較したとき、より単純なアルゴリズムをスケジューラとして提供することであった。
-BFSは、特定計算方法に合わせて性能を向上させる為、発見的な調整またはパラメータの調整等を要求しない。
-Android BFSは、GoogleのAndroid開発リポジトリの実験ブランチに追加された。
-デスクトップLinux ディストリビューション BFSは、Zenwalk 6.4と、PCLinuxOS 2010における標準のスケジューラである。

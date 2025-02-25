@@ -1,3 +1,0 @@
-基準系（きじゅんけい）、基準座標系（きじゅんざひょうけい）、または参照系（さんしょうけい、英: frame of reference, reference frame ）は、物理学において、系の内部の対象の位置、方位、およびその他の性質の測定を行う基準となる座標系または座標軸の集合、または観測者の運動の状態に結びつけられた観測基準系 (observational reference frame) を言う。
-特定の用途で用いられている基準系 国際地球基準座標系 国際天文基準座標系 流体力学におけるラグランジュ表示およびオイラー表示。
-連続体力学および en:Lagrangian and Eulerian specification of the flow field 参照。

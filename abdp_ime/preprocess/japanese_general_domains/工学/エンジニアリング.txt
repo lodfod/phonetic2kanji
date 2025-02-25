@@ -1,7 +1,0 @@
-エンジニアリング（英語: engineering）という言葉は、主に以下の日本語に訳される。
-工学 工学研究、基礎工学、工学技術、産業技術・生産技術、科学技術、技術。
-厳密に訳し分ける場合は、等。
-EPC (Engineering, Procurement, and Construction)。
-土建分野で、特にプラントなど大型の対象について、その契約や請負の形態を「設計、調達、建築」に分類して指す語。
-en:Engineering, procurement, and construction を参照。
-この場合「エンジニアリング」は設計段階と関連が深いということになる。

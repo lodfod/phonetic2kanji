@@ -1,6 +1,0 @@
-VALL-Eは、2023年1月5日にMicrosoftによって発表された音声合成を行う一種の生成AIである。
-VALL-Eは、"recreate any voice from a three-second sample clip" (3秒の音声からすべての声を模倣できる)と紹介されている。
-VALL-EはMeta社のLibriLightという音声ライブラリ上の60000時間分の英語の音声を使用してトレーニングされた。
-また、VALL-Eに変更を加えたものである「VALL-E R」や、「VALL-E 2」なども存在する。
-VALL-E X Microsoftによって発表された手法をPythonを用いて実装したオープンソースのVALL-E Xが存在する。
-この実装では英、中、日の三言語で相互の音声合成ができる。

@@ -1,4 +1,0 @@
-Apowersoft PDFコンバーターは、Apowersoft社によって開発されたPDF変換ソフトウェアである。
-概要 Apowersoft PDFコンバーターは、 PDFとWord/パワーポイント/Excel/JPG/PNGの相互変換、PDFファイルの結合・分割 ・圧縮などを行えるソフトである。
-複数ファイルの一括処理が可能。
-機能 Apowersoft PDFコンバーターの主な機能は次のとおり。
