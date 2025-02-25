@@ -7,19 +7,29 @@ A tool for downloading and processing Wikipedia articles in Japanese, with one s
 ### Basic Usage
 
 Download articles from a specific category:
-`python wiki_dataloader.py --category "物理学" --max-pages 50 --output-dir wiki_data`
+```
+python wiki_dataloader.py --category "物理学" --max-pages 50 --output-dir wiki_data
+```
 
 Download specific articles by title:
-`python wiki_dataloader.py --titles "東京" "大阪" "京都" --output-dir wiki_data`
+```
+python wiki_dataloader.py --titles "東京" "大阪" "京都" --output-dir wiki_data
+```
 
 Download articles from general domains (Physics, Medical, Tech, etc.):
-`python wiki_dataloader.py --general-domains --max-pages 30 --output-dir wiki_data`
+```
+python wiki_dataloader.py --general-domains --max-pages 30 --output-dir wiki_data
+```
 
 Discover popular categories and download articles from them:
-`python wiki_dataloader.py --discover-categories --num-categories 10 --max-pages 20 --output-dir wiki_data`
+```
+python wiki_dataloader.py --discover-categories --num-categories 10 --max-pages 20 --output-dir wiki_data
+```
 
 Download from categories listed in a file:
-`python wiki_dataloader.py --categories-file my_categories.txt --max-pages 50 --output-dir wiki_data`
+```
+python wiki_dataloader.py --categories-file my_categories.txt --max-pages 50 --output-dir wiki_data
+```
 
 ### Command Line Arguments
 
@@ -53,13 +63,11 @@ wiki_articles/
 └── ...
 ```
 
-Each article is saved as a text file with one sentence per line, making it ideal for NLP tasks.
-
-
+Each article is saved as a text file with one sentence per line.
 
 ## Notes
 
 - The script includes rate limiting to avoid overwhelming the Wikipedia API
 - Japanese sentence tokenization is handled automatically
 - All text is saved in UTF-8 encoding
-"""
+
