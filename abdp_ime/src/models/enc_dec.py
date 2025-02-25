@@ -162,7 +162,7 @@ class TransformerEncDec(pl.LightningModule):
             for p in self.align_cor.parameters():
                 if p.dim() > 1:
                     nn.init.xavier_uniform_(p)
-                    
+            
     def forward(
         self,
         x: Tensor,
@@ -374,7 +374,7 @@ class TransformerEncDec(pl.LightningModule):
     def training_step(self, batch, batch_idx) -> Tensor:
         x, y, a = batch
         if a is not None:
-            y_hat, align, align_cor = self(x, y[:, :-1], a[:, :-1]) #TODO what?
+            y_hat, align, align_cor = self(x, y[:, :-1], a[:, :-1])
         else:
             y_hat, align, align_cor = self(x, y[:, :-1])
 
@@ -382,18 +382,20 @@ class TransformerEncDec(pl.LightningModule):
             assert torch.numel(align) > 0
             a_temp = a.clone()
             a_temp[a_temp == 9999] = 0
-            bin_alignment = torch.zeros(x.size(0), x.size(1) + 0, device=x.device)
-            bin_alignment = bin_alignment.scatter(-1, a_temp, value=1)
+            bin_alignment = torch.zeros(x.size(0), x.size(1), device=x.device)
+            valid_indices = (a_temp >= 0) & (a_temp < x.size(1))
+            a_temp = torch.where(valid_indices, a_temp, torch.zeros_like(a_temp))
+            bin_alignment.scatter_(-1, a_temp, 1.0)
             bin_alignment[..., 0] = 0
 
             alignment_loss = nn.functional.binary_cross_entropy_with_logits(
-                align.reshape(-1), bin_alignment.reshape(-1)
-            )  # TODO padding?
+                align.squeeze(-1), bin_alignment, reduction='mean'
+            )
             self.log("alignment_loss", alignment_loss, logger=True)
 
             alignment_cor_loss = nn.functional.binary_cross_entropy_with_logits(
-                align_cor.reshape(-1), bin_alignment.reshape(-1)
-            )  # TODO padding?
+                align_cor.squeeze(-1), bin_alignment, reduction='mean'
+            )
             self.log("alignment_cor_loss", alignment_cor_loss, logger=True)
 
         trans_loss = nn.functional.cross_entropy(
@@ -530,7 +532,7 @@ class TransformerEncDec(pl.LightningModule):
 
         if src_v is not None:
             inp = list(inp)
-            inp = ["<s>"] + inp + ["</s>"]  # no eos
+            inp = [""] + inp + [""]  # no eos
             inp = src_v.lookup_indices(inp)
         else:
             inp = list(map(int, inp.split()))
@@ -566,7 +568,7 @@ class TransformerEncDec(pl.LightningModule):
                 pred.append(dec_out.argmax(dim=-1)[0, -1].item())
             return pred
             return "".join(
-                filter(lambda x: x not in ["<s>", "</s>"], tgt_v.lookup_tokens(pred))
+                filter(lambda x: x not in ["", ""], tgt_v.lookup_tokens(pred))
             )
 
     def predict_offline(self, inp: str, tgt_v, src_v=None, beam_w=1) -> str:

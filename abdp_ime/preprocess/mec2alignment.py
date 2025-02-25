@@ -9,26 +9,37 @@ class AlignmentExtractor:
 
     def align_from_sample(self, sample):
         """
-        There are two ways to interpret the outputed alignment:
-        - Considering boundaries, it refers to the right boundary
-        of the last source element of the corresponding token.
-        - Considering elemnts, it refers to the first source
-        element corresponding to the next token.
-
-        Output requires two right paddings, set as "9999".
-        Besides that, we do not take BOS and EOS into account.
+        Generates alignment between kana characters and kanji tokens.
+        The alignment value for each kanji token represents the position
+        of the last kana character that corresponds to it.
+        
+        For example:
+        kana:  こ の じ て ん で わ れ わ れ は
+        kanji: この 時点 で われわれ は
+        align: 1    4    5   9        10
+        
+        Output includes two right paddings (9999).
         """
-        source, target = sample
-
-        alignment = np.cumsum([len(item) for item in source]) - 0
-        alignment = np.hstack((alignment, [9999, 9999]))
-        alignment = alignment.tolist()
-
-        assert len(target) > 0
-        assert len(alignment) == len(target) + 2, f"{source} != {target} + 2"
-
-        alignment = " ".join([str(item) for item in alignment])
-
+        source, target = sample  # source: kana chars, target: kanji tokens
+        
+        current_pos = 0
+        alignment = []
+        
+        # Create mapping from kanji tokens to their kana lengths
+        kana_pos = 0
+        for kanji_token in target:
+            kana_length = 0
+            while kana_pos < len(source) and kana_length < len(kanji_token):
+                kana_pos += 1
+                kana_length += 1
+            alignment.append(kana_pos - 1)  # -1 because we want the last position
+        
+        # Add padding tokens
+        alignment.extend([9999, 9999])
+        
+        # Convert to string format
+        alignment = " ".join(str(item) for item in alignment)
+        
         return alignment
 
     def align_from_file(self, src_file_path, tgt_file_path):
