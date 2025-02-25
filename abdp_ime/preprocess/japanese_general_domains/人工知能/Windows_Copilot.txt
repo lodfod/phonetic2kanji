@@ -1,0 +1,19 @@
+Windows Copilot（ウィンドウズ・コパイロット）は、Microsoft社がWindows 11に組み込むために開発した生成AIである。
+概要 2023年5月23日（米国時間）、Microsoft社は、アメリカ合衆国本社とYouTube上で、年次イベント「Microsoft Build」を公開し、Windows 11に生成AIを組み込んだWindows Copilot（公式名称：Windows Copilot for Windows 11）を発表した。
+Windows Copilotは、PCのデスクトップ画面でAIと対話し、OSの設定変更やアプリケーションの操作、文章の要約などをAIがサポートする。
+2023年6月からプレビュー版が提供され、同12月に正式リリースされた。
+特徴 Microsoftのコーポレートバイスプレジデント兼コンシューマー事業担当最高マーケティング責任者のYusuf Mehdiによると、Windows Copilotの特徴と活用方法は以下の通りである。
+Bringing the power of AI to Windows 11 Bing ChatプラグインをWindowsに拡張し、開発者がWindows Copilot内にアプリを統合することで、顧客により良いサービスを提供し、Windowsネイティブアプリケーションでのエンゲージメントを高める。
+AMD、Intel、Nvidia、Qualcommの新しいシリコンをサポートし、プラットフォーム間、Azureからクライアント間でAI開発をサポートする新しいHybrid AIループを導入。
+すべての開発者がWindows上でより生産的になることを支援するために設計されたDev Homeを導入。
+WindowsのMicrosoft Storeでは、新しいAI機能と体験を導入している。
+Microsoftは、Copilotの技術を生産性ツール群「Microsoft 365 Copilot」に組み込まれている。
+歴史 2021年6月29日 - Microsoft Copilotが発表される。
+同年7月 - GitHubとVisual Studio Codeの拡張機能として提供が開始される。
+2023年初頭 - ユーザー数が増加し、開発が進む。
+2023年5月23日 - 米国Microsoft社、年次イベント「Microsoft Build」で、Windows Copilot for Windows 11を公表。
+2023年11月1日 - Microsoft 365 Copilot 法人向けサービスを一般公開。
+2023年12月1日 - Windows Copilotが正式リリース。
+評価 Copilotは、自動生成された文章の同時代性、同時性が高いことが指摘されてきた。
+ChatGPTが2，3年前の少し古いデータベースしか持っていなかったことが指摘されてきたのに対し、CopilotはBingと連動して、現在進行形の最新情報を出力できる。
+さらに、「Microsoft Office」にも組み込まれる予定である。

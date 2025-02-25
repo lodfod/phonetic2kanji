@@ -1,0 +1,37 @@
+運動量保存則（うんどうりょうほぞんそく、英: law of momentum conservation）とは、ある系に外力が働かない限り（閉鎖系）、その系の運動量の総和（全運動量）は不変であるという物理法則（保存則）である。
+運動量保存の法則ともいう。
+最初、デカルトが『哲学原理』の中で質量と速さの積の総和を神から与えられた不変量として記述したが、ベクトルを用いて現在の形の運動量とその保存則を導いたのはホイヘンスである。
+外力が働かない問題の例としては、物体の衝突問題がある。
+二体の衝突問題は、エネルギー保存の法則と運動量保存則を考えることで解くことができる。
+完全弾性衝突のときのみ物体の運動エネルギーは保存される。
+一方、完全弾性衝突に限らず外力が働かない限り、運動量は保存される。
+運動量保存則と運動方程式 質点の運動量 p {\displaystyle {\boldsymbol {p}}} （以下、ベクトル量は太字で表す）は p = m d r d t = m v {\displaystyle {\boldsymbol {p}}=m{\frac {d{\boldsymbol {r}}}{dt}}=m{\boldsymbol {v}}} である。
+ここで、 m {\displaystyle m} は質点の質量、 r {\displaystyle {\boldsymbol {r}}} は質点の位置ベクトル、 v {\displaystyle {\boldsymbol {v}}} は質点の速度である。
+ニュートンの運動方程式 F = m d 2 r d t 2 {\displaystyle {\boldsymbol {F}}=m{\frac {d^{2}{\boldsymbol {r}}}{dt^{2}}}} より、この質点に働く力 F {\displaystyle {\boldsymbol {F}}} について以下が成り立つ： F = d d t ( m d r d t ) = d p d t . {\displaystyle {\boldsymbol {F}}={\frac {d}{dt}}\left(m{\frac {d{\boldsymbol {r}}}{dt}}\right)={\frac {d{\boldsymbol {p}}}{dt}}.} すなわち質点に外部から働く力は、質点の運動量の時間変化に等しい。
+よって、質点に外力が働かない F = 0 {\displaystyle {\boldsymbol {F}}={\boldsymbol {0}}} では質点の運動量 p {\displaystyle {\boldsymbol {p}}} は不変である（保存する）。
+また、上式について時刻 t = t 0 {\displaystyle t=t_{0}} から t = t 1 {\displaystyle t=t_{1}} までの積分は I = ∫ t 0 t 1 F d t = ∫ t 0 t 1 ( d p d t ) d t = p t = t 1 − p t = t 0 . {\displaystyle {\boldsymbol {I}}=\int _{t_{0}}^{t_{1}}{\boldsymbol {F}}dt=\int _{t_{0}}^{t_{1}}\left({\frac {d{\boldsymbol {p}}}{dt}}\right)dt={\boldsymbol {p}}_{t=t_{1}}-{\boldsymbol {p}}_{t=t_{0}}.} となり、この運動量の変化を表すベクトル I {\displaystyle {\boldsymbol {I}}} は力積 と呼ばれる。
+２質点系の運動量保存則 ２質点系において各質点の運動量の和は、添字をそれぞれの質点に対応させれば、 P := p 1 + p 2 {\displaystyle {\boldsymbol {P}}:={\boldsymbol {p}}_{1}+{\boldsymbol {p}}_{2}} と書き表すことができる。
+あるいは、各質点の質量と速度をあらわに書いて、 P = m 1 v 1 + m 2 v 2 {\displaystyle {\boldsymbol {P}}=m_{1}{\boldsymbol {v}}_{1}+m_{2}{\boldsymbol {v}}_{2}} と表すこともできる。
+全質点の運動量の和 P {\displaystyle {\boldsymbol {P}}} は、2質点系に限らず、その系の全運動量あるいは重心（質量中心）の運動量、並進運動の運動量などと呼ばれる。
+全運動量の時間微分は、各質点の運動量の時間微分の和に等しい。
+d P d t = d p 1 d t + d p 2 d t . {\displaystyle {\frac {d{\boldsymbol {P}}}{dt}}={\frac {d{\boldsymbol {p}}_{1}}{dt}}+{\frac {d{\boldsymbol {p}}_{2}}{dt}}.} 前節にしたがってニュートンの運動方程式から、それぞれの運動量の時間微分を質点に働く力に置き換えることができる。
+d P d t = F 1 + F 2 . {\displaystyle {\frac {d{\boldsymbol {P}}}{dt}}={\boldsymbol {F}}_{1}+{\boldsymbol {F}}_{2}.} したがって、全運動量の時間変化は各質点に働く力の和に等しいことが分かる。
+各質点に外力が働かない場合、作用・反作用の法則より F 2 = − F 1 {\displaystyle {\boldsymbol {F}}_{2}=-{\boldsymbol {F}}_{1}} が成り立ち、全運動量 P {\displaystyle {\boldsymbol {P}}} が保存することが示される。
+２つの質点が衝突した際、衝突前後で系の全運動量は保存する。
+したがって、 P = P ′ {\displaystyle {\boldsymbol {P}}={\boldsymbol {P'}}} より m 1 v 1 + m 2 v 2 = m 1 v 1 ′ + m 2 v 2 ′ {\displaystyle m_{1}{\boldsymbol {v}}_{1}+m_{2}{\boldsymbol {v}}_{2}=m_{1}{\boldsymbol {v}}_{1}^{\prime }+m_{2}{\boldsymbol {v}}_{2}^{\prime }} が成立する。
+また適当な慣性系において全運動量はゼロであるため、例えば衝突前および衝突後の速度に対して以下が成り立つ： v 2 = − m 1 m 2 v 1 , v 2 ′ = − m 1 m 2 v 1 ′ . {\displaystyle {\begin{aligned}{\boldsymbol {v}}_{2}&=-{m_{1} \over m_{2}}{\boldsymbol {v}}_{1},\\{\boldsymbol {v}}_{2}^{\prime }&=-{m_{1} \over m_{2}}{\boldsymbol {v}}_{1}^{\prime }.\end{aligned}}} この場合、衝突前後での速度の大きさの比は以下のようになる。
+η = v 1 ′ 2 v 1 2 = v 2 ′ 2 v 2 2 {\displaystyle \eta ={\sqrt {{\boldsymbol {v}}_{1}^{\prime }{}^{2} \over {\boldsymbol {v}}_{1}^{2}}}={\sqrt {{\boldsymbol {v}}_{2}^{\prime }{}^{2} \over {\boldsymbol {v}}_{2}^{2}}}} またこの速度比 η を用いて衝突後の運動エネルギーを表すと、 1 2 m 1 v 1 ′ 2 + 1 2 m 2 v 2 ′ 2 = 1 2 m 1 η 2 v 1 2 + 1 2 m 2 η 2 v 2 2 {\displaystyle {1 \over 2}m_{1}{\boldsymbol {v}}_{1}^{\prime }{}^{2}+{1 \over 2}m_{2}{\boldsymbol {v}}_{2}^{\prime }{}^{2}={1 \over 2}m_{1}\eta ^{2}{\boldsymbol {v}}_{1}^{2}+{1 \over 2}m_{2}\eta ^{2}{\boldsymbol {v}}_{2}^{2}} となる。
+特に η = 1 とすればこれは衝突過程でのエネルギー保存の法則を表している。
+N質点系の運動量保存則 N質点系の場合についても、2質点系の場合と全く同様の議論が成り立つ。
+N質点系の全運動量 P {\displaystyle {\boldsymbol {P}}} を P = ∑ i = 1 N p i {\displaystyle {\boldsymbol {P}}=\sum _{i=1}^{N}{\boldsymbol {p}}_{i}} と定義できる。
+ここで、 p i {\displaystyle {\boldsymbol {p}}_{i}} は i {\displaystyle i} 番目の質点の運動量である。
+全運動量の時間微分は d p i d t = F i {\displaystyle {\frac {d{\boldsymbol {p}}_{i}}{dt}}={\boldsymbol {F}}_{i}} より d P d t = ∑ i = 1 N F i {\displaystyle {\frac {d{\boldsymbol {P}}}{dt}}=\sum _{i=1}^{N}{\boldsymbol {F}}_{i}} である。
+i {\displaystyle i} 番目の質点に働く力 F i {\displaystyle {\boldsymbol {F}}_{i}} は j ≠ i {\displaystyle j\neq i} 番目の質点から働く力 F i , j i n {\displaystyle {\boldsymbol {F}}_{i,j}^{\mathrm {in} }} の総和と外力 F i e x {\displaystyle {\boldsymbol {F}}_{i}^{\mathrm {ex} }} の和 F i = F i e x + ∑ j ≠ i F i , j i n {\displaystyle {\boldsymbol {F}}_{i}={\boldsymbol {F}}_{i}^{\mathrm {ex} }+\sum _{j\neq i}{\boldsymbol {F}}_{i,j}^{\mathrm {in} }} で表すことができる。
+よって、 d P d t = ∑ i = 1 N { F i e x + ∑ j ≠ i F i , j i n } {\displaystyle {\frac {d{\boldsymbol {P}}}{dt}}=\sum _{i=1}^{N}\left\{{\boldsymbol {F}}_{i}^{\mathrm {ex} }+\sum _{j\neq i}{\boldsymbol {F}}_{i,j}^{\mathrm {in} }\right\}} となる。
+さらに、作用・反作用の法則から相異なる質点 i, j の間で F i , j i n = − F j , i i n {\displaystyle {\boldsymbol {F}}_{i,j}^{\mathrm {in} }=-{\boldsymbol {F}}_{j,i}^{\mathrm {in} }} が成り立つ。
+したがって内力の和はゼロとなる。
+∑ i = 1 N ∑ j ≠ i F i , j i n = 0 . {\displaystyle \sum _{i=1}^{N}\sum _{j\neq i}{\boldsymbol {F}}_{i,j}^{\mathrm {in} }={\boldsymbol {0}}.} 結局、全運動量の時間微分は各質点に働く外力の和に等しくなる。
+d P d t = ∑ i = 1 N F i e x . {\displaystyle {\frac {d{\boldsymbol {P}}}{dt}}=\sum _{i=1}^{N}{\boldsymbol {F}}_{i}^{\mathrm {ex} }.} よって、系に外力が働かなければ、系の全運動量は不変である（保存する）。
+解析力学における運動量保存則 解析力学によれば、ネーターの定理により空間並進の無限小変換に対する作用積分の不変性に対応する保存量として運動量が導かれる。
+流体力学における運動量保存則 流体中の微小要素に運動量保存則を適用することができ、これによって得られる式を流体力学における運動量保存則とよぶ。
+また、特に非圧縮性流体の場合はナビエ-ストークス方程式と呼ばれ、これは流体の挙動を記述する上で重要な式である。

@@ -1,0 +1,32 @@
+g因子（ジーいんし、英: g-factor; g値、英: g valueとも）は粒子や原子核の磁気モーメントと磁気回転比を特徴づける無次元量の比例定数である。
+g因子は本質的には粒子の観測される磁気モーメント μ {\displaystyle \mu } と、それに対応する角運動量量子数と対応する磁気モーメントの量子単位（ボーア磁子や核磁子など）を結びつける比の定数である。
+特別な場合 電子のg因子 電子に関連した磁気モーメントは3つある。
+スピン角運動量による磁気モーメントと、軌道角運動量による磁気モーメントと、全角運動量（前述の2つの量子力学的な和）による磁気モーメントである。
+これら3つのモーメントに対する g {\displaystyle g} 因子の値は、それぞれ異なっている。
+電子スピンのg因子 3つの中で最も有名なのは、電子スピンのg因子 g S {\displaystyle g_{S}} である。
+これは単に電子のg因子 g e {\displaystyle g_{\mathrm {e} }} と呼ばれることが多い。
+電子スピンのg因子は以下で定義される。
+μ S C G S = − g S μ B ⋅ S ℏ = − g S e S 2 m e c {\displaystyle {\boldsymbol {\mu }}_{S}^{\mathrm {CGS} }=-g_{S}\mu _{\mathrm {B} }\cdot {\frac {\boldsymbol {S}}{\hbar }}=-{\frac {g_{S}e{\boldsymbol {S}}}{2m_{\mathrm {e} }c}}} ここで μ S {\displaystyle {\boldsymbol {\mu }}_{S}} はスピンから生じる電子の全磁気モーメント S {\displaystyle {\boldsymbol {S}}} はスピン角運動量の大きさ μ B {\displaystyle \mu _{\mathrm {B} }} はボーア磁子。
+よって磁気モーメントの z {\displaystyle z} 成分は以下となる。
+μ z = − g S μ B m s {\displaystyle \mu _{z}=-g_{S}\mu _{\mathrm {B} }m_{s}} g S {\displaystyle g_{S}} の値はおよそ2.002319に等しくなり、非常に高い精度で測定されている。
+電子スピンのg因子の2からのわずかなずれは異常磁気モーメントと呼ばれ、量子電磁力学によって説明される。
+電子軌道のg因子 次に、電子軌道のg因子 (electron orbital g-factor) g L {\displaystyle g_{L}} は以下により定義される。
+μ L C G S = g L μ B ⋅ L ℏ = g L e L 2 m e c {\displaystyle {\boldsymbol {\mu }}_{L}^{\mathrm {CGS} }=g_{L}\mu _{\mathrm {B} }\cdot {\frac {\boldsymbol {L}}{\hbar }}={\frac {g_{L}e{\boldsymbol {L}}}{2m_{\mathrm {e} }c}}} ここで μ L {\displaystyle {\boldsymbol {\mu }}_{L}} は軌道角運動量から生じる電子の全磁気モーメント L {\displaystyle {\boldsymbol {L}}} は軌道角運動量の大きさ μ B {\displaystyle \mu _{\mathrm {B} }} はボーア磁子。
+g L {\displaystyle g_{L}} の値は正確に1に等しくなる。
+これは古典的な磁気回転比の起源と同様、古典力学の議論により求められる。
+磁気量子数 m l {\displaystyle m_{l}} をもつ軌道の電子において、軌道角運動量の z {\displaystyle z} 成分は以下となる。
+μ z = g L μ B m l {\displaystyle \mu _{z}=g_{L}\mu _{\mathrm {B} }m_{l}} ここで g L = 1 {\displaystyle g_{L}=1} であるため、上の μ z {\displaystyle \mu _{z}} は丁度 μ B m l {\displaystyle \mu _{B}m_{l}} に等しい。
+ランデのg因子 3つめに、ランデのg因子 g J {\displaystyle g_{J}} は以下で定義される。
+μ C G S = g J μ B ⋅ J ℏ = g J e J 2 m e c {\displaystyle {\boldsymbol {\mu }}^{\mathrm {CGS} }=g_{J}\mu _{\mathrm {B} }\cdot {\frac {\boldsymbol {J}}{\hbar }}={\frac {g_{J}e{\boldsymbol {J}}}{2m_{\mathrm {e} }c}}} ここで μ {\displaystyle {\boldsymbol {\mu }}} は電子のスピンと軌道角運動量による全磁気モーメント J = L + S {\displaystyle {\boldsymbol {J}}={\boldsymbol {L}}+{\boldsymbol {S}}} は全角運動量 μ B {\displaystyle \mu _{\mathrm {B} }} はボーア磁子。
+g J {\displaystyle g_{J}} の値は量子力学的な変数により、 g L {\displaystyle g_{L}} と g S {\displaystyle g_{S}} の値と結びついている。
+ランデのg因子を参照。
+核子と原子核のg因子 陽子、中性子、そして多くの原子核はスピンと磁気モーメントをもっており、よってそれに関連した g N {\displaystyle g_{\mathrm {N} }} 因子を持っている。
+よく用いられる公式は以下である。
+μ N C G S = g N μ N ⋅ I ℏ = g N e I 2 m p c {\displaystyle {\boldsymbol {\mu }}_{\mathrm {N} }^{\mathrm {CGS} }=g_{\mathrm {N} }\mu _{\mathrm {N} }\cdot {\frac {\boldsymbol {I}}{\hbar }}={\frac {g_{\mathrm {N} }e{\boldsymbol {I}}}{2m_{\mathrm {p} }c}}} ここで μ {\displaystyle {\boldsymbol {\mu }}} 核スピンによって生じる磁気モーメント、 I {\displaystyle {\boldsymbol {I}}} は核スピン角運動量、 μ N {\displaystyle \mu _{\mathrm {N} }} は核磁子。
+ミュー粒子のg因子 ミュー粒子も電子のようにスピンに由来する g μ {\displaystyle g_{\mu }} 因子を持っており、以下の式で与えられる。
+μ μ C G S = g μ ⋅ e ℏ 2 m μ c ⋅ S ℏ {\displaystyle {\boldsymbol {\mu }}_{\mu }^{\mathrm {CGS} }=g_{\mu }\cdot {\frac {e\hbar }{2m_{\mu }c}}\cdot {\frac {\boldsymbol {S}}{\hbar }}} ここで μ {\displaystyle {\boldsymbol {\mu }}} はミュー粒子のスピンによる磁気モーメント S {\displaystyle {\boldsymbol {S}}} はスピン角運動量 m μ {\displaystyle m_{\mu }} はミュー粒子の質量。
+ミュー粒子のg因子には、標準模型では説明できないズレがある可能性がある。
+よって主にブルックヘブン国立研究所により非常に精密な測定が行われている。
+g因子の測定値は2.0023318414で不確かさは0.0000000012であり、一方理論による予言では2.0023318361で不確かさは0.0000000010である。
+この違いには標準模型を超える物理が影響している可能性が提唱されている。
+g因子の測定値 電子の g {\displaystyle g} 因子は物理学の中でも最も正確に測定されている値の一つであり、小数点第13位まで不確かさは生じない。

@@ -1,0 +1,16 @@
+リーマン幾何学において計量テンソル（けいりょうテンソル、英: metric tensor）とは、空間の局所ごとの構造を表す階数（rank）2のテンソルである。
+距離と角度の定義を与える。
+多様体が与えられたとき、多様体の接空間で、滑らかに変化する非負の計量テンソルが得られるときにその多様体をリーマン多様体と呼ぶ。
+そのため、計量テンソルは、リーマン計量（Riemannian metric）とも呼ばれる。
+ひとたびある座標系 xi が選ばれると、計量テンソルは行列で表される。
+通常、文字 G があてがわれ、各成分は gij とされる。
+Gは、ユークリッド空間のように平らな領域では単位行列となる。
+以下では、添え字の和に関してアインシュタインの縮約記法に従う。
+時刻t1 から t2 までの曲線の長さは、t をパラメータとして、 L = ∫ t 1 t 2 g i j d x i d t d x j d t d t {\displaystyle L=\int _{t_{1}}^{t_{2}}{\sqrt {g_{ij}{dx^{i} \over dt}{dx^{j} \over dt}}}dt\ } と定義される。
+この定義からわかる通り、 gij は、２点間の距離に対する各軸成分の寄与を表す係数である。
+このとき2つの接ベクトル（tangent vector） U = u i ∂ ∂ x i {\displaystyle U=u^{i}{\partial \over \partial x^{i}}\ } と V = v i ∂ ∂ x i {\displaystyle V=v^{i}{\partial \over \partial x^{i}}\ } のなす角度 θ は、 cos ⁡ θ = g i j u i v j | g i j u i u j | | g i j v i v j | {\displaystyle \cos \theta ={\frac {g_{ij}u^{i}v^{j}}{\sqrt {\left|g_{ij}u^{i}u^{j}\right|\left|g_{ij}v^{i}v^{j}\right|}}}\ } で与えられる。
+例 ユークリッド空間 2次元のユークリッド計量（平らな空間、直交直線座標系）では、その全域において、計量テンソルがクロネッカーデルタまたは単位行列となる。
+すなわち g = [ 1 0 0 1 ] , d s 2 = ( d x 1 ) 2 + ( d x 2 ) 2 {\displaystyle g={\begin{bmatrix}1&0\\0&1\end{bmatrix}},\quad ds_{}^{2}=(dx^{1})^{2}+(dx^{2})^{2}} で与えられ、曲線の長さは良く知られた L = ∫ a b ( d x 1 ) 2 + ( d x 2 ) 2 {\displaystyle L=\int _{a}^{b}{\sqrt {(dx^{1})^{2}+(dx^{2})^{2}}}\ } で与えられる。
+逆に計量テンソルが単位行列になるのは直交直線座標系のときに限る。
+座標系を替えたユークリッド計量の例をいくつか示す。
+極座標（Polar coordinates） ( x 1 , x 2 ) = ( r , θ ) {\displaystyle (x^{1},x^{2})=(r,\theta )\ } g = [ 1 0 0 ( x 1 ) 2 ] , d s 2 = ( d r ) 2 + r 2 ( d θ ) 2 {\displaystyle g={\begin{bmatrix}1&0\\0&(x^{1})^{2}\end{bmatrix}},\quad ds_{}^{2}=(dr)^{2}+r^{2}(d\theta )^{2}} 円筒座標（Cylindrical coordinates） ( x 1 , x 2 , x 3 ) = ( r , θ , z ) {\displaystyle (x^{1},x^{2},x^{3})=(r,\theta ,z)\ } g = [ 1 0 0 0 ( x 1 ) 2 0 0 0 1 ] , d s 2 = ( d r ) 2 + r 2 ( d θ ) 2 + ( d z ) 2 {\displaystyle g={\begin{bmatrix}1&0&0\\0&(x^{1})^{2}&0\\0&0&1\end{bmatrix}},\quad ds_{}^{2}=(dr)^{2}+r^{2}(d\theta )^{2}+(dz)^{2}} 球座標（Spherical coordinates） ( x 1 , x 2 , x 3 ) = ( r , θ , ϕ ) {\displaystyle (x^{1},x^{2},x^{3})=(r,\theta ,\phi )\ } g = [ 1 0 0 0 ( x 1 ) 2 0 0 0 ( x 1 sin ⁡ x 2 ) 2 ] , d s 2 = ( d r ) 2 + r 2 ( d θ ) 2 + r 2 sin 2 ⁡ θ ( d ϕ ) 2 {\displaystyle g={\begin{bmatrix}1&0&0\\0&(x^{1})^{2}&0\\0&0&(x^{1}\sin x^{2})^{2}\end{bmatrix}},\quad ds_{}^{2}=(dr)^{2}+r^{2}(d\theta )^{2}+r^{2}\sin ^{2}\theta (d\phi )^{2}} 時空・ローレンツ多様体 平らな ミンコフスキー空間（Minkowski space） ( x 0 , x 1 , x 2 , x 3 ) = ( t , x , y , z ) {\displaystyle (x^{0},x^{1},x^{2},x^{3})=(t,x,y,z)\ } g = [ − 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 ] , d s 2 = − ( d t ) 2 + ( d x ) 2 + ( d y ) 2 + ( d z ) 2 {\displaystyle g={\begin{bmatrix}-1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{bmatrix}},\quad ds_{}^{2}=-(dt)^{2}+(dx)^{2}+(dy)^{2}+(dz)^{2}} シュワルツシルト計量 非ユークリッド空間 •ポアンカレ円板 d s 2 = ( 4 / ( 1 − ( x 2 + y 2 ) ) 2 ) ( d x 2 + d y 2 ) {\displaystyle ds^{2}=(4/(1-(x^{2}+y^{2}))^{2})(dx^{2}+dy^{2})} 脚注 参考文献 石原繁『テンソル －科学技術のために－』裳華房、1991年。

@@ -1,0 +1,8 @@
+統計力学において、カノニカル相関（カノニカルそうかん、英: canonical correlation）とは以下のような関数 ⟨ ; ⟩ e q {\displaystyle \langle \quad ;\quad \rangle _{\mathrm {eq} }} のことをいう。
+⟨ X ^ ; Y ^ ⟩ e q = 1 β ∫ 0 β ⟨ e λ H ^ 0 X ^ e − λ H ^ 0 Y ^ ⟩ d λ = 1 β Tr ⁡ [ e − β H ^ 0 ∫ 0 β e λ H ^ 0 X ^ e − λ H ^ 0 Y ^ d λ ] Tr ⁡ [ e − β H ^ 0 ] {\displaystyle \langle {\hat {X}};{\hat {Y}}\rangle _{\mathrm {eq} }={\frac {1}{\beta }}\int _{0}^{\beta }\langle e^{\lambda {\hat {H}}_{0}}{\hat {X}}e^{-\lambda {\hat {H}}_{0}}{\hat {Y}}\rangle d\lambda ={\frac {1}{\beta }}{\frac {\operatorname {Tr} [e^{-\beta {\hat {H}}_{0}}\int _{0}^{\beta }e^{\lambda {\hat {H}}_{0}}{\hat {X}}e^{-\lambda {\hat {H}}_{0}}{\hat {Y}}d\lambda ]}{\operatorname {Tr} [e^{-\beta {\hat {H}}_{0}}]}}} ここで ⟨ ⟩ {\displaystyle \langle \quad \rangle } はカノニカル分布による平均を表す。
+外力に対する熱平衡系の線形応答、および熱平衡近傍での線形不可逆過程の量子統計力学において基本的役割を果たす。
+性質 カノニカル相関は以下を満たす。
+⟨ X ^ ; Y ^ ⟩ e q = ⟨ Y ^ ; X ^ ⟩ e q {\displaystyle \langle {\hat {X}};{\hat {Y}}\rangle _{\mathrm {eq} }=\langle {\hat {Y}};{\hat {X}}\rangle _{\mathrm {eq} }} カノニカル分布での平均 ⟨ ⟩ {\displaystyle \langle \quad \rangle } との関係は、 β ⟨ X ^ ˙ ; Y ^ ⟩ e q = 1 i ℏ ⟨ [ X ^ , Y ^ ] ⟩ {\displaystyle \beta \langle {\dot {\hat {X}}};{\hat {Y}}\rangle _{\mathrm {eq} }={\frac {1}{i\hbar }}\langle [{\hat {X}},{\hat {Y}}]\rangle } 古典力学では物理量は交換可能なので ⟨ X ^ ; Y ^ ⟩ e q = ⟨ X ^ Y ^ ⟩ {\displaystyle \langle {\hat {X}};{\hat {Y}}\rangle _{\mathrm {eq} }=\langle {\hat {X}}{\hat {Y}}\rangle } となり、これは相関関数である。
+よってカノニカル相関はこれを量子論の場合に拡張したものに他ならない。
+X ^ {\displaystyle {\hat {X}}} , Y ^ {\displaystyle {\hat {Y}}} がエルミート演算子の場合、カノニカル相関は実数である。
+カノニカル相関のフーリエ変換を Λ X , Y ( ω ) {\displaystyle \Lambda _{X,Y}(\omega )} 、通常の相関関数のフーリエ変換を C X Y ( ω ) {\displaystyle C_{XY}(\omega )} との間には以下の関係がある。

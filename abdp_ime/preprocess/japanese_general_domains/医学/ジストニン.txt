@@ -1,0 +1,97 @@
+ジストニン（英: Dystonin、BP230、BPAG1）は、ヒト遺伝子DSTにコードされたタンパク質で、数種類のアイソフォームがある。
+神経組織、筋組織、上皮組織に存在する。
+上皮組織に発現するアイソフォーム（ジストニン-e）は、BP230（ビーピー ツーサーティ、BPAG1e）とも呼ばれ、神経組織に発現するアイソフォーム（ジストニン-a）はBPAG1a、筋組織に発現するアイソフォーム（ジストニン-b）はBPAG1bとも呼ばれている。
+プラキン (plakins) ファミリーの一員である 。
+プラキンの上位はスペクトラプラキン (spectraplakins) なので、スペクトラプラキンファミリーの一員でもある。
+用語 別称一覧 BP230; BPAG1; BPAG1e; BPAG1a; BPAG1b; DT; BPA; DMH; BP240; HSAN6; MACF2; CATX15; CATX-15; D6S1101; bullous pemphigoid antigen 1; trabeculin-beta; dystonia musculorum protein; hemidesmosomal plaque protein; bullous pemphigoid antigen 1, 230/240kDa 上皮組織の半接着斑の研究者は、ジストニンという名称をほとんど使用せず、BP230という呼称を多用する。
+上皮組織のジストニン・アイソフォーム「ジストニン-e」の別名であるBP230の「BP」は、皮膚病の病名である「Bullous pemphigoid 」(水疱性類天疱瘡)の頭文字で、つづく「230」は、タンパク質の分子量が230 kDaという意味である。
+つまり、水疱性類天疱瘡の患者で発見された分子量230 kDaのタンパク質という含意である。
+誤解されないように書くが、患者で発見されたが、患者特有のタンパク質ではなく、健常なすべてのヒトに存在する。
+BP230の別名「BPAG1e」の「BP」は、上記の通り「Bullous pemphigoid 」（水疱性類天疱瘡）の頭文字で、「AG1」は「抗原（antigen）の1番目」と言う意味である。
+「e」は「epithelial（上皮の）」の頭文字である。
+神経組織のジストニン・アイソフォーム「ジストニン-a」は、BPAG1aとも呼ばれる。
+筋組織のジストニン・アイソフォーム「ジストニン-b」は、BPAG1bとも呼ばれる。
+発見 BP230の発見 1953年、米国・ハーバード大学のウォルター・レーバー (Walter F. Lever) が老人の表皮の水泡を水疱性類天疱瘡 (bullous pemphigoid：BP) として最初に記載した 。
+1967年、レーバーは、水疱性類天疱瘡の患者が自分の皮膚の基底膜に対する抗体（自己抗体）をつくっていることを、蛍光抗体法（immunofluorescence) で発見した 。
+病気の原因を、自己抗体が自分の皮膚を破壊するためだと突き止めた。
+1986年、米国のジョンズ・ホプキンス大学のディアズは、水疱性類天疱瘡の患者の自己抗体を使い、免疫ブロッティング法で、自己抗体に反応する5つのタンパク質（つまり、抗原）を同定した。
+内2つが主要で、分子量は240 kDaと180 kDaだった。
+2つとも、半接着斑に局在することも確かめられた 。
+240 kDaは、後に230 kDaと修正（さらに315 kDaと修正）されるが、この記事で説明するタンパク質・BP230である。
+なお、180 kDaはBP180だった。
+1989年、cDNAが単離され、塩基配列が解明され、ヒト染色体6にあると同定された。
+ジストニンの発見 1995年、カナダ・モントリオールがん研究所のラシミ・コタリー（Rashmi Kothary）が、マウスの遺伝的な神経変性疾患であるジストニア（Dystonia musculorum）の原因遺伝子を突き止め、病名の「Dystonia musculorum」に因んで「dystonin」（ジストニン）と命名した。
+判明したアミノ酸配列から、ジストニンは半接着斑のタンパク質・BP230に類似のタンパク質であると判明した 。
+ジストニン・アイソフォーム 半接着斑の研究界では、ジストニンという名称を使用しないでBP230と呼ぶ人が多いが、2013年9月現在、BP230はジストニンのアイソフォームの1つに統合されつつある。
+ジストニン-a：神経組織のジストニン・アイソフォーム。
+別名、BPAG1a。
+ジストニン-a1 ジストニン-a2 ジストニン-a3 ジストニン-b：筋組織のジストニン・アイソフォーム。
+別名、BPAG1b。
+ジストニン-b1 ジストニン-b2 ジストニン-b3 ジストニン-e：上皮組織のジストニン・アイソフォーム。
+別名、BP230、BPAG1e。
+構造 N末端側からC末端側へと説明する。
+図3のドメイン構造モデルに対応して説明する。
+上皮組織のジストニン-e（BP230、BPAG1e）は、315 kDaの大きなタンパク質である。
+N末端側にプラキンドメイン（plakin domain）がある。
+プラキンドメインは、スペクトリンリピート構造（SR：spectrin repeats）が4つ（青色の楕円）、次いで、SH3ドメイン(src homology 3 domain)(SH3)が１つ（紫色の長方形）、そして、再びスペクトリンリピート構造が4つあるドメインである。
+ついでロッドドメイン（rod domain）がある。
+ロッドドメインは、2つのコイルドコイル（CC：coiled coils)構造からなる（橙色の長方形）。
+このドメインでジストニン-eどうしが結合し、二量化する。
+C末端側に中間径フィラメント結合ドメイン（IFBD：intermediate filament-binding domain）があり、中間径フィラメントに結合する。
+中間径フィラメント結合ドメインは2つのプラキンリピート構造からなる（白色の2個の長方形）。
+神経組織のジストニン-a（BPAG1a）は、615 kDaと巨大なタンパク質である。
+図3に示していないが、ジストニン-aのN末端側のABD（アクチン結合ドメイン）(黄色)のさらにN末端側にペプチドが異なる3種類のアイソフォーム（a1/a2/a3）がある。
+付加したペプチドに細胞膜への結合活性があり、アイソフォームにより機能は大きく異なる。
+ジストニン-a1：付加なし ジストニン-a2：ABDのさらにN末端側に膜貫通ドメイン（TM：transmembrane domain）が付加している。
+そのために、細胞内から膜に結合できる。
+ジストニン-a3：ABDのさらにN末端側にミリストイル化モチーフ（短いペプチド構造）（MYR：Myristoylation motif）が付加している（ジストニン-a2の膜貫通ドメインはない）。
+そのために、細胞内から膜に結合できる。
+N末端側にABDがあり、アクチン線維に結合する。
+アクチン結合ドメインの内部は、2つのカルポニン相同ドメイン（calponin homology domains）（黄色の2個の長方形）である。
+ついで、ジストニン-eと全く同じ構造のプラキンドメインがある。
+次に、スペクトリンリピート構造がたくさんある（青色の楕円）。
+C末端側近くの赤色の手前に2つのEFハンドのCa++結合ドメインがある。
+C末端側に微小管結合ドメイン（MTBD：microtubule-binding domain）があり（赤色の長方形）、微小管に結合する。
+筋組織のジストニン-b（BPAG1b）は、834 kDaとさらに巨大なタンパク質である。
+ジストニン-bのアイソフォームもジストニン-aと同じ以下の3種類がある。
+付加するペプチドは、ジストニン-aと全く同じである。
+ジストニン-b1 ジストニン-b2 ジストニン-b3 N末端側にジストニン-aと同じABDがあり、アクチン線維に結合する。
+ついで、ジストニン-eやジストニン-aと全く同じ構造のプラキンドメインがある。
+次に、2つのプラキンリピート構造がある（白色の2個の長方形）。
+図3では書き落としたが、ここはIFBDであり、中間径フィラメントに結合する。
+次に、ジストニン-aとよく似たスペクトリンリピート構造がたくさんある（青色の楕円）。
+ジストニン-aと同じだが、C末端側近くの赤色の手前に2つのEFハンドCa++結合ドメインがある。
+ジストニン-aと同じ、C末端側にMTBDがあり（赤色の長方形）、微小管に結合する。
+機能 BP230の機能 上皮組織のジストニン-e（BPAG1e）は、図4では「BP230」と示してある。
+半接着斑(ヘミデスモソーム)の細胞膜裏打ちタンパク質で、細胞内のケラチン線維と膜貫通タンパク質（transmembrane protein）であるインテグリン（integrin）α6β4、BP180、CD151に結合し、半接着斑(ヘミデスモソーム)の接着構造を細胞の内側から支える。
+角化細胞（ケラチノサイト）の半接着斑の形成と機能維持、極性形成、運動に必須である。
+ジストニンの機能 神経組織と筋組織のジストニンは、アクチン結合ドメイン、中間径フィラメント、微小管結合ドメインがある。
+ジストニンは、神経細胞内でこれら3種類の細胞骨格に結合する。
+さらに、細胞膜貫通ドメインや膜結合のミリストイル化モチーフ（短いペプチド構造）を持つので、細胞膜にも結合し、細胞の骨格構造の形成・維持、細胞の生物機能の場の確保に重要な役割を果たしていると思われる。
+また、ゴルジ体に存在するジストニンは、微小管の重合の核となり、微小管構造の安定性を維持している。
+シュワン細胞では、特に、ミエリン鞘の形成に必須である。
+遺伝子欠損マウス 1995年、BP230遺伝子欠損マウス（BP230 KO）の作成が発表された。
+マウスは、致死ではなく、成体になる。
+半接着斑の形態、細胞増殖「細胞‐基質接着」も正常である。
+異常な点は、半接着斑の細胞内に細胞骨格が結合していないことだった。
+予想外のことに、このマウスには、強度のジストニアと感覚神経退行の症状が見られた。
+「予想外のこと」というのは、BP230遺伝子欠損マウス論文発表時点では、BP230がジストニンと同一タンパク質だということが知られていなかったためである。
+同じ年の1995年の論文で、同一だと報告された。
+病気 ある種の水疱性類天疱瘡(bullous pemphigoid：BP)は、患者が自分の皮膚のジストニン-e（BP230、BPAG1e）に対する抗体(自己抗体)をつくるために生じる皮膚病である。
+ある種のジストニア（Dystonia musculorum）は、神経組織や筋組織のジストニンの異常が原因である。
+変異遺伝子を持つと遺伝的ジストニアになる。
+応用・特許 上記の病気の予防・診断・治療に関する医薬品や研究器材への応用が大いに期待できるが、有効な医薬品はまだ登場していない。
+脚注 参考文献 清水宏 (April 2011). 新しい皮膚科学 (2 ed.). 東京: 中山書店. pp. 608. ISBN 1-4160-2999-0. http://www.derm-hokudai.jp/textbook/pdf/1-02.pdf 2013年9月1日閲覧。
+Leighty L, Li N, Diaz LA, Liu Z (Nov 2007). “Experimental models for the autoimmune and inflammatory blistering disease, Bullous pemphigoid”. Arch Dermatol Res 299 (9): 417-422. PMID 17879094. http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2064945/. Green KJ, Jones JC (1996). “Desmosomes and hemidesmosomes: structure and function of molecular components”. FASEB J 10 (8): 871-881. PMID 8666164. Yurchenco PD (Feb 2011). “Basement membranes: cell scaffoldings and signaling platforms”. Cold Spring Harb Perspect Biol 3 (2): a004911. doi:10.1101/cshperspect.a004911. PMC 3039528. PMID 21421915. http://cshperspectives.cshlp.org/content/3/2/a004911.full?sid=bdccbbb2-077e-47e1-aa7d-2f5e1a3f10ac. Ferrier A, Boyer JG, Kothary R (2013). “Cellular and molecular biology of neuronal dystonin”. Int Rev Cell Mol Biol 300: 85-120. doi:10.1016/B978-0-12-405210-9.00003-5.. PMID 23273860. Alberts, Bruce; Johnson, Alexander; Lewis, Julian; Raff, Martin; Roberts, Keith; Walter, Peter (2002). “Cell Junctions”. Molecular Biology of the Cell (4th ed.). New York: Garland Science. ISBN 0-8153-3218-1. http://www.ncbi.nlm.nih.gov/books/NBK26867/ 関連項目 半接着斑（ヘミデスモソーム） 細胞接着分子 List of keratins expressed in the human integumentary system（英語） List of target antigens in pemphigus（英語） List of immunofluorescence findings for autoimmune bullous conditions（英語） List of cutaneous conditions（英語） List of histologic stains that aid in diagnosis of cutaneous conditions（英語） Keratoderma（英語） 外部リンク ミリストイル化 - 脳科学辞典 BP230 - MeSH・アメリカ国立医学図書館・生命科学用語シソーラス（英語）（英語） Dystonin - MeSH・アメリカ国立医学図書館・生命科学用語シソーラス（英語）（英語） “Entrez Gene: DST dystonin”. 2013年9月11日閲覧。
+（英語） “RecName: Full=Dystonin; AltName: Full=230 kDa bullous pemphigoid antig - Protein - NCBI”. 2013年9月13日閲覧。
+（英語） “Dystonin Family (Cell Migration Knowledgebase)”. 2013年9月11日閲覧。
+（英語） “DST Gene - GeneCards, DYST Protein, DYST Antibody”. 2013年9月13日閲覧。
+（英語） “Dystonia 10-18-09 part 1 - YouTube”. 2013年9月13日閲覧。
+（英語）動画 10分。
+ジストニアの女性患者の運動障害、足の痙攣のようす。
+裸・手術・患部・血の映像なし。
+“Bullous pemphigoid - YouTube”. 2013年9月13日閲覧。
+（英語）動画 2分42秒。
+水疱性類天疱瘡(bullous pemphigoid：BP)の男性患者の皮膚の変化の映像。
+裸・手術・血の映像なし、患部の映像あり。
+原因はジストニン異常ではないと思われる。

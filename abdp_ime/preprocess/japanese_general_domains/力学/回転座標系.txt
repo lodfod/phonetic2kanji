@@ -1,0 +1,10 @@
+回転座標系（かいてんざひょうけい）とは、運動座標系の一種で、慣性系から見るとある軸に対して回転している非慣性系の座標系をいう。
+たとえば地球表面は地軸に対して回転する座標系である。
+例としてz 軸まわりに角速度ωで回転する回転座標系 ( x' , y' , z' ) を考える。
+慣性系 ( x , y , z ) と回転座標系 ( x' , y' , z' ) が時刻t = 0 で一致していたとすると、2つの座標系の間には次の関係が成り立つ。
+x = x ′ cos ⁡ ω t − y ′ sin ⁡ ω t y = x ′ sin ⁡ ω t + y ′ cos ⁡ ω t z = z ′ {\displaystyle {\begin{aligned}x&=x'\cos \omega t-y'\sin \omega t\\y&=x'\sin \omega t+y'\cos \omega t\\z&=z'\end{aligned}}} 性質 慣性系におけるニュートンの運動方程式を回転座標系へと変換すると、力の項に遠心力とコリオリの力が新たに出現する。
+すなわち、上記の回転座標系 ( x' , y' , z' ) での運動方程式は、z 成分を省略すると m d 2 x ′ d t 2 = F x ′ + 2 m ω v ′ + m ω 2 x ′ , m d 2 y ′ d t 2 = F y ′ − 2 m ω u ′ + m ω 2 y ′ {\displaystyle {\begin{aligned}m{\frac {d^{2}x'}{dt^{2}}}&=F_{x'}+2m\omega v'+m\omega ^{2}x',\\m{\frac {d^{2}y'}{dt^{2}}}&=F_{y'}-2m\omega u'+m\omega ^{2}y'\end{aligned}}} と表され、これらの式の右辺第2項としてコリオリの力が、第3項として遠心力が生じる。
+ここで、u' ,v' は回転座標系から見た速度である。
+回転座標系において任意のベクトルA (t ) の時間変化（相対導関数）が d ∗ A d t {\displaystyle {\frac {d^{*}{\boldsymbol {A}}}{dt}}} で与えられているとすると、このベクトルの静止座標系に対する時間変化（絶対導関数） d A d t {\displaystyle {\frac {d{\boldsymbol {A}}}{dt}}} は次式で表される。
+これは回転座標系の公式と呼ばれることがある。
+d A d t = d ∗ A d t + ω × A {\displaystyle {\frac {d{\boldsymbol {A}}}{dt}}={\frac {d^{*}{\boldsymbol {A}}}{dt}}+{\boldsymbol {\omega }}\times {\boldsymbol {A}}} ここでωは角速度ベクトルである。

@@ -1,0 +1,39 @@
+オームの法則（オームのほうそく、英語: Ohm's law）とは、導電現象において、電気回路の部分に流れる電流とその両端の電位差の関係を主張する法則である。
+クーロンの法則とともに電気工学で最も重要な関係式の一つである。
+1781年にヘンリー・キャヴェンディッシュが発見したが、その業績は死後数十年した後に1879年にその遺稿を纏めたマクスウェルが『ヘンリー・キャヴェンディッシュ電気学論文集』として出版するまで世間には未公表であったため知られておらず、1826年にドイツの物理学者であるゲオルク・オームによって独自に再発見・公表されたため、その名を冠してオームの法則と呼ばれるようになった。
+内容 オームの法則は、電気回路の2点間の電位差が、その2点間に流れる電流に比例することを主張する。
+電流が I で電位差が V であるとき となる。
+比例係数 R は導体の材質・形状・温度などによって定まり、電気抵抗（electric resistance）あるいは単に抵抗（resistance）と呼ばれる。
+この関係の逆を考えると、流れる電流が電位差に比例する、と表現することができる。
+これを数式で表せば となる。
+このときの比例係数 G = R−1 は電気伝導率（conductance）、あるいはコンダクタンスと呼ばれる。
+電流の単位にアンペア（記号:A）を、電位差の単位にボルト（記号:V）を用いたときの電気抵抗の単位はオーム（記号:Ω）が用いられる。
+また、コンダクタンスの単位はジーメンス（記号:S）が用いられる。
+微分型表現 導体内の微小な断面（法線ベクトル n）を考え、その面積を ΔS とすると、この断面を貫く電流 I は、この点での電流密度を j として と表される。
+一方、この微小な断面を貫く微小な法線を考え、その長さを ΔL とすると、この法線に沿った電位差 V は、この点での電場を E として と表される。
+この電流と電位差にオームの法則を適用すれば となる。
+導体が一様で等方な材質であると考えれば、電場 E と電流密度 j は平行であると考えられ と表される。
+比例係数 ρ = R ΔS/ΔL は導体の材質と温度によって定まり、電気抵抗率 (resistivity)あるいは固有抵抗 (specific resistance)と呼ばれる。
+さらにその逆関数 と表したときの比例係数 σ = 1/ρ は電気伝導率 (conductivity)と呼ばれる。
+この表現は導体内の微小領域におけるオームの法則を示しており、微分型表現といわれる。
+この微分型表現を実際の導体の形状寸法に合わせて積分することによりその導体の電気抵抗が定まる。
+磁気流体力学での一般化されたオームの法則 地球電磁気学、宇宙空間物理学などで使われる磁気流体力学（MHD）はオームの法則を1次元の導体から3次元の連続体、特に流体に拡張して用いる。
+この時のオームの法則は磁場の影響も含むようになり、「一般化されたオームの法則」と呼ばれる。
+液体金属における導出 磁場が存在し、かつ導電体が動く場合、磁場の影響によるローレンツ力が無視できなくなる。
+ローレンツ変換を使うと、電場は E ∥ ′ = E ∥ E ⊥ ′ = γ ( E + β × B ) ⊥ {\displaystyle {\begin{aligned}{\boldsymbol {E}}_{\parallel }'&={\boldsymbol {E}}_{\parallel }\\{\boldsymbol {E}}_{\bot }'&=\gamma \left({\boldsymbol {E}}+{\boldsymbol {\beta }}\times {\boldsymbol {B}}\right)_{\bot }\end{aligned}}} と変換される。
+ただし ∥ {\displaystyle \parallel } は導電体の移動方向と並行な成分、 ⊥ {\displaystyle \bot } は垂直な成分、 γ {\displaystyle \gamma } はローレンツ因子、 β {\displaystyle \beta } は光速に対する相対的な速度。
+速度が光速より十分に遅く、かつ磁場が十分強いと仮定する。
+この時、オームの法則は と修正される。
+プラズマにおける導出 完全に電離した水素原子のプラズマを考える。
+つまり流体を構成する粒子は陽子と電子の2成分のみとする。
+陽子と電子それぞれの流体に対し、速度を u p , u e {\displaystyle {\boldsymbol {u}}_{p},{\boldsymbol {u}}_{e}} 、数密度を n p , n e {\displaystyle n_{p},n_{e}} 、粒子の質量を m p , m e {\displaystyle m_{p},m_{e}} 、分圧を P p , P e {\displaystyle P_{p},P_{e}} とする。
+また電気素量を e {\displaystyle e} 、陽子と電子の二体衝突の頻度を ν {\displaystyle \nu } とする。
+ローレンツ力と衝突の影響を含めた運動方程式（オイラー方程式）は m p n p ( ∂ ∂ t + ( u p ⋅ ∇ ) ) u p = − ∇ P p + e n p ( E + u p × B ) − R m e n e ( ∂ ∂ t + ( u e ⋅ ∇ ) ) u e = − ∇ P e − e n e ( E + u e × B ) + R R = e n e m e ν ( u p − u e ) {\displaystyle {\begin{aligned}m_{p}n_{p}\left({\frac {\partial }{\partial t}}+({\boldsymbol {u}}_{p}\cdot \nabla )\right){\boldsymbol {u}}_{p}&=-\nabla P_{p}+en_{p}({\boldsymbol {E}}+{\boldsymbol {u}}_{p}\times {\boldsymbol {B}})-{\boldsymbol {R}}\\m_{e}n_{e}\left({\frac {\partial }{\partial t}}+({\boldsymbol {u}}_{e}\cdot \nabla )\right){\boldsymbol {u}}_{e}&=-\nabla P_{e}-en_{e}({\boldsymbol {E}}+{\boldsymbol {u}}_{e}\times {\boldsymbol {B}})+{\boldsymbol {R}}\\{\boldsymbol {R}}&=en_{e}m_{e}\nu ({\boldsymbol {u}}_{p}-{\boldsymbol {u}}_{e})\end{aligned}}} となる。
+ただし R {\displaystyle {\boldsymbol {R}}} は衝突項。
+ミクロな空間において定常状態を考えると、運動方程式の左辺と分圧の勾配を0と近似できる。
+e n p ( E + u p × B ) − R = 0 − e n e ( E + u e × B ) + R = 0 {\displaystyle {\begin{aligned}en_{p}({\boldsymbol {E}}+{\boldsymbol {u}}_{p}\times {\boldsymbol {B}})-{\boldsymbol {R}}&=0\\-en_{e}({\boldsymbol {E}}+{\boldsymbol {u}}_{e}\times {\boldsymbol {B}})+{\boldsymbol {R}}&=0\end{aligned}}} 中性流体を考えると n ≃ n p ≃ n e {\displaystyle n\simeq n_{p}\simeq n_{e}} とできる。
+陽子の質量が電子の質量より非常に大きいこと m p ≫ m e {\displaystyle m_{p}\gg m_{e}} と合わせると、重心の速度は u = n p m p u p + n e m e u e n p m p + n e m e ≃ m p u p + m e u e m p + m e ≃ u p {\displaystyle {\begin{aligned}{\boldsymbol {u}}&={\frac {n_{p}m_{p}{\boldsymbol {u}}_{p}+n_{e}m_{e}{\boldsymbol {u}}_{e}}{n_{p}m_{p}+n_{e}m_{e}}}\\&\simeq {\frac {m_{p}{\boldsymbol {u}}_{p}+m_{e}{\boldsymbol {u}}_{e}}{m_{p}+m_{e}}}\\&\simeq {\boldsymbol {u}}_{p}\end{aligned}}} と近似できる。
+電流は と表されるので、運動方程式の衝突項を代入すると、 以上より一般化されたオームの法則 j = σ ( E + u × B ) {\displaystyle {\begin{aligned}{\boldsymbol {j}}&=\sigma ({\boldsymbol {E}}+{\boldsymbol {u}}\times {\boldsymbol {B}})\end{aligned}}} が導ける。
+ただし σ = e n / ( m e ν ) {\displaystyle \sigma =en/(m_{e}\nu )} とした。
+脚注 参考文献 大野木哲也・高橋義朗『電磁気学I』益川敏英監修、植松恒夫・青山秀明編、東京図書〈基幹講座 物理学〉、2015年、53-54頁。
+ISBN 978-4489022234 柴田一成・横山央明・工藤 哲洋『宇宙電磁流体力学の基礎』日本評論社〈宇宙物理学の基礎〉、2023年。

@@ -1,0 +1,69 @@
+Open Neural Network Exchange（略称：ONNX）とは、オープンソースで開発されている機械学習や人工知能のモデルを表現する為の代表的なフォーマットである。
+実行エンジンとしてONNX Runtimeも開発されている。
+概要 機械学習、特にニューラルネットワークモデルは様々なフレームワーク上で学習され、また様々なハードウェア上で実行（推論）される。
+各環境に特化したモデルは他のフレームワーク・ハードウェアで利用できず相互運用性を欠いてしまう。
+また実装者は環境ごとにサポートをおこなう必要があり大きな労力を必要とする。
+ONNXはモデルを記述する統一インターフェース（フォーマット）を提供し、これらの問題を解決する。
+各フレームワークは学習したモデルをONNX形式で出力する。
+各ハードウェアはONNX実行環境を提供することで、どのフレームワークで学習されたかを問わずモデル推論を実行する。
+このように相互運用可能なモデルフォーマットとしてONNXは開発されている。
+2017年に開発が開始された。
+開発背景 以下の特性を補完する意図にて開発が進められた。
+フレームワークの相互運用性 開発工程や機械学習の高速処理、ネットワークの基本設計における柔軟性やモバイルデバイスでの推論などの特定の段階において、開発者が複数のフレームワークでのデータのやり取りを簡単に行えるようにする。
+最適化の共有 ハードウェアベンダーなどは、ONNXを対象に調整を行うことで、複数のフレームワークにおけるニューラルネットワークのパフォーマンスを一度に改善することができる。
+沿革 2017年9月に、FacebookとMicrosoftは、PyTorchやCaffe2などの機械学習フレームワーク間において相互運用を可能にする為の取り組みとして、このプロジェクトを始動した。
+その後、IBM、Huawei、Intel、AMD、ARM、Qualcommがこの取り組みに対して積極的な支援を表明した。
+2017年10月に、MicrosoftはCognitive ToolkitおよびProject Brainwaveプラットフォームにおいて、ONNXのサポートを発表した。
+2019年11月、ONNXはLinux Foundation AIの卒業生プロジェクトとして承認された。
+構成 ONNXは、推論（評価）に焦点を当て、拡張可能な計算グラフモデル、組み込み演算子、および標準データ型の定義を提供する。
+それぞれのデータフローグラフは、有向非巡回グラフを形成するノードのリストになっている。
+ノードには入力と出力があり、各ノードが処理を呼び出すようになっている。
+メタデータはグラフを文書化する。
+組み込み演算子は、ONNXをサポートする各フレームワークで利用可能である。
+グラフは Protocol Buffers を使用して拡張子 .onnx のバイナリファイルとして保存可能である。
+このファイルは様々な機械学習のライブラリから読み書き可能である。
+ONNX仕様は2つのサブ仕様、IRとOperatorからなる。
+この2つの仕様はそれぞれバージョニングされており、ONNX仕様のバージョンはこの2つのサブ仕様の特定版を指定したものとなっている。
+2021-12-22現在の最新バージョンは version 1.10.2 であり、これはIR v8とOperator v15-v2-v1 から成る。
+ONNX IR Open Neural Network Exchange Intermediate Representation (ONNX IR) はONNXの基本データ型と計算グラフを定義するサブ仕様である。
+ONNX IRは計算グラフを構成する Model, Graph, Node 等の要素、入出力 Tensor, Sequence, Map およびデータ FLOAT, INT8, BFLOAT16 等の基本データ型を定義する。
+2021-12-22現在の最新バージョンは version 8 である。
+ONNX IRが定義する要素として以下が挙げられる。
+Graph: 計算グラフを表現する要素。
+Graph入出力を指定するinput/initializer/output、計算ノード群を指定するnode、メタデータを収納するname/doc_string/value_info、の属性をもつ。
+Node: 計算ノードを表現する要素。
+Node入出力を指定するinput/output、演算子とそのパラメータを指定するdomain/op_type/attribute、メタデータを収納するname/doc_string/value_info、の属性をもつ。
+すなわちGraphに収納された各Nodeが入出力をもった演算 (例: Conv) になっており、Node/Graph入出力名に基づいてNode群がグラフ構造を取っている。
+拡張演算子 ONNX IRはONNX Operatorで定義される標準演算子に追加して、独自の拡張演算子を受け入れられるように設計されている。
+これによりONNXの "Extensible/拡張可能" 特性を実現している。
+拡張演算子セットを Model の opset_import 属性に指定することで実行エンジン側へ拡張演算子の利用を通知する仕組みである。
+ONNXを受け取った実行エンジンは opset_import を確認し、指定された演算子セット全てをサポートしていれば受け入れ、そうでなければ Model 全体を拒絶する。
+ONNX Operator ONNXのビルトイン演算子はサブ仕様 Operator specifications により定義される。
+3種類の演算子セット（Opset）ai.onnx, ai.onnx.ml, ai.onnx.training が定義されており、ai.onnx がデフォルトである。
+2022年12月12日現在、ai.onnx の最新バージョンは version 18 である。
+例えばOpset ai.onnx v15ではRNN系演算子として RNN 、LSTM 、GRU が定義されている。
+量子化 ONNXは入出力の量子化やそれに対する操作を演算子として持つ。
+QuantizeLinearはスケール・シフトパラメータに基づく線形量子化をおこなう。
+DynamicQuantizeLinearは入力ベクトルのmin/maxに基づく動的uint8量子化をおこなう。
+int8入力に対する演算にはMatMulInteger、QLinearMatMul、ConvInteger、QLinearConvなどがある。
+ONNX Runtime ONNX Runtime (略称: ORT) は様々な環境におけるONNXモデルの推論・学習高速化を目的としたオープンソースプロジェクトである。
+フレームワーク・OS・ハードウェアを問わず単一のRuntime APIを介してONNXモデルを利用できる。
+またデプロイ環境に合わせた最適化を自動でおこなう。
+ONNX Runtimeは設計方針としてアクセラレータ・ランタイム抽象化とパフォーマンス最適化の両立を掲げており、ONNXモデルの自動分割と最適アクセラレータによるサブモデル実行によりこれを実現している。
+ONNX Runtimeがサポートする最適化には以下が挙げられる。
+モデル量子化: 8-bit Model Quantization グラフ最適化: Basic (不要ノード除去・一部のop fusions), Extended (op fusions), Layout (NCHWc Optimizer) の三段階 対応デバイス ONNX Runtime は共有ライブラリの Execution Providers によって多数のバックエンドをサポートしている。
+これにはIntel の OpenVINO バックエンド (onnxruntime-openvino) 及び oneDNN バックエンド、NVIDIAの CUDA バックエンド (onnxruntime-gpu) 及び TensorRT バックエンド (onnxruntime-gpu)、AMDの ROCm バックエンド及び MIGraphX バックエンド、Windows の DirectML バックエンド (onnxruntime-directmlなど)、macOS / iOS の CoreML バックエンド、Android の NNAPI バックエンド、Microsoft Azure向けの Azure バックエンドなどが存在する。
+以下のデバイスがONNX Runtimeに対応している。
+CPU x86, x86-64, ARM32, ARM64, POWER, RISC-V Intel OpenVINO, Intel oneAPI Deep Neural Network Library - OpenVINOはIntelのCPU・GPU・NPUおよびARMのCPUに対応 Google XNNPACK - ARM, x86, WebAssembly, RISC-VのCPUに対応 Apache TVM（プレビュー） GPU NVIDIA CUDA, TensorRT AMD ROCm, MIGraphX Intel OpenVINO Microsoft DirectML Apache TVM（プレビュー） エッジやモバイル（NPU） Intel OpenVINO - Intel Core Ultraなどに内蔵するNPUに対応 Qualcomm QNN - QualcommのCPU・GPU・NPUに対応 Microsoft DirectML - IntelやQualcommなどのNPUに対応 Google XNNPACK Android Neural Networks API - ただしAndroid15よりNNAPI自体が非推奨 AMD Vitis AI（プレビュー） - AMD Ryzenなどに内蔵するNPUに対応 Arm Compute Library, Arm NN（プレビュー） - ARMのCPU・GPU・NPUに対応 Apple CoreML（プレビュー） Apache TVM（プレビュー） Hailo（プレビュー） その他 Rockchip NPU （プレビュー） AMD Vitis AI（プレビュー） - AMD Versal, Zynq, Alveo等に対応 Huawei Compute Architecture for Neural Networks (CANN) （プレビュー） Microsoft Azure（プレビュー） 主要なデバイスとしては Google の TPU, Edge TPU、AWS の Trainium, Inferentia が対応していない。
+Edge TPU は LiteRT のみだが、それ以外のデバイスは、JAX、TensorFlow、PyTorch に対応しているので、これらに変換することで動作し、AWS は Trainium, Inferentia は PyTorch 経由の動作を薦めている。
+ONNX Runtime Web ONNX Runtime Webはウェブブラウザを含めたJavaScript上で動作するONNX Rutime。
+Execution Providerとして、Web Neural Network (WebNN)、WebGPU、WebGL、WebAssemblyが利用可能である。
+WebNNはONNXのようにニューラルネットワークのモデルを表現できるので、GPUやNPUなどのアクセラレーションが有効であれば、これが最速である。
+WindowsではWebNNからDirectML経由でGPUやNPUで実行される。
+ONNXモデル ONNXへの変換 ONNXのモデルはPythonスクリプトから生成したり（#例を参照）、他のフレームワークから変換したりすることで作ることができる。
+他のフレームワークからの変換には以下のような方法が存在する： ONNXMLTools - 様々なフレームワークからの変換を行う。
+PyTorchの標準ONNXエクスポータ (torch) tf2onnx - TensorFlow、LiteRT（旧称TensorFlow Lite）、Keras、TensorFlow.jsからの変換を行う sklearn-onnx (skl2onnx) - scikit-learnからの変換を行う ONNXからの変換 onnx2tf - TensorFlow、LiteRT（旧称TensorFlow Lite）、Kerasへの変換を行う onnx2pytorch, onnx2torch - PyTorchへの変換 JAX ONNX Runtime - JAXへの変換 ONNX からNVIDIA GPU向けのTensorRTバイナリ (.trt) を生成するものとして NVIDIA の Polygraphy や trtexec も存在する。
+OONX を LLVM の MLIR によってコンパイルするための onnx-mlir も存在する。
+モデル集 ONNXのモデル集としては以下が存在する。
+ONNX Model Zoo 例 線形回帰モデルの学習結果として y = 2 x + 3 {\displaystyle y=2x+3} が得られたとして、それを ONNX ファイルに保存する Python での実装例。
+それを ONNX Runtime を使い実行する Python での実装例。

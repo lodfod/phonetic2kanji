@@ -1,0 +1,45 @@
+STRIPS（Stanford Research Institute Problem Solver）とは、1971年、Richard FikesとNils John Nilssonが開発した自動計画に関する人工知能の一種。
+後にそのシステムの入力に使う形式言語も同じ名前で呼ばれるようになった。
+自動計画用の言語としては最も広く利用されている。
+本項目では、システムではなく言語に関して解説する。
+定義 STRIPS のインスタンスは以下の部分から構成される: 初期状態 (Init) 目標状態の記述 (Goal) - システムが到達しようとする状況 行動 (Actions) - 行動は状態に変化をもたらす操作なので、オペレータ(Operator)とも呼ばれる。
+各行動には以下の記述が含まれる: 事前条件 (Preconditions) - その行動を行うために満たされていなければならない条件 効果/事後条件 (Effects / Postconditions) - その行動を行うことで満足される条件 STRIPS インスタンスを形式的に記述する方法は複数あり、命題論理に立脚したもの、一階述語論理に基づいたもの、グラフ上の遷移に基づいたものなどがある。
+命題論理形式の定義 STRIPS のインスタンスは ⟨ O , I , G ⟩ {\displaystyle \langle O,I,G\rangle } で表され、それぞれの意味は以下である: O {\displaystyle O} (Operators) はオペレータ集合(アクション集合)。
+各オペレータは o = ⟨ p r e ( o ) , e + ( o ) , e − ( o ) ⟩ {\displaystyle o=\langle pre(o),e^{+}(o),e^{-}(o)\rangle } で表され、 p r e ( o ) {\displaystyle pre(o)} (precondition) は事前条件、 e + ( o ) {\displaystyle e^{+}(o)} は 効果のうち命題を真とする 追加効果 (Add effect)、 e − ( o ) {\displaystyle e^{-}(o)} は 行動実行後に命題を偽とする削除効果 (Delete effect)である。
+I {\displaystyle I} は初期状態であり、最初に真となっている命題変数の集合である。
+STRIPSは閉世界仮説を採用するので、ここに記載されていない命題変数は初期状態で偽となる。
+G {\displaystyle G} は目標条件であり、ゴールで真となっているべき命題論理式。
+表記は論文によって様々で、これに P {\displaystyle P} (Propositions - 命題論理変数) または V {\displaystyle V} (Variables - 命題変数から)を追加するもの、 O {\displaystyle O} の代わりに A {\displaystyle A} (Actions)、 I {\displaystyle I} のかわりに s 0 {\displaystyle s_{0}} (0番目の状態(state))、 G {\displaystyle G} の代わりに S ∗ {\displaystyle S^{*}} (終わりとなる状態の集合), e + , e − {\displaystyle e^{+},e^{-}} のかわりに a , d {\displaystyle a,d} が使われる場合もある。
+オペレータはコスト c {\displaystyle c} を含んで定義される場合もあり、コストのないものは通常すべてのアクションに対してコスト1が仮定される。
+一階述語論理形式の定義 一階述語論理形式の定義では、命題論理形式のアクション集合にパラメータの概念を導入する。
+ここでアクションは ⟨ p a r a m , p r e , e + , e − ⟩ {\displaystyle \langle param,pre,e^{+},e^{-}\rangle } で表され、 p r e , e + , e − {\displaystyle pre,e^{+},e^{-}} は p a r a m {\displaystyle param} で修飾される。
+グラフ理論形式の定義 グラフ理論形式の定義では、 STRIPS インスタンスをグラフ探索アルゴリズムで解かれるグラフ探索問題と同一視する。
+ここでインスタンスは ⟨ S , s 0 ∈ S , S ∗ ⊂ S , L , T ⊂ S × L × S ⟩ {\displaystyle \langle S,s_{0}\in S,S^{*}\subset S,L,T\subset S\times L\times S\rangle } で表される。
+ここで、 S {\displaystyle S} は状態集合でありグラフのノード集合と同一視され、 L {\displaystyle L} はアクションを指すラベル、 T {\displaystyle T} は状態遷移（Transition)でありグラフのエッジに相当する。
+自動計画 自動計画システムは、以上のような記述を入力として、初期状態から目標状態へと導く計画（すなわち一連の行動実行順序）を導出する。
+形式的には状態は命題の集合であり、ある時点の状態はそのときに真である命題の集合で表される。
+状態間の遷移は遷移関数にモデル化でき、行動の実行によって発生する、ある状態から別の状態への写像とみなせる。
+状態は行動に対応するため、STRIPS のインスタンス ⟨ P , O , I , G ⟩ {\displaystyle \langle P,O,I,G\rangle } に関する遷移関数は次のように表される: ここで、 2 P {\displaystyle 2^{P}} は P {\displaystyle P} の全部分集合の集合であり、システムがとりうる全状態の集合である。
+あるアクション a ∈ O {\displaystyle a\in O} が状態 s {\displaystyle s} に適用できる条件は、 s ⊇ p r e ( a ) {\displaystyle s\supseteq pre(a)} である。
+これが満たされている場合、アクションを適用できて、 その結果状態 s {\displaystyle s} は以下のような状態 s ′ {\displaystyle s'} に遷移する: ここで、 e − , e + {\displaystyle e^{-},e^{+}} の適用の順番は重要であり、これは同じ命題が e − {\displaystyle e^{-}} 、 e + {\displaystyle e^{+}} の両方に含まれた場合には追加効果が優先するという動作を決定する。
+関数 succ {\displaystyle \operatorname {succ} } は以下のように再帰的に行動の列に展開できる: STRIPS のインスタンスの計画は、初期状態から目標状態へと遷移させる一連の行動の並びである。
+形式的には、 s = succ ⁡ ( I , [ a 1 , a 2 , … , a n ] ) {\displaystyle s=\operatorname {succ} (I,[a_{1},a_{2},\ldots ,a_{n}])} が G ⊆ s {\displaystyle G\subseteq s} を満たす場合、プラン π = [ a 1 , a 2 , … , a n ] {\displaystyle \pi =[a_{1},a_{2},\ldots ,a_{n}]} がこのインスタンスの解となる。
+拡張 これまで説明した言語は、提案段階の STRIPS である。
+実際には、条件は物体（オブジェクト）に関するものであることが多い。
+例えば、ロボットの位置をモデル化する際に述語 A t {\displaystyle At} を使い、 A t ( r o o m 1 ) {\displaystyle At(room1)} なら、ロボットが Room1 にいるという意味を表す。
+この場合、行動には自由変項があり、それが暗黙のうちに存在量化される。
+すなわち、ある行動は各自由変項を特定の値と置換することによって得られる全ての可能な命題的行動を表している。
+これまでの説明では、初期状態は必ず全て判明しているとみなしていた。
+つまり、 I {\displaystyle I} に含まれない条件は全て偽であるとされた。
+この条件は限定的すぎることが多く、具体的に条件を設定しようとすると、初期状態が完全にはわからないことが多い。
+STRIPS を拡張して部分的な初期状態を扱えるようにする試みがなされてきた。
+他にも様々な拡張がなされている。
+STRIPSの問題例 研究室にサルがいるとする。
+このサルはバナナを食べたがっている。
+研究室には3つの場所 A、B、C がある。
+最初、サルは A にいる。
+C には箱が置いてある。
+B にはバナナが天井からつるしてある。
+つまり、サルは箱を使ってバナナを取らなければならない。
+Initial state: At(A), Level(low), BoxAt(C), BananasAt(B) Goal state: Have(Bananas) Actions: // move from X to Y _Move(X, Y)_ Preconditions: At(X), Level(low) Postconditions: not At(X), At(Y) // climb up on the box _ClimbUp(Location)_ Preconditions: At(Location), BoxAt(Location), Level(low) Postconditions: Level(high), not Level(low) // climb down from the box _ClimbDown(Location)_ Preconditions: At(Location), BoxAt(Location), Level(high) Postconditions: Level(low), not Level(high) // move monkey and box from X to Y _MoveBox(X, Y)_ Preconditions: At(X), BoxAt(X), Level(low) Postconditions: BoxAt(Y), not BoxAt(X), At(Y), not At(X) // take the bananas _TakeBananas(Location)_ Preconditions: At(Location), BananasAt(Location), Level(high) Postconditions: Have(bananas) 計算複雑性 STRIPS の問題に計画が存在するかどうかの決定問題はPSPACE完全である。
+様々な制限を加えることで、問題をNP完全にすることができる。
