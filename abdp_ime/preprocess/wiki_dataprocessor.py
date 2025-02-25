@@ -1,160 +1,92 @@
 import os
-import glob
+import re
 import json
-import MeCab
-import jaconv
 import unicodedata
-import string
-from tqdm import tqdm
+import jaconv
 import argparse
-from pathlib import Path
+from tqdm import tqdm
 
-def format_text(text):
-    """Format given text by normalizing and removing punctuation."""
-    text = unicodedata.normalize("NFKC", text)  
-    table = str.maketrans("", "", string.punctuation + "「」、。・")
-    text = text.translate(table)
-    return text
-
-def add_spaces(text, mecab_tagger):
-    """Add spaces between words using MeCab."""
-    m_result = mecab_tagger.parse(text).splitlines()
-    m_result = m_result[:-1]  # Remove EOS
-    words = []
-    for v in m_result:
-        if '\t' not in v: continue
-        surface = v.split('\t')[0]
-        words.append(surface)
-    return ' '.join(words)
-
-def get_pronunciation(text, mecab_tagger):
-    """Get phonetic representation (katakana) of text."""
-    m_result = mecab_tagger.parse(text).splitlines() 
-    m_result = m_result[:-1] 
-    pro = '' 
-    for v in m_result:
-        if '\t' not in v: continue
-        surface = v.split('\t')[0] 
-        p = v.split('\t')[1].split(',')[-1] 
-        if p == '*': p = surface
-        pro += p
-    pro = jaconv.hira2kata(pro) 
-    pro = format_text(pro) 
-    return pro
-
-def process_wiki_file(filepath, mecab_tagger):
-    """Process a single wiki file to create input-output pairs."""
-    pairs = []
-    
-    try:
-        with open(filepath, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
+class DataProcessor:
+    def __init__(self, input_path, output_dir):
+        self.input_path = input_path
+        self.output_dir = output_dir
+        os.makedirs(output_dir, exist_ok=True)
         
-        for line in lines:
-            line = line.strip()
-            if not line:
+    def process_data(self):
+        """Process the input data and create .kana and .kanji files."""
+        # Read the input data (text file with Japanese text)
+        data = self._read_input_data()
+        
+        # Process the data into kana and kanji pairs
+        kana_lines = []
+        kanji_lines = []
+        
+        for i, line in enumerate(tqdm(data, desc="Processing data")):
+            # Skip empty lines
+            if not line.strip():
                 continue
+                
+            # Create the kanji version (original text)
+            kanji_text = line.strip()
             
-            # Original text with Kanji is the output
-            kanji_text = line
+            # Create the kana version (convert to hiragana with spaces)
+            kana_text = self._convert_to_spaced_kana(kanji_text)
             
-            # Add spaces between words for better model training
-            spaced_kanji = add_spaces(kanji_text, mecab_tagger)
-            
-            # Convert to phonetic representation (katakana) for input
-            phonetic_text = get_pronunciation(kanji_text, mecab_tagger)
-            
-            # Add spaces to phonetic text as well
-            spaced_phonetic = add_spaces(phonetic_text, mecab_tagger)
-            
-            # Create a pair
-            pair = {
-                "input": spaced_phonetic,
-                "output": spaced_kanji
-            }
-            
-            pairs.append(pair)
-            
-    except Exception as e:
-        print(f"Error processing file {filepath}: {e}")
+            # Add to the respective lists
+            kana_lines.append(kana_text)
+            kanji_lines.append(kanji_text)
+        
+        # Write the output files
+        self._write_output_files(kana_lines, kanji_lines)
+        
+    def _read_input_data(self):
+        """Read the input data from the specified path."""
+        # Read text file with Japanese text
+        with open(self.input_path, 'r', encoding='utf-8') as f:
+            return [line.strip() for line in f if line.strip()]
     
-    return pairs
+    def _convert_to_spaced_kana(self, text):
+        """Convert text to hiragana with spaces between characters."""
+        # Convert to hiragana
+        hiragana = jaconv.kata2hira(text)
+        
+        # Add spaces between Japanese characters
+        spaced_hiragana = ' '.join(c for c in hiragana if not c.isspace())
+        
+        return spaced_hiragana
+    
+    def _write_output_files(self, kana_lines, kanji_lines):
+        """Write the processed data to .kana and .kanji files."""
+        # Generate base filename from the input path
+        base_filename = os.path.splitext(os.path.basename(self.input_path))[0]
+        
+        # Write the kana file
+        kana_path = os.path.join(self.output_dir, f"{base_filename}.kana")
+        with open(kana_path, 'w', encoding='utf-8') as f:
+            for i, line in enumerate(kana_lines, 1):
+                f.write(f"{i}| {line}\n")
+        
+        # Write the kanji file
+        kanji_path = os.path.join(self.output_dir, f"{base_filename}.kanji")
+        with open(kanji_path, 'w', encoding='utf-8') as f:
+            for i, line in enumerate(kanji_lines, 1):
+                f.write(f"{i}| {line}\n")
+        
+        print(f"Created {kana_path} and {kanji_path}")
 
-def main():
-    # Parse command line arguments
-    parser = argparse.ArgumentParser(description='Format Wikipedia articles for phonetic-to-Kanji conversion training')
-    
-    parser.add_argument('--input-dir', type=str, default='wiki_articles', 
-                        help='Input directory containing Wikipedia articles')
-    parser.add_argument('--output-dir', type=str, default='formatted_data', 
-                        help='Output directory for formatted data')
-    parser.add_argument('--train-ratio', type=float, default=0.8,
-                        help='Ratio of training data (default: 0.8)')
-    parser.add_argument('--val-ratio', type=float, default=0.1,
-                        help='Ratio of validation data (default: 0.1)')
-    parser.add_argument('--test-ratio', type=float, default=0.1,
-                        help='Ratio of test data (default: 0.1)')
-    
-    args = parser.parse_args()
-    
-    # Initialize MeCab with NEologd dictionary if available
-    try:
-        mecab_tagger = MeCab.Tagger('-r /dev/null -d /root/phonetic2kanji/abdp_ime/mecab-ipadic-neologd/lib')
-    except:
-        print("Warning: NEologd dictionary not found, using default dictionary")
-        mecab_tagger = MeCab.Tagger('-r /dev/null')
-    
-    # Create output directory if it doesn't exist
-    output_dir = Path(args.output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
-    
-    # Get all .txt files in the input directory and its subdirectories
-    file_pattern = os.path.join(args.input_dir, '**', '*.txt')
-    files = glob.glob(file_pattern, recursive=True)
-    
-    print(f"Found {len(files)} files to process")
-    
-    # Process all files
-    all_pairs = []
-    for filepath in tqdm(files, desc="Processing files"):
-        pairs = process_wiki_file(filepath, mecab_tagger)
-        all_pairs.extend(pairs)
-    
-    print(f"Created {len(all_pairs)} input-output pairs")
-    
-    # Shuffle the data
-    import random
-    random.shuffle(all_pairs)
-    
-    # Split the data
-    n = len(all_pairs)
-    train_end = int(n * args.train_ratio)
-    val_end = train_end + int(n * args.val_ratio)
-    
-    train_pairs = all_pairs[:train_end]
-    val_pairs = all_pairs[train_end:val_end]
-    test_pairs = all_pairs[val_end:]
-    
-    print(f"Split data into {len(train_pairs)} training, {len(val_pairs)} validation, and {len(test_pairs)} test pairs")
-    
-    # Save the datasets
-    train_path = output_dir / 'wiki_train.json'
-    val_path = output_dir / 'wiki_val.json'
-    test_path = output_dir / 'wiki_test.json'
-    
-    with open(train_path, 'w', encoding='utf-8') as f:
-        json.dump(train_pairs, f, ensure_ascii=False, indent=2)
-    
-    with open(val_path, 'w', encoding='utf-8') as f:
-        json.dump(val_pairs, f, ensure_ascii=False, indent=2)
-    
-    with open(test_path, 'w', encoding='utf-8') as f:
-        json.dump(test_pairs, f, ensure_ascii=False, indent=2)
-    
-    print(f"Formatted data saved to:")
-    print(f"  Training: {train_path}")
-    print(f"  Validation: {val_path}")
-    print(f"  Test: {test_path}")
+
+def parse_arguments():
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(description='Process Japanese text into kana and kanji files.')
+    parser.add_argument('--input', '-i', required=True, help='Path to the input text file with Japanese text')
+    parser.add_argument('--output', '-o', required=True, help='Directory to save output files')
+    return parser.parse_args()
+
 
 if __name__ == "__main__":
-    main()
+    args = parse_arguments()
+    processor = DataProcessor(
+        input_path=args.input,
+        output_dir=args.output
+    )
+    processor.process_data()

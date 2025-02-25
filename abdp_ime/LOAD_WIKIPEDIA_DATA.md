@@ -106,7 +106,7 @@ The script produces three JSON files:
 
 Each file contains a list of input-output pairs in the following format:
 
-```
+```json
 [
 {
 "input": "カガク ノ リロン",
