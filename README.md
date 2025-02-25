@@ -2,19 +2,18 @@
 
 ## Setting up environment
 ### Install conda environment
-'''
+```
 cd abdp_ime
-
 conda env create --name envname --file=env.yml
 conda activate envname
-'''
+```
 ### Install Mecab with extended dictionary
-'''
+```
 apt update
 apt install -y ffmpeg mecab libmecab-dev mecab-ipadic mecab-ipadic-utf8 swig sudo git curl xz-utils
 git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git
 ./mecab-ipadic-neologd/bin/install-mecab-ipadic-neologd -n -p "$(pwd)/mecab-ipadic-neologd/lib"
-'''
+```
 
 ## Creating Dataset
 
