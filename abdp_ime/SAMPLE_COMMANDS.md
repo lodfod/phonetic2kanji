@@ -1,39 +1,14 @@
-# phonetic2kanji
+# Japanese Kana-Kanji Conversion Pipeline
 
-## Setting up environment
-### Install conda environment
-```
-cd abdp_ime
-conda env create --name envname --file=env.yml
-conda activate envname
-```
-### Install Mecab with extended dictionary
-```
-apt update
-apt install -y ffmpeg mecab libmecab-dev mecab-ipadic mecab-ipadic-utf8 swig sudo git curl xz-utils
-git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git
-./mecab-ipadic-neologd/bin/install-mecab-ipadic-neologd -n -p "$(pwd)/mecab-ipadic-neologd/lib"
-```
+## Sample Data
 
-## Creating Dataset
-
-### Creating Reazon Dataset
-```
-python preprocess/reazon_dataloader.py --output 'data/data.kanji'
-```
-### Creating the .kana equivalent file
-```
-python preprocess/mecab_processor.py --input 'data/data.kanji' --output 'data/data.kana'
-```
-
-### Using dummy data
-#### data/data.kana
+### data/data.kana
 ```
 こ の じ て ん で わ れ わ れ は か み の こ と ば 、
 「 わ が お も い は な ん じ の お も い で は な い 。
 ```
 
-#### data/data.kanji
+### data/data.kanji
 ```
 この 時点 で われわれ は 神 の 言葉 、
 「 我が 思い は 汝 の 思い で は ない 。
@@ -57,7 +32,7 @@ python preprocess/tokenization.py --tokenizer_path data/vocabs/kana.json --train
 python preprocess/tokenization.py --tokenizer_path data/vocabs/train_kanji.json --train_files data/data.kanji --files_to_conv data/data.kanji --vocab_size 16000 --algorithm bpe 
 ```
 
-### 2. Training (choose one model)
+### 2. Training
 
 #### Their Model
 ```
