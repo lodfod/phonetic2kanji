@@ -15,37 +15,30 @@ git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git
 ./mecab-ipadic-neologd/bin/install-mecab-ipadic-neologd -n -p "$(pwd)/mecab-ipadic-neologd/lib"
 ```
 
-## Creating Dataset
+## Pipeline Steps
 
-### Creating Reazon Dataset
+### 1. Creating dataset
+
+#### Create training dataset with Reazon
 ```
 python preprocess/reazon_dataloader.py --output 'data/data.kanji'
 ```
-### Creating the .kana equivalent file
-```
-python preprocess/mecab_processor.py --input 'data/data.kanji' --output 'data/data.kana'
-```
 
-### Using dummy data
-#### data/data.kana
-```
-こ の じ て ん で わ れ わ れ は か み の こ と ば 、
-「 わ が お も い は な ん じ の お も い で は な い 。
-```
+### 2. Preprocessing
 
-#### data/data.kanji
+#### Creating the .kana equivalent file for alignment extraction
 ```
-この 時点 で われわれ は 神 の 言葉 、
-「 我が 思い は 汝 の 思い で は ない 。
+python preprocess/mecab_processor.py --input 'data/data.kanji' --output 'data/data.kana' --level word
 ```
-
-## Pipeline Steps
-
-### 1. Preprocessing
 
 #### Extract Alignment
 ```
 python preprocess/mec2alignment.py data/data.kana data/data.kanji   
+```
+
+#### Replace the .kana equivalent file for general training
+```
+python preprocess/mecab_processor.py --input 'data/data.kanji' --output 'data/data.kana' --level char
 ```
 
 #### Create Tokens
@@ -57,7 +50,7 @@ python preprocess/tokenization.py --tokenizer_path data/vocabs/kana.json --train
 python preprocess/tokenization.py --tokenizer_path data/vocabs/train_kanji.json --train_files data/data.kanji --files_to_conv data/data.kanji --vocab_size 16000 --algorithm bpe 
 ```
 
-### 2. Training (choose one model)
+### 3. Training (choose one model)
 
 #### Their Model
 ```
@@ -79,7 +72,7 @@ python src/train.py --train-data-path data/data --name wait-3-modified --causal-
 python src/train.py --train-data-path data/data --name retranslation --no-causal-encoder --enc-attn-window -1 --no-aligned-cross-attn --no-requires-alignment --num-encoder-layers 10 --num-decoder-layers 2 --wait-k-cross-attn -1 --no-modified-wait-k
 ```
 
-### 3. Evaluation
+### 4. Evaluation
 
 #### Generate Predictions
 ```
@@ -91,7 +84,7 @@ python eval/evaluator.py --policy ours --test-data-path data/data --model-path l
 python utils/unpickler.py --policy ours --pkl-path logs/ours/eval.pkl --train-vocab-path data/vocabs/train_kanji.json --test-vocab-path data/vocabs/train_kanji.json
 ```
 
-### 4. Evaluation Metrics
+### 5. Evaluation Metrics
 
 #### Conversion Quality
 ```
