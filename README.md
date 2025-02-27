@@ -81,7 +81,7 @@ python eval/evaluator.py --policy ours --test-data-path data/data --model-path l
 
 #### Unpickle Results
 ```
-python utils/unpickler.py --policy ours --pkl-path logs/ours/eval.pkl --train-vocab-path data/vocabs/train_kanji.json --test-vocab-path data/vocabs/train_kanji.json
+python utils/unpickler.py --policy ours --pkl-path logs/ours/eval.pkl --train-vocab-path data/vocabs/train_kanji.json --test-vocab-path data/vocabs/test_kanji.json
 ```
 
 ### 5. Evaluation Metrics
