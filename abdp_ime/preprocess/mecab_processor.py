@@ -4,6 +4,7 @@ import unicodedata
 import string
 import os
 import argparse
+from tqdm import tqdm
 
 # Function to format given text
 def format_text(text):
@@ -38,7 +39,7 @@ def process_kanji_file(input_file, output_file=None):
     
     # Process each line separately
     kana_lines = []
-    for line in lines:
+    for line in tqdm(lines, desc="Converting kanji to kana"):
         line = line.strip()  # Remove trailing whitespace
         if line:  # Skip empty lines
             kana = getPronunciation(line)

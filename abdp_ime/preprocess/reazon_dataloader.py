@@ -8,7 +8,9 @@ import argparse
 from pathlib import Path
 
 # Load reazonspeech corpus dataset
-ds = load_dataset("reazon-research/reazonspeech", "all", trust_remote_code=True)
+ds = load_dataset("reazon-research/reazonspeech", "medium", 
+                 trust_remote_code=True,
+                 num_proc=8)  
 print("number of rows: ", ds["train"].num_rows)
 
 # Print some dataset
@@ -52,21 +54,39 @@ def getPronunciation(text):
     return pro
 
 def main():
-    # Parse command line arguments
     parser = argparse.ArgumentParser(description='Process ReazonSpeech dataset and save transcriptions')
     parser.add_argument('--output', type=str, default='data/data.kanji',
                        help='Output file path (default: data/data.kanji)')
+    parser.add_argument('--batch-size', type=int, default=5000,  # Increased batch size
+                       help='Batch size for processing (default: 5000)')
+    parser.add_argument('--num-workers', type=int, default=4,
+                       help='Number of worker processes (default: 4)')
     args = parser.parse_args()
     
-    # Create output directory if it doesn't exist
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     
-    # Save transcriptions to output file with progress bar
-    with open(output_path, 'w', encoding='utf-8') as f:
-        for item in tqdm(ds['train'], desc="Saving transcriptions"):
-            spaced_text = add_spaces(item['transcription'])
-            f.write(spaced_text + '\n')
+    # Process data in parallel using map
+    from datasets import Dataset
+    processed_texts = ds['train'].map(
+        lambda x: {'processed': add_spaces(x['transcription'])},
+        num_proc=args.num_workers,
+        remove_columns=ds['train'].column_names,
+        desc="Processing transcriptions"
+    )
+    
+    # Write results in batches
+    batch = []
+    with open(output_path, 'w', encoding='utf-8', buffering=8192) as f:
+        for item in tqdm(processed_texts, desc="Writing to file"):
+            batch.append(item['processed'])
+            
+            if len(batch) >= args.batch_size:
+                f.write('\n'.join(batch) + '\n')
+                batch = []
+        
+        if batch:
+            f.write('\n'.join(batch))
 
 if __name__ == '__main__':
     main()
