@@ -1,4 +1,3 @@
-
 from pathlib import Path
 
 import numpy as np
@@ -10,47 +9,26 @@ class AlignmentExtractor:
 
     def align_from_sample(self, sample):
         """
-        Creates alignment indices for source-target token pairs.
-        
-        For Japanese text conversion (kana to kanji), this maps positions where
-        source characters (kana) combine to form target tokens (kanji/compounds).
-        
-        Each alignment index represents:
-        - The ending position (1-based) in the source sequence where a target token is complete
-        - For example, if source "こ れ" maps to target "これ", alignment will be "2"
-        because "これ" is complete after the 2nd source character
-        
-        Args:
-            sample: Tuple of (source_tokens, target_tokens)
-                source_tokens: List of individual characters (e.g., kana)
-                target_tokens: List of compound tokens (e.g., kanji)
-        
-        Returns:
-            String of space-separated alignment indices, with two "9999" padding values appended
-            Example: For source="こ れ ま た" and target="これ また", returns "2 4 9999 9999"
+        There are two ways to interpret the outputed alignment:
+        - Considering boundaries, it refers to the right boundary
+        of the last source element of the corresponding token.
+        - Considering elemnts, it refers to the first source
+        element corresponding to the next token.
+
+        Output requires two right paddings, set as "9999".
+        Besides that, we do not take BOS and EOS into account.
         """
         source, target = sample
-        
-        # Track cumulative lengths and token boundaries
-        current_pos = 0
-        alignment = []
-        source_pos = 0
-        
-        for tgt_token in target:
-            # For each target token, count how many source characters it uses
-            token_len = len(tgt_token)
-            source_pos += token_len
-            # Record the position where this target token is complete
-            alignment.append(source_pos)
-        
-        # Add two padding values (9999) as required by the model
-        alignment = alignment + [9999, 9999]
-        
+
+        alignment = np.cumsum([len(item) for item in source]) - 0
+        alignment = np.hstack((alignment, [9999, 9999]))
+        alignment = alignment.tolist()
+
         assert len(target) > 0
         assert len(alignment) == len(target) + 2, f"{source} != {target} + 2"
-        
-        # Convert to space-separated string format
+
         alignment = " ".join([str(item) for item in alignment])
+
         return alignment
 
     def align_from_file(self, src_file_path, tgt_file_path):

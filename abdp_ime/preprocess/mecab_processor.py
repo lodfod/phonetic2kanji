@@ -25,11 +25,10 @@ def getPronunciation(text):
         surface = v.split('\t')[0] 
         p = v.split('\t')[1].split(',')[-1] 
         if p == '*': p = surface
-        # Convert to hiragana and add space between each character
+        # Convert to hiragana without adding spaces between characters
         kana = jaconv.kata2hira(p)
-        spaced_kana = ' '.join(list(kana))
-        pro.append(spaced_kana)
-    pro = ' '.join(pro)  # Join words with spaces
+        pro.append(kana)
+    pro = ' '.join(pro)  # Join words with spaces between them
     return pro
 
 def process_kanji_file(input_file, output_file=None):

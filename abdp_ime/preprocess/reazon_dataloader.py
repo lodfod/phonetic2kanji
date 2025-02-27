@@ -8,7 +8,7 @@ import argparse
 from pathlib import Path
 
 # Load reazonspeech corpus dataset
-ds = load_dataset("reazon-research/reazonspeech", "medium", 
+ds = load_dataset("reazon-research/reazonspeech", 
                  trust_remote_code=True,
                  num_proc=8)  
 print("number of rows: ", ds["train"].num_rows)
