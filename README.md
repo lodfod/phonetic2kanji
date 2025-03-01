@@ -1,4 +1,4 @@
-# phonetic2kanji
+# phonetic2kanji (old)
 
 ## Setting up environment
 ### Install conda environment
