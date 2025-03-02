@@ -19,7 +19,7 @@ class WaitKOutAgent(OutAgentBase):
         )
         self.model.eval()
 
-        self.tokenizer = Tokenizer.from_file("vocabs/train_kanji.json")
+        self.tokenizer = Tokenizer.from_file("data/vocabs/train_kanji.json")
 
         self.k = k
         self.beam_w = beam_w
