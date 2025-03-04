@@ -2,3 +2,10 @@
 venv
 /venv
 /data
+*/data/
+*/data/formatted
+*/data/formatted/*
+*/models/
+*/models/*
+*/pycache/*
+*/__pycache__/*
