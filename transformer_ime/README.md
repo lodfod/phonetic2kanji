@@ -1,116 +1,72 @@
-# Transformer-based IME for Kana to Kanji Conversion
-
-This project implements a kana to kanji conversion system using Hugging Face's Transformers library. The system is based on a sequence-to-sequence model fine-tuned on Japanese text data.
-
-## Project Structure
-
-- `data/` - Contains vocabulary files and processed datasets
-- `preprocess/` - Scripts for data preprocessing
-- `src/` - Source code for model training and inference
-- `eval/` - Evaluation scripts and metrics
-- `utils/` - Utility functions for data handling and tokenization
+# Transformer IME Usage (For Ryota)
 
 ## Setup
 
-### Requirements 
+```bash
+cd transformer_ime
+```
+
+### Requirements (WITHIN THIS DIRECTORY, SLIGHTLY DIFFERENT FROM PARENT PROJECT)
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### MeCab Installation
+## Training Pipeline
+
+### 1. Create a sample dataset
 
 ```bash
-apt update
-apt install -y mecab libmecab-dev mecab-ipadic mecab-ipadic-utf8 swig sudo git curl xz-utils
-git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git
-./mecab-ipadic-neologd/bin/install-mecab-ipadic-neologd -n -p "$(pwd)/mecab-ipadic-neologd/lib"
+python preprocess/download_reazon.py --output data/reazon/reazon_data.json --size tiny --split train --max_samples 1000
 ```
 
-## Data Preparation
-
-### Reazon Dataset
-
-1. Create kanji data:
+### 2. Extract kanji text from the sample dataset
 
 ```bash
-python preprocess/reazon_dataloader.py --output data/reazon/data.kanji
+python preprocess/reazon_dataloader.py --input data/reazon/reazon_data.json --output data/reazon/data.kanji --shuffle
 ```
 
-2. Create kana data:
+### 3. Convert kanji to kana
 
 ```bash
-python preprocess/text_processor.py --input data/reazon/data.kanji --output data/reazon/data.kana --mecab_path /path/to/mecab-ipadic-neologd/lib
+python preprocess/text_processor.py --input data/reazon/data.kanji --output data/reazon/data.kana --mecab_path /opt/homebrew/lib/mecab/dic/mecab-ipadic-neologd (REPLACE WITH YOUR PATH TO MECAB DICT)
 ```
 
-3. Format data for Hugging Face:
+### 4. Format for Hugging Face
 
 ```bash
-python preprocess/dataset_formatter.py --kana_file data/reazon/data.kana --kanji_file data/reazon/data.kanji --output_dir data/reazon/formatted
+python preprocess/dataset_formatter.py --kana_file data/reazon/data.kana --kanji_file data/reazon/data.kanji --output_dir data/reazon/formatted --train_ratio 0.8
 ```
 
-### Wikipedia Dataset
-
-4. Process Wikipedia data:
+### 5. Validate the formatted dataset (optional)
 
 ```bash
-python preprocess/text_processor.py --input data/wiki/wiki_dump.txt --output data/wiki/wiki.kana --mecab_path /path/to/mecab-ipadic-neologd/lib --wiki --max_sentences 100000
+python utils/data_validator.py --dataset_path data/reazon/formatted
 ```
 
-5. Format data for Hugging Face:
-   
-```bash
-python preprocess/dataset_formatter.py --kana_file data/wiki/wiki.kana --kanji_file data/wiki/wiki.kanji --output_dir data/wiki/formatted
-```
-
-## Model Training
-
-### Base Model Training (Reazon Dataset)
+### 6. Fine-tune Model
 
 ```bash
-python src/train_reazon.py --dataset_dir data/reazon/formatted --output_dir models/base_model --num_epochs 5
+python src/train_reazon.py --dataset_dir data/reazon/formatted --output_dir models/base_model --num_epochs 3
 ```
 
-### Domain-Specific Fine-tuning (Wikipedia)
+Fine-tuned model is now saved under `models/base_model`.
+
+## Perform Inference
+
+### Single test
 
 ```bash
-python src/train_wiki.py --base_model_dir models/base_model/final_model --dataset_dir data/wiki/formatted --output_dir models/wiki_finetuned --num_epochs 3
+python src/inference.py \
+  --model_dir models/base_model/final_model \
+  --input "ニッポンノアニメハコクサイテキニユウメイデス。"
 ```
 
-## Inference
-
-### Convert Single Input
+### Evaluate Model (UNTESTED)
 
 ```bash
-python src/inference.py --model_dir models/wiki_finetuned/final_model --input "こんにちは"
+python src/evaluate_model.py \
+  --model_dir models/base_model/final_model \
+  --data_dir data/reazon \
+  --output_file base_model_evaluation.txt
 ```
-
-### Batch Processing
-
-```bash
-python src/inference.py --model_dir models/wiki_finetuned/final_model --input data/test/test.kana --batch
-```
-
-## Evaluation
-
-```bash
-python eval/evaluator.py --model_dir models/wiki_finetuned/final_model --test_kana data/test/test.kana --test_kanji data/test/test.kanji --output_dir eval_results
-```
-
-## Training Pipeline Overview
-
-1. **Data Preprocessing**: Convert raw text to kana-kanji pairs and format for transformer training
-2. **Base Model Training**: Train on general-purpose Reazon dataset
-3. **Domain-Specific Fine-tuning**: Further fine-tune on Wikipedia data
-4. **Evaluation**: Measure performance using character error rate (CER)
-
-## Model Details
-
-This implementation uses the T5 model architecture which has shown strong performance on sequence-to-sequence tasks. The model treats kana to kanji conversion as a translation task, where the source language is kana and the target language is kanji.
-
-Key advantages of this approach:
-
-- Leverages pre-trained language models
-- Handles context-dependent conversion effectively
-- Can be fine-tuned for specific domains
-
