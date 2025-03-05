@@ -14,16 +14,17 @@ pip install -r requirements.txt
 
 ## Training Pipeline
 
-### 1. Create a sample dataset
+### 1. Create a sample dataset and extract kanji text from the sample dataset
 
 ```bash
 python preprocess/download_reazon.py --output data/reazon/reazon_data.json --size tiny --split train --max_samples 1000
+python preprocess/reazon_dataloader.py --input data/reazon/reazon_data.json --output data/reazon/data.kanji --shuffle
 ```
 
-### 2. Extract kanji text from the sample dataset
+#### Alternatively, download and extract kanji text in one script
 
 ```bash
-python preprocess/reazon_dataloader.py --input data/reazon/reazon_data.json --output data/reazon/data.kanji --shuffle
+python preprocess/updated_reazon_dataloader.py --output data/reazon/data.kanji 
 ```
 
 ### 3. Convert kanji to kana
@@ -32,22 +33,28 @@ python preprocess/reazon_dataloader.py --input data/reazon/reazon_data.json --ou
 python preprocess/text_processor.py --input data/reazon/data.kanji --output data/reazon/data.kana --mecab_path /opt/homebrew/lib/mecab/dic/mecab-ipadic-neologd (REPLACE WITH YOUR PATH TO MECAB DICT)
 ```
 
-### 4. Format for Hugging Face
-
+### 4. Remove and filter unwanted data
 ```bash
-python preprocess/dataset_formatter.py --kana_file data/reazon/data.kana --kanji_file data/reazon/data.kanji --output_dir data/reazon/formatted --train_ratio 0.8
+python preprocess/filter.py --kana data/reazon/data.kana --kanji data/reazon/data.kanji --clean_kana data/reazon/clean_data.kana --clean_kanji data/reazon/clean_data.kanji
 ```
 
-### 5. Validate the formatted dataset (optional)
+### 5. Format for Hugging Face
+
+```bash
+python preprocess/dataset_formatter.py --kana_file data/reazon/clean_data.kana --kanji_file data/reazon/clean_data.kanji --output_dir data/reazon/formatted --train_ratio 0.8
+```
+
+### 6. Validate the formatted dataset (optional) and vocabulary dictionary 
 
 ```bash
 python utils/data_validator.py --dataset_path data/reazon/formatted
+python utils/vocab.py --input data/reazon/clean_data.kana --output data/reazon/vocab.json
 ```
 
-### 6. Fine-tune Model
+### 7. Fine-tune Model
 
 ```bash
-python src/train_reazon.py --dataset_dir data/reazon/formatted --output_dir models/base_model --num_epochs 3
+python src/train_reazon.py --dataset_dir data/reazon/formatted --output_dir models/base_model
 ```
 
 Fine-tuned model is now saved under `models/base_model`.

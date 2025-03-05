@@ -14,15 +14,6 @@ import torch
 from japanese_tokenizer import get_japanese_tokenizer
 import wandb
 
-
-# For single GPU training
-os.environ['MASTER_ADDR'] = 'localhost'
-os.environ['MASTER_PORT'] = '12355'
-os.environ["WORLD_SIZE"] = "1"
-os.environ["RANK"] = "0"
-os.environ["LOCAL_RANK"] = "0"
-
-
 def main():
     # Initialize wandb
     wandb.init(project="kana-to-kanji", name="medium-training")
@@ -31,7 +22,8 @@ def main():
     # Dataset and model arguments
     parser.add_argument("--dataset_dir", required=True, help="Directory with the formatted dataset")
     parser.add_argument("--model_name", default="google-t5/t5-small", 
-                        help="Base model to fine-tune")
+                        help="Base model to fine-tune. Options include: google-t5/t5-small, google-t5/t5-base, " 
+                             "rinna/japanese-gpt2-medium, cl-tohoku/bert-base-japanese")
     parser.add_argument("--output_dir", required=True, help="Directory to save the model")
     parser.add_argument("--tokenizer_type", default="mecab", choices=["mecab", "character"], 
                         help="Type of Japanese tokenizer to use")
@@ -146,6 +138,7 @@ def main():
     training_args = Seq2SeqTrainingArguments(
         output_dir=args.output_dir,
         eval_strategy="epoch",
+        save_strategy="epoch",
         learning_rate=2e-5,
         per_device_train_batch_size=256,
         per_device_eval_batch_size=256,
@@ -161,6 +154,7 @@ def main():
         predict_with_generate=True, # Test this out, most likely we need
         greater_is_better=False,
         load_best_model_at_end=True,
+        local_rank=-1,  # Disable distributed training
     )
    
     # Create data collator
