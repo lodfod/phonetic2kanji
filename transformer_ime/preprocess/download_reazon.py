@@ -4,9 +4,6 @@ import json
 from datasets import load_dataset
 from tqdm import tqdm
 import traceback
-from huggingface_hub import login
-
-login()
 
 def download_reazon_dataset(output_path, size="tiny", split=None, max_samples=None):
     """

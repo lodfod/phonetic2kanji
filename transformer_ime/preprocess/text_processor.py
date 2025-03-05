@@ -8,7 +8,7 @@ def convert_kanji_to_kana(mecab_path, kanji_text):
     """Convert kanji text to kana using MeCab."""
     try:
         # Try with the specified dictionary path and explicit mecabrc path
-        tagger = MeCab.Tagger(f"-r /opt/homebrew/etc/mecabrc -d {mecab_path}")
+        tagger = MeCab.Tagger('-r /dev/null -d /root/phonetic2kanji/transformer_ime/mecab-ipadic-neologd/lib')
     except RuntimeError as e:
         print(f"Error initializing MeCab with path {mecab_path}: {str(e)}")
         print("Trying with default MeCab installation...")
@@ -21,25 +21,21 @@ def convert_kanji_to_kana(mecab_path, kanji_text):
             # Fallback to a simple conversion (not accurate but better than failing)
             return simple_kanji_to_kana_fallback(kanji_text)
     
-    words = []
-    node = tagger.parseToNode(kanji_text)
+    # Process using MeCab
+    mecab_result = tagger.parse(kanji_text).splitlines()
     
-    while node:
-        if node.surface:  # Skip empty nodes
-            features = node.feature.split(',')
-            if len(features) > 7:
-                # Get reading (kana) if available
-                kana = features[7]
-                if kana == '*':
-                    # Use surface form if no reading is available
-                    words.append(node.surface)
-                else:
-                    words.append(kana)
-            else:
-                words.append(node.surface)
-        node = node.next
-    
-    return ''.join(words)
+    # Get phonetic pronounciation
+    mecab_result = mecab_result[:-1] 
+    pronunciations = [] 
+
+    for node in mecab_result:
+        if '\t' not in node: continue
+        surface = node.split('\t')[0] 
+        reading = node.split('\t')[1].split(',')[-1] 
+        if reading == '*': reading = surface
+        pronunciations.append(reading)
+        
+    return ''.join(pronunciations)
 
 def simple_kanji_to_kana_fallback(text):
     """
@@ -97,7 +93,7 @@ def main():
     parser = argparse.ArgumentParser(description="Process Japanese text for kana-kanji conversion")
     parser.add_argument("--input", required=True, help="Path to input file (kanji text)")
     parser.add_argument("--output", required=True, help="Path to output file (kana text)")
-    parser.add_argument("--mecab_path", required=True, help="Path to MeCab dictionary")
+    parser.add_argument("--mecab_path", help="Path to MeCab dictionary")
     parser.add_argument("--wiki", action="store_true", help="Process input as Wikipedia dump")
     parser.add_argument("--max_sentences", type=int, default=None, help="Maximum number of sentences to process (for Wikipedia)")
     

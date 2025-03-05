@@ -1,5 +1,6 @@
 import argparse
 from datasets import load_from_disk
+import random
 
 def validate_dataset(dataset_path):
     """Validate a formatted dataset."""
@@ -11,7 +12,9 @@ def validate_dataset(dataset_path):
         assert "test" in dataset, "Dataset missing 'test' split"
         
         # Check if examples have the expected format
-        example = dataset["train"][0]
+        train_size = len(dataset["train"])
+        random_idx = random.randint(0, train_size - 1)
+        example = dataset["train"][random_idx]
         assert "translation" in example, "Examples missing 'translation' field"
         assert "source" in example["translation"], "Translation missing 'source' field"
         assert "target" in example["translation"], "Translation missing 'target' field"
