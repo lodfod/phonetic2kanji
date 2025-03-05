@@ -13,8 +13,24 @@ from datasets import load_from_disk
 import torch
 from japanese_tokenizer import get_japanese_tokenizer
 import wandb
+import torch.distributed as dist
+
+def setup_distributed_training():
+    if "WORLD_SIZE" not in os.environ:
+        os.environ["WORLD_SIZE"] = "1"
+    if "RANK" not in os.environ:
+        os.environ["RANK"] = "0"
+    if "LOCAL_RANK" not in os.environ:
+        os.environ["LOCAL_RANK"] = "0"
+    if "MASTER_ADDR" not in os.environ:
+        os.environ["MASTER_ADDR"] = "localhost"
+    if "MASTER_PORT" not in os.environ:
+        os.environ["MASTER_PORT"] = "29500"
 
 def main():
+    # Setup distributive training
+    setup_distributed_training()
+
     # Initialize wandb
     wandb.init(project="kana-to-kanji", name="medium-training")
    
@@ -137,24 +153,22 @@ def main():
     # Define training arguments using parsed arguments
     training_args = Seq2SeqTrainingArguments(
         output_dir=args.output_dir,
-        eval_strategy="epoch",
-        save_strategy="epoch",
+        evaluation_strategy="epoch",   # Evaluate every epoch
+        save_strategy="epoch",   # Save every epoch
         learning_rate=2e-5,
-        per_device_train_batch_size=256,
-        per_device_eval_batch_size=256,
+        per_device_train_batch_size=256,   # Maximize GPU usage
+        per_device_eval_batch_size=256,   # Maximize GPU usage
         weight_decay=0.01,
         save_total_limit=3,
         num_train_epochs=10,  # Test this out
-        # save_steps=500,
-        # eval_steps=500,
         warmup_steps=500,
         fp16=True,
+        group_by_length=True,
         report_to=["wandb", "tensorboard"],
         metric_for_best_model="cer",
-        predict_with_generate=True, # Test this out, most likely we need
-        greater_is_better=False,
+        predict_with_generate=True,   # Test this out, most likely we need
+        greater_is_better=False,   # Save model with smallest cer at end
         load_best_model_at_end=True,
-        local_rank=-1,  # Disable distributed training
     )
    
     # Create data collator
@@ -195,4 +209,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
