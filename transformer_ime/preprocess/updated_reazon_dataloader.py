@@ -1,7 +1,10 @@
 from datasets import load_dataset
 import argparse
 from pathlib import Path
+from huggingface_hub import login
 
+# for running in colab, comment out if not needed
+login()
 def main():
     parser = argparse.ArgumentParser(description='Process ReazonSpeech dataset and save transcriptions')
     parser.add_argument('--output', type=str, required=True,
