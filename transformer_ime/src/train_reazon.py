@@ -13,6 +13,7 @@ from datasets import load_from_disk
 import torch
 import wandb
 
+# Setup training for single gpu
 def setup_training_environment():
     # Disable distributed training
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # Use first GPU only
@@ -80,61 +81,21 @@ def main():
     print("Dataset structure:", dataset)
     print("First example:", dataset["train"][0] if "train" in dataset else dataset[0])
    
-    # Load old pretrained tokenizer 
+    # Load pretrained tokenizer 
     tokenizer = AutoTokenizer.from_pretrained(args.model_name)
 
     # Define the preprocessing function
     def preprocess_function(examples):
-        # When batched=True, examples["translation"] might be a list of dictionaries
-        # or a dictionary with lists as values, depending on the dataset structure
-        if isinstance(examples["translation"], list):
-            # Handle case where translation is a list of dictionaries
-            inputs = ["translate kana to kanji: " + item["source"] for item in examples["translation"]]
-            targets = [item["target"] for item in examples["translation"]]
-        else:
-            # Handle case where translation is a dictionary with lists
-            inputs = ["translate kana to kanji: " + kana for kana in examples["translation"]["source"]]
-            targets = examples["translation"]["target"]
-        
-        # # Debug print raw inputs (first 2 examples)
-        # if len(inputs) > 0:
-        #     print("\n===== DEBUG: RAW INPUTS =====")
-        #     for i in range(min(2, len(inputs))):
-        #         print(f"Input {i}: '{inputs[i]}'")
-        #         print(f"Target {i}: '{targets[i]}'")
-       
+        # Create inputs and targets
+        inputs = ["translate kana to kanji: " + item["source"] for item in examples["translation"]]
+        targets = [item["target"] for item in examples["translation"]]
+
         # Tokenize inputs
         model_inputs = tokenizer(inputs, max_length=args.max_length, truncation=True)
        
         # Setup the tokenizer for targets
         with tokenizer.as_target_tokenizer():
             labels = tokenizer(targets, max_length=args.max_length, truncation=True)
-        
-        # # Debug print tokenized and decoded outputs (first 2 examples)
-        # if len(model_inputs["input_ids"]) > 0:
-        #     print("\n===== DEBUG: TOKENIZED OUTPUTS =====")
-        #     for i in range(min(2, len(model_inputs["input_ids"]))):
-        #         # Print input tokens and their decoded form
-        #         input_tokens = model_inputs["input_ids"][i]
-        #         print(f"Input {i} tokens: {input_tokens[:10]}... (length: {len(input_tokens)})")
-        #         print(f"Decoded input {i}: '{tokenizer.decode(input_tokens)}'")
-                
-        #         # Print label tokens and their decoded form
-        #         label_tokens = labels["input_ids"][i]
-        #         print(f"Label {i} tokens: {label_tokens[:10]}... (length: {len(label_tokens)})")
-        #         print(f"Decoded label {i}: '{tokenizer.decode(label_tokens)}'")
-                
-        #         # Print individual token mappings for better debugging
-        #         print(f"\nToken-by-token mapping for example {i}:")
-        #         for j, token_id in enumerate(input_tokens[:10]):  # First 10 tokens
-        #             token = tokenizer.convert_ids_to_tokens(token_id)
-        #             print(f"  Input token {j}: ID={token_id}, Token='{token}'")
-                
-        #         print("  ...")
-                
-        #         for j, token_id in enumerate(label_tokens[:10]):  # First 10 tokens
-        #             token = tokenizer.convert_ids_to_tokens(token_id)
-        #             print(f"  Label token {j}: ID={token_id}, Token='{token}'")
            
         model_inputs["labels"] = labels["input_ids"]
         return model_inputs
@@ -148,6 +109,17 @@ def main():
     # Define compute metrics function for CER only
     def compute_metrics(eval_preds):
         preds, labels = eval_preds
+        
+        # Handle sequence generation output format
+        if isinstance(preds, tuple):
+            preds = preds[0]
+        
+        # Replace any out-of-range values with pad token id to prevent overflow
+        preds = np.where(
+            (preds < 0) | (preds > tokenizer.vocab_size), 
+            tokenizer.pad_token_id, 
+            preds
+        )
         
         # Decode predictions
         preds = tokenizer.batch_decode(preds, skip_special_tokens=True)
@@ -175,29 +147,26 @@ def main():
     # Define training arguments using parsed arguments
     training_args = Seq2SeqTrainingArguments(
         output_dir=args.output_dir,
-        evaluation_strategy="steps",   # Changed from "epoch" to "steps"
-        eval_steps=500,               # Evaluate every 500 steps
-        save_strategy="steps",        # Changed from "epoch" to "steps"
-        save_steps=500,               # Save every 500 steps
-        logging_strategy="steps",     # Log by steps
-        logging_steps=100,            # Log every 100 steps
-        learning_rate=2e-5,
-        per_device_train_batch_size=256,
-        per_device_eval_batch_size=256,
-        auto_find_batch_size=True,
-        weight_decay=0.01,
-        save_total_limit=3,
-        num_train_epochs=10,
-        warmup_steps=500,
-        bf16=True,
-        group_by_length=True,
-        report_to=["wandb", "tensorboard"],
-        metric_for_best_model="cer",
-        predict_with_generate=True,
-        greater_is_better=False,      # Lower CER is better
-        load_best_model_at_end=True,
-        local_rank=-1,                # Disable distributed training
-        ddp_backend=None,             # Disable DDP
+        eval_strategy="epoch",               # Evaluate every epoch
+        save_strategy="epoch",               # Save every epoch
+        learning_rate=2e-5,                  # TEST
+        per_device_train_batch_size=256,     # Maximize GPU usage
+        per_device_eval_batch_size=256,      # Maximize GPU usage
+        auto_find_batch_size=True,           # Automatically lower batch size to prevent memory error
+        weight_decay=0.01,                   # L2 regularization to prevent overfitting
+        save_total_limit=3,                  # Save up to three checkpoints
+        num_train_epochs=10,                 # TEST
+        warmup_steps=500,                    # Help stabilize early training
+        bf16=True,                           # Because we have to 
+        group_by_length=True,                # Removes unnecessary padding
+        report_to=["wandb", "tensorboard"],  # Report to wandb and tensorboard
+        metric_for_best_model="cer",         # Evaluate with CER
+        predict_with_generate=True,          # Test this out, most likely we need
+        greater_is_better=False,             # Save model with smallest cer at end
+        load_best_model_at_end=True,         # Save best model
+        max_grad_norm=1.0,                   # Added gradient clipping
+        local_rank=-1,                       # Disable distributed training for single GPU training
+        ddp_backend=None,                    # Disable DDP for single GPU training
     )
    
     # Create data collator
