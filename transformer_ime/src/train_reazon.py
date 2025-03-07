@@ -143,32 +143,31 @@ def main():
     tokenized_dataset = dataset.map(preprocess_function, batched=True)
    
     # Load CER metric only
-    metric = evaluate.load("sacrebleu")
-    
-    def postprocess_text(preds, labels):
-        preds = [pred.strip() for pred in preds]
-        labels = [[label.strip()] for label in labels]
-        return preds, labels
-
-
+    cer_metric = evaluate.load("cer")
+   
+    # Define compute metrics function for CER only
     def compute_metrics(eval_preds):
         preds, labels = eval_preds
-        if isinstance(preds, tuple):
-            preds = preds[0]
-        decoded_preds = tokenizer.batch_decode(preds, skip_special_tokens=True)
-
+        
+        # Decode predictions
+        preds = tokenizer.batch_decode(preds, skip_special_tokens=True)
+        
+        # Replace -100 with pad token id
         labels = np.where(labels != -100, labels, tokenizer.pad_token_id)
-        decoded_labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
-
-        decoded_preds, decoded_labels = postprocess_text(decoded_preds, decoded_labels)
-
-        result = metric.compute(predictions=decoded_preds, references=decoded_labels)
-        result = {"bleu": result["score"]}
-
-        prediction_lens = [np.count_nonzero(pred != tokenizer.pad_token_id) for pred in preds]
-        result["gen_len"] = np.mean(prediction_lens)
-        result = {k: round(v, 4) for k, v in result.items()}
-        return result
+        
+        # Decode labels
+        labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
+        
+        # Filter out empty strings
+        filtered_pairs = [(p, r) for p, r in zip(preds, labels) if len(r.strip()) > 0]
+        if not filtered_pairs:
+            return {"cer": 1.0}  # Return worst score if all references are empty
+        filtered_preds, filtered_labels = zip(*filtered_pairs)
+        
+        # Compute CER score
+        cer_score = cer_metric.compute(predictions=filtered_preds, references=filtered_labels)
+        
+        return {"cer": cer_score}
    
     # Initialize model
     model = AutoModelForSeq2SeqLM.from_pretrained(args.model_name).to(device)
@@ -176,15 +175,27 @@ def main():
     # Define training arguments using parsed arguments
     training_args = Seq2SeqTrainingArguments(
         output_dir=args.output_dir,
-        eval_strategy="epoch",
+        evaluation_strategy="steps",   # Changed from "epoch" to "steps"
+        eval_steps=500,               # Evaluate every 500 steps
+        save_strategy="steps",        # Changed from "epoch" to "steps"
+        save_steps=500,               # Save every 500 steps
+        logging_strategy="steps",     # Log by steps
+        logging_steps=100,            # Log every 100 steps
         learning_rate=2e-5,
-        per_device_train_batch_size=16,
-        per_device_eval_batch_size=16,
+        per_device_train_batch_size=256,
+        per_device_eval_batch_size=256,
+        auto_find_batch_size=True,
         weight_decay=0.01,
         save_total_limit=3,
-        num_train_epochs=2,
+        num_train_epochs=10,
+        warmup_steps=500,
+        bf16=True,
+        group_by_length=True,
+        report_to=["wandb", "tensorboard"],
+        metric_for_best_model="cer",
         predict_with_generate=True,
-        fp16=True, #change to bf16=True for XPU
+        greater_is_better=False,      # Lower CER is better
+        load_best_model_at_end=True,
         local_rank=-1,                # Disable distributed training
         ddp_backend=None,             # Disable DDP
     )
@@ -192,7 +203,8 @@ def main():
     # Create data collator
     data_collator = DataCollatorForSeq2Seq(
         tokenizer=tokenizer,
-        model=args.model_name
+        model=model,
+        padding=True
     )
    
     # Initialize trainer
@@ -201,7 +213,7 @@ def main():
         args=training_args,
         train_dataset=tokenized_dataset["train"],
         eval_dataset=tokenized_dataset["test"],
-        processing_class=tokenizer,
+        tokenizer=tokenizer,
         data_collator=data_collator,
         compute_metrics=compute_metrics,
     )
