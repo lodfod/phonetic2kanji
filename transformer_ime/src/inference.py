@@ -1,7 +1,6 @@
 import argparse
 import torch
-from transformers import AutoModelForSeq2SeqLM
-from japanese_tokenizer import get_japanese_tokenizer
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
 def main():
     parser = argparse.ArgumentParser(description="Convert kana to kanji using a fine-tuned model")
@@ -27,7 +26,7 @@ def main():
     model = AutoModelForSeq2SeqLM.from_pretrained(args.model_dir)
     
     # Load a Japanese-specific tokenizer
-    tokenizer = get_japanese_tokenizer(args.tokenizer_type)
+    tokenizer = AutoTokenizer.from_pretrained(args.model_dir)
     
     # Test the tokenizer with Japanese text
     test_text = "コトハ"

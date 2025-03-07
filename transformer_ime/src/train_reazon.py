@@ -22,7 +22,7 @@ def setup_training_environment():
             del os.environ[var]
 
 def main():
-    # Setup single GPU training
+    # Setup distributive training
     setup_training_environment()
    
     parser = argparse.ArgumentParser(description="Train a kana to kanji model using Transformers")
@@ -30,18 +30,40 @@ def main():
     parser.add_argument("--dataset_dir", required=True, help="Directory with the formatted dataset")
     parser.add_argument("--model_name", default="google-t5/t5-small", 
                         help="Base model to fine-tune. Options include: google-t5/t5-small, google-t5/t5-base, " 
-                             "rinna/japanese-gpt2-medium, cl-tohoku/bert-base-japanese, google/mt5-small, google/mt5-base")
+                             "rinna/japanese-gpt2-medium, cl-tohoku/bert-base-japanese")
     parser.add_argument("--output_dir", required=True, help="Directory to save the model")
     parser.add_argument("--tokenizer_type", default="mecab", choices=["mecab", "character"], 
                         help="Type of Japanese tokenizer to use")
     parser.add_argument("--max_length", type=int, default=128,
-                        help="Maximum sequence length")  
-    args = parser.parse_args()
+                        help="Maximum sequence length")
     
-    # Initialize wandb with run name from output_dir
-    run_name = os.path.basename(args.output_dir)
-    wandb.init(project="kana-to-kanji", name=run_name)
+    # Training hyperparameters
+    # parser.add_argument("--num_epochs", type=int, default=10,
+    #                     help="Number of training epochs")
+    # parser.add_argument("--batch_size", type=int, default=64,
+    #                     help="Batch size for training and evaluation")
+    # parser.add_argument("--learning_rate", type=float, default=2e-5,
+    #                     help="Learning rate")
+    # parser.add_argument("--weight_decay", type=float, default=0.01,
+    #                     help="Weight decay for AdamW optimizer")
+    # parser.add_argument("--warmup_steps", type=int, default=500,
+    #                     help="Number of warmup steps for learning rate scheduler")
+    # parser.add_argument("--save_steps", type=int, default=400,
+    #                     help="Number of steps between model saves")
+    # parser.add_argument("--eval_steps", type=int, default=400,
+    #                     help="Number of steps between evaluations")
+    # parser.add_argument("--logging_steps", type=int, default=400,
+    #                     help="Number of steps between logging")
+    # parser.add_argument("--save_total_limit", type=int, default=3,
+    #                     help="Maximum number of checkpoints to keep")
+    
+    
+    args = parser.parse_args()
 
+    # Initialize wandb with run name from output_dir 
+    run_name = os.path.basename(args.output_dir) 
+    wandb.init(project="kana-to-kanji", name=run_name)
+   
     # Set up device for training
     device = torch.device("cpu")
     if torch.cuda.is_available():
@@ -58,18 +80,11 @@ def main():
     print("Dataset structure:", dataset)
     print("First example:", dataset["train"][0] if "train" in dataset else dataset[0])
    
-    # Load default tokenizer
+    # Load old pretrained tokenizer 
     tokenizer = AutoTokenizer.from_pretrained(args.model_name)
-   
+
     # Define the preprocessing function
     def preprocess_function(examples):
-        # print("Type of examples:", type(examples))
-        # print("Keys in examples:", list(examples.keys()))
-        # print("Type of translation:", type(examples["translation"]))
-       
-        # if isinstance(examples["translation"], dict):
-        #     print("Keys in translation:", list(examples["translation"].keys()))
-       
         # When batched=True, examples["translation"] might be a list of dictionaries
         # or a dictionary with lists as values, depending on the dataset structure
         if isinstance(examples["translation"], list):
@@ -80,12 +95,46 @@ def main():
             # Handle case where translation is a dictionary with lists
             inputs = ["translate kana to kanji: " + kana for kana in examples["translation"]["source"]]
             targets = examples["translation"]["target"]
+        
+        # # Debug print raw inputs (first 2 examples)
+        # if len(inputs) > 0:
+        #     print("\n===== DEBUG: RAW INPUTS =====")
+        #     for i in range(min(2, len(inputs))):
+        #         print(f"Input {i}: '{inputs[i]}'")
+        #         print(f"Target {i}: '{targets[i]}'")
        
+        # Tokenize inputs
         model_inputs = tokenizer(inputs, max_length=args.max_length, truncation=True)
        
         # Setup the tokenizer for targets
         with tokenizer.as_target_tokenizer():
             labels = tokenizer(targets, max_length=args.max_length, truncation=True)
+        
+        # # Debug print tokenized and decoded outputs (first 2 examples)
+        # if len(model_inputs["input_ids"]) > 0:
+        #     print("\n===== DEBUG: TOKENIZED OUTPUTS =====")
+        #     for i in range(min(2, len(model_inputs["input_ids"]))):
+        #         # Print input tokens and their decoded form
+        #         input_tokens = model_inputs["input_ids"][i]
+        #         print(f"Input {i} tokens: {input_tokens[:10]}... (length: {len(input_tokens)})")
+        #         print(f"Decoded input {i}: '{tokenizer.decode(input_tokens)}'")
+                
+        #         # Print label tokens and their decoded form
+        #         label_tokens = labels["input_ids"][i]
+        #         print(f"Label {i} tokens: {label_tokens[:10]}... (length: {len(label_tokens)})")
+        #         print(f"Decoded label {i}: '{tokenizer.decode(label_tokens)}'")
+                
+        #         # Print individual token mappings for better debugging
+        #         print(f"\nToken-by-token mapping for example {i}:")
+        #         for j, token_id in enumerate(input_tokens[:10]):  # First 10 tokens
+        #             token = tokenizer.convert_ids_to_tokens(token_id)
+        #             print(f"  Input token {j}: ID={token_id}, Token='{token}'")
+                
+        #         print("  ...")
+                
+        #         for j, token_id in enumerate(label_tokens[:10]):  # First 10 tokens
+        #             token = tokenizer.convert_ids_to_tokens(token_id)
+        #             print(f"  Label token {j}: ID={token_id}, Token='{token}'")
            
         model_inputs["labels"] = labels["input_ids"]
         return model_inputs
@@ -94,31 +143,32 @@ def main():
     tokenized_dataset = dataset.map(preprocess_function, batched=True)
    
     # Load CER metric only
-    cer_metric = evaluate.load("cer")
-   
-    # Define compute metrics function for CER only
+    metric = evaluate.load("sacrebleu")
+    
+    def postprocess_text(preds, labels):
+        preds = [pred.strip() for pred in preds]
+        labels = [[label.strip()] for label in labels]
+        return preds, labels
+
+
     def compute_metrics(eval_preds):
         preds, labels = eval_preds
-        
-        # Decode predictions
-        preds = tokenizer.batch_decode(preds, skip_special_tokens=True)
-        
-        # Replace -100 with pad token id
+        if isinstance(preds, tuple):
+            preds = preds[0]
+        decoded_preds = tokenizer.batch_decode(preds, skip_special_tokens=True)
+
         labels = np.where(labels != -100, labels, tokenizer.pad_token_id)
-        
-        # Decode labels
-        labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
-        
-        # Filter out empty strings
-        filtered_pairs = [(p, r) for p, r in zip(preds, labels) if len(r.strip()) > 0]
-        if not filtered_pairs:
-            return {"cer": 1.0}  # Return worst score if all references are empty
-        filtered_preds, filtered_labels = zip(*filtered_pairs)
-        
-        # Compute CER score
-        cer_score = cer_metric.compute(predictions=filtered_preds, references=filtered_labels)
-        
-        return {"cer": cer_score}
+        decoded_labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
+
+        decoded_preds, decoded_labels = postprocess_text(decoded_preds, decoded_labels)
+
+        result = metric.compute(predictions=decoded_preds, references=decoded_labels)
+        result = {"bleu": result["score"]}
+
+        prediction_lens = [np.count_nonzero(pred != tokenizer.pad_token_id) for pred in preds]
+        result["gen_len"] = np.mean(prediction_lens)
+        result = {k: round(v, 4) for k, v in result.items()}
+        return result
    
     # Initialize model
     model = AutoModelForSeq2SeqLM.from_pretrained(args.model_name).to(device)
@@ -126,33 +176,23 @@ def main():
     # Define training arguments using parsed arguments
     training_args = Seq2SeqTrainingArguments(
         output_dir=args.output_dir,
-        evaluation_strategy="epoch",         # Evaluate every epoch
-        save_strategy="epoch",               # Save every epoch
-        learning_rate=2e-5,                  # TEST
-        per_device_train_batch_size=256,     # Maximize GPU usage
-        per_device_eval_batch_size=256,      # Maximize GPU usage
-        auto_find_batch_size=True,           # Automatically lower batch size to prevent memory error
-        weight_decay=0.01,                   # L2 regularization to prevent overfitting
-        save_total_limit=3,                  # Save up to three checkpoints
-        num_train_epochs=10,                 # TEST
-        warmup_steps=500,                    # Help stabilize early training
-        fp16=True,                           # Reduces memory usage and speeds up training
-        group_by_length=True,                # Removes unnecessary padding
-        report_to=["wandb", "tensorboard"],  # Report to wandb and tensorboard
-        metric_for_best_model="cer",         # Evaluate with CER
-        predict_with_generate=True,          # Test this out, most likely we need
-        greater_is_better=False,             # Save model with smallest cer at end
-        load_best_model_at_end=True,         # Save best model
-        max_grad_norm=1.0,                   # Added gradient clipping
-        local_rank=-1,                       # Disable distributed training for single GPU training
-        ddp_backend=None,                    # Disable DDP for single GPU training
+        eval_strategy="epoch",
+        learning_rate=2e-5,
+        per_device_train_batch_size=16,
+        per_device_eval_batch_size=16,
+        weight_decay=0.01,
+        save_total_limit=3,
+        num_train_epochs=2,
+        predict_with_generate=True,
+        fp16=True, #change to bf16=True for XPU
+        local_rank=-1,                # Disable distributed training
+        ddp_backend=None,             # Disable DDP
     )
    
     # Create data collator
     data_collator = DataCollatorForSeq2Seq(
         tokenizer=tokenizer,
-        model=model,
-        padding=True
+        model=args.model_name
     )
    
     # Initialize trainer
@@ -161,7 +201,7 @@ def main():
         args=training_args,
         train_dataset=tokenized_dataset["train"],
         eval_dataset=tokenized_dataset["test"],
-        tokenizer=tokenizer,
+        processing_class=tokenizer,
         data_collator=data_collator,
         compute_metrics=compute_metrics,
     )

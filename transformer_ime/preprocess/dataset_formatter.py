@@ -15,34 +15,21 @@ def load_kana_kanji_files(kana_file, kanji_file):
     return kana_lines, kanji_lines
 
 def create_hf_dataset(kana_lines, kanji_lines, train_ratio=0.8):
-    """Create a Hugging Face dataset from kana and kanji lines."""
+    """Create a Hugging Face dataset directly with source and target."""
     data = {
-        "kana": kana_lines,
-        "kanji": kanji_lines
+        "translation": [
+            {"source": kana, "target": kanji} 
+            for kana, kanji in zip(kana_lines, kanji_lines)
+        ]
     }
     
-    # Create a pandas DataFrame first
-    df = pd.DataFrame(data)
-    
-    # Convert to Hugging Face Dataset
-    dataset = Dataset.from_pandas(df)
+    # Create dataset directly with the translation format
+    dataset = Dataset.from_dict(data)
     
     # Split into train and test
     train_test_split = dataset.train_test_split(train_size=train_ratio, seed=42)
     
     return train_test_split
-
-def format_for_translation(dataset):
-    """Format the dataset for the translation task."""
-    def format_example(example):
-        return {
-            "translation": {
-                "source": example["kana"],
-                "target": example["kanji"]
-            }
-        }
-    
-    return dataset.map(format_example)
 
 def main():
     parser = argparse.ArgumentParser(description="Format kana-kanji data for Hugging Face transformers")
@@ -56,11 +43,8 @@ def main():
     # Load data
     kana_lines, kanji_lines = load_kana_kanji_files(args.kana_file, args.kanji_file)
     
-    # Create dataset
+    # Create dataset with direct translation format
     dataset = create_hf_dataset(kana_lines, kanji_lines, args.train_ratio)
-    
-    # Format for translation
-    dataset = format_for_translation(dataset)
     
     # Save dataset
     os.makedirs(args.output_dir, exist_ok=True)
