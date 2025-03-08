@@ -16,3 +16,5 @@ unidic-lite
 jiwer
 transformers[torch]
 wandb
+deepspeed
+accelerate
