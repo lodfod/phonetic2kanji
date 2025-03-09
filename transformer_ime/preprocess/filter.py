@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 def clean_and_filter_files(kana_file, output_file, kanji_file):
     # List of unnecessary characters to remove
-    chars_to_remove_regex = r'[\,\‥\【\】\"\"\‼\⁉\−\〔\〕\、\。\〈\〉\《\》\「\」\『\』\・\！\（\）\，\．\？\［\］]'
+    chars_to_remove_regex = r'[\.\,\‥\【\】\"\"\‼\⁉\−\〔\〕\、\。\〈\〉\《\》\「\」\『\』\・\！\（\）\，\．\？\［\］]'
     
     # Define the range of valid characters (katakana)
     MIN_CHAR = ord('ァ')  # Start of katakana range

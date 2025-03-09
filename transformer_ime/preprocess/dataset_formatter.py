@@ -1,7 +1,6 @@
 import os
 import argparse
 from datasets import Dataset, DatasetDict
-import pandas as pd
 
 def load_kana_kanji_files(kana_file, kanji_file):
     """Load kana and kanji files and return them as lists of sentences."""

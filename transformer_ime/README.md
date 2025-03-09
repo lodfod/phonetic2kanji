@@ -35,7 +35,8 @@ python preprocess/text_processor.py --input data/reazon_tiny/data.kanji --output
 
 ### 3. Remove and filter unwanted data
 ```bash
-python preprocess/filter.py --kana data/reazon_tiny/data.kana --kanji data/reazon_tiny/data.kanji --clean_kana data/reazon_tiny/clean_data.kana --clean_kanji data/reazon_tiny/clean_data.kanji
+python preprocess/filter.py --kana data/reazon_tiny/data.kana --kanji data/reazon_tiny/data.kanji \
+--clean_kana data/reazon_tiny/clean_data.kana --clean_kanji data/reazon_tiny/clean_data.kanji
 ```
 
 ### 4. Format for Hugging Face
@@ -60,8 +61,12 @@ python src/train_reazon.py --dataset_dir data/reazon_tiny/formatted --output_dir
 #### For multi-GPU Training
 ```bash
 accelerate config
-accelerate launch --main_process_port 0 src/train_reazon.py --multi_gpu --dataset_dir data/reazon_tiny/formatted --output_dir models/my_test
 ```
+Recommended to use ZeRO optimization level 0 
+```bash
+accelerate launch --main_process_port 29999 src/train_reazon.py --multi_gpu --dataset_dir data/reazon_tiny/formatted --output_dir models/my_test
+```
+Set your main process port to your desire (just make sure it is not used)
 
 Fine-tuned model is now saved under `models/my_test`.
 
@@ -70,21 +75,60 @@ Fine-tuned model is now saved under `models/my_test`.
 python utils/upload_model.py --model_path models/my_test/final_model --hf_repo_id ryos17/my_test
 ```
 
-## Perform Inference
+## Evaluation
 
-### Single test
-
+### For single line test 
 ```bash
-python src/inference.py \
-  --model_dir models/my_test/final_model \
+python eval/inference.py \
+  --model_name models/my_test/final_model \
   --input "ニッポンノアニメワコクサイテキニユウメイデス"
 ```
+Note model_name can be hugging face directory or local model path
 
-### Evaluate Model (UNTESTED)
+### For benchmarking mode
 
+#### 1. Load evaluation dataset
 ```bash
-python src/evaluate_model.py \
-  --model_dir models/base_model/final_model \
-  --data_dir data/reazon \
-  --output_file base_model_evaluation.txt
+python eval/dataloader.py --dataset jsut_basic5000 --output data/jsut_basic/data.kanji
+```
+Choose between jsut_basic5000 or common_voice_8_0
+
+#### 2. Convert Kanji to Kana
+```bash
+python preprocess/text_processor.py --input data/jsut_basic/data.kanji --output data/jsut_basic/data.kana
+```
+
+#### 3. Remove and filter unwanted data
+```bash
+python preprocess/filter.py --kana data/jsut_basic/data.kana --kanji data/jsut_basic/data.kanji \
+--clean_kana data/jsut_basic/clean_data.kana --clean_kanji data/jsut_basic/clean_data.kanji
+```
+
+#### 4. Evaluate model
+```bash
+python eval/benchmark.py --kana data/jsut_basic/clean_data.kana --kanji data/jsut_basic/clean_data.kanji --model_name ryos17/mt5_base_medium
+```
+Add --debug arguement to see sample preditions and references
+
+#### Sample output (mt5_base_medium evaluated on jsut_basic)
+```bash
+================================================================================
+Overall Results:
+Precision: 84.2160
+Recall: 84.4955
+F-score: 84.2909
+Character Error Rate (CER): 18.2989
+Sentence Accuracy: 13.5528
+================================================================================
+```
+#### Sample output (mt5_base_medium evaluated on common_voice)
+```bash
+================================================================================
+Overall Results:
+Precision: 88.4472
+Recall: 88.0769
+F-score: 88.1963
+Character Error Rate (CER): 13.7846
+Sentence Accuracy: 31.0322
+================================================================================
 ```

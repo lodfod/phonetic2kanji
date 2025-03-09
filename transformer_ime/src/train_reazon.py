@@ -131,7 +131,12 @@ def main():
    
     # Initialize model
     model = AutoModelForSeq2SeqLM.from_pretrained(args.model_name)
-   
+
+    # Add this code to make all parameters contiguous before DeepSpeed initialization
+    for param in model.parameters():
+        if not param.data.is_contiguous():
+            param.data = param.data.contiguous()
+
     # Define training arguments
     training_args = Seq2SeqTrainingArguments(
         output_dir=args.output_dir,
