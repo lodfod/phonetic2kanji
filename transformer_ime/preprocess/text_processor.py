@@ -7,8 +7,11 @@ import MeCab
 def convert_kanji_to_kana(mecab_path, kanji_text):
     """Convert kanji text to kana using MeCab."""
     try:
-        # Try with the specified dictionary path and explicit mecabrc path
-        tagger = MeCab.Tagger('-r /dev/null -d /root/phonetic2kanji/transformer_ime/mecab-ipadic-neologd/lib')
+        if mecab_path:
+            tagger = MeCab.Tagger(f'-r /dev/null -d {mecab_path}')
+        else:
+            # Try with the default path from the original code
+            tagger = MeCab.Tagger('-r /dev/null -d /root/phonetic2kanji/transformer_ime/mecab-ipadic-neologd/lib')
     except RuntimeError as e:
         print(f"Error initializing MeCab with path {mecab_path}: {str(e)}")
         print("Trying with default MeCab installation...")
