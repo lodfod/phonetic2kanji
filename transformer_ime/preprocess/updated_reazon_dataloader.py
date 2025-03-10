@@ -8,7 +8,6 @@ def main():
     parser.add_argument('--output', type=str, required=True,
                        help='Output file path')
     parser.add_argument('--size', type=str, default='medium',
-                       choices=['tiny', 'small', 'medium', 'large', 'all'],
                        help='Size of the dataset to load (default: medium)')
     parser.add_argument('--num_proc', type=int, default=8,
                        help='Number of processes to use for loading (default: 8)')

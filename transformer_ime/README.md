@@ -121,14 +121,3 @@ Character Error Rate (CER): 18.2989
 Sentence Accuracy: 13.5528
 ================================================================================
 ```
-#### Sample output (mt5_base_medium evaluated on common_voice)
-```bash
-================================================================================
-Overall Results:
-Precision: 88.4472
-Recall: 88.0769
-F-score: 88.1963
-Character Error Rate (CER): 13.7846
-Sentence Accuracy: 31.0322
-================================================================================
-```
