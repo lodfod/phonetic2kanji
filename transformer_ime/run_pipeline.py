@@ -7,6 +7,7 @@ from pathlib import Path
 from tqdm import tqdm
 import time
 import sys
+import shutil
 
 def setup_logging(log_file=None):
     """Set up logging configuration"""
@@ -20,6 +21,115 @@ def setup_logging(log_file=None):
         ]
     )
     return logging.getLogger(__name__)
+
+def detect_gpus():
+    """Detect available GPUs and their properties"""
+    try:
+        # Try to import torch
+        import torch
+        
+        if not torch.cuda.is_available():
+            return {"available": False, "count": 0, "names": [], "cuda_version": None}
+        
+        count = torch.cuda.device_count()
+        names = [torch.cuda.get_device_name(i) for i in range(count)]
+        cuda_version = torch.version.cuda
+        
+        return {
+            "available": True,
+            "count": count,
+            "names": names,
+            "cuda_version": cuda_version
+        }
+    except ImportError:
+        # If torch is not available, try using nvidia-smi
+        try:
+            result = subprocess.run(
+                ["nvidia-smi", "--query-gpu=name", "--format=csv,noheader"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                check=True
+            )
+            
+            gpu_names = [name.strip() for name in result.stdout.strip().split('\n') if name.strip()]
+            
+            return {
+                "available": len(gpu_names) > 0,
+                "count": len(gpu_names),
+                "names": gpu_names,
+                "cuda_version": "Unknown"
+            }
+        except (subprocess.SubprocessError, FileNotFoundError):
+            # If nvidia-smi fails or is not found
+            return {"available": False, "count": 0, "names": [], "cuda_version": None}
+
+def setup_gpu_environment(multi_gpu, gpu_ids=None, logger=None):
+    """Set up environment variables for GPU training"""
+    if logger:
+        logger.info("Setting up GPU environment...")
+    
+    # Detect available GPUs
+    gpu_info = detect_gpus()
+    
+    if logger:
+        if gpu_info["available"]:
+            logger.info(f"Found {gpu_info['count']} GPUs: {', '.join(gpu_info['names'])}")
+            logger.info(f"CUDA version: {gpu_info['cuda_version']}")
+        else:
+            logger.warning("No GPUs detected. Training will use CPU only.")
+    
+    # Set environment variables
+    if multi_gpu and gpu_info["available"] and gpu_info["count"] > 1:
+        # For multi-GPU training
+        if logger:
+            logger.info("Setting up environment for multi-GPU training")
+        
+        # If specific GPU IDs are provided, use them
+        if gpu_ids:
+            os.environ["CUDA_VISIBLE_DEVICES"] = ",".join(map(str, gpu_ids))
+            if logger:
+                logger.info(f"Using GPUs with IDs: {gpu_ids}")
+        
+        # Set distributed training environment variables
+        os.environ["NCCL_TIMEOUT"] = "3600"
+        os.environ["NCCL_IB_TIMEOUT"] = "120"
+        os.environ["NCCL_SOCKET_TIMEOUT"] = "120"
+        os.environ["TORCH_NCCL_TRACE_BUFFER_SIZE"] = "1000"
+        os.environ["TOKENIZERS_PARALLELISM"] = "false"
+        
+        return True
+    elif gpu_info["available"]:
+        # For single-GPU training
+        if logger:
+            logger.info("Setting up environment for single-GPU training")
+        
+        # If specific GPU ID is provided, use it
+        if gpu_ids and len(gpu_ids) > 0:
+            os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu_ids[0])
+            if logger:
+                logger.info(f"Using GPU with ID: {gpu_ids[0]}")
+        else:
+            os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # Use first GPU by default
+        
+        os.environ["TOKENIZERS_PARALLELISM"] = "false"
+        
+        # Clear any existing distributed training settings
+        for var in ["WORLD_SIZE", "RANK", "LOCAL_RANK", "MASTER_ADDR", "MASTER_PORT"]:
+            if var in os.environ:
+                del os.environ[var]
+        
+        return True
+    else:
+        # No GPUs available
+        if logger:
+            logger.warning("No GPUs available. Using CPU for training.")
+        
+        # Clear any GPU-related environment variables
+        if "CUDA_VISIBLE_DEVICES" in os.environ:
+            del os.environ["CUDA_VISIBLE_DEVICES"]
+        
+        return False
 
 def run_command(cmd, logger):
     """Run a shell command and log the output"""
@@ -125,6 +235,13 @@ def format_dataset(category, args, logger):
         "--train_ratio", str(args.train_ratio)
     ]
     
+    # Add test and validation ratios if provided
+    if hasattr(args, 'test_ratio'):
+        cmd.extend(["--test_ratio", str(args.test_ratio)])
+    
+    if hasattr(args, 'validation_ratio'):
+        cmd.extend(["--validation_ratio", str(args.validation_ratio)])
+    
     return run_command(cmd, logger)
 
 def train_model(category, args, logger):
@@ -152,6 +269,25 @@ def train_model(category, args, logger):
     
     if args.multi_gpu:
         cmd.append("--multi_gpu")
+    
+    # Add additional training arguments if provided
+    if args.learning_rate:
+        cmd.extend(["--learning_rate", str(args.learning_rate)])
+    
+    if args.weight_decay:
+        cmd.extend(["--weight_decay", str(args.weight_decay)])
+    
+    if args.warmup_steps:
+        cmd.extend(["--warmup_steps", str(args.warmup_steps)])
+    
+    if args.gradient_accumulation_steps:
+        cmd.extend(["--gradient_accumulation_steps", str(args.gradient_accumulation_steps)])
+    
+    if args.fp16:
+        cmd.append("--fp16")
+    
+    if args.bf16:
+        cmd.append("--bf16")
     
     return run_command(cmd, logger)
 
@@ -201,7 +337,9 @@ def main():
     parser.add_argument("--mecab_path", help="Path to MeCab dictionary")
     
     # Dataset settings
-    parser.add_argument("--train_ratio", type=float, default=0.8, help="Ratio of data to use for training")
+    parser.add_argument("--train_ratio", type=float, default=0.8, help="Ratio of data to use for training (default: 0.8)")
+    parser.add_argument("--test_ratio", type=float, default=0.1, help="Ratio of data to use for testing (default: 0.1)")
+    parser.add_argument("--validation_ratio", type=float, default=0.1, help="Ratio of data to use for validation (default: 0.1)")
     
     # Training settings
     parser.add_argument("--train", action="store_true", default=True, help="Train models after preprocessing")
@@ -210,9 +348,26 @@ def main():
     parser.add_argument("--batch_size", type=int, help="Per device batch size for training")
     parser.add_argument("--num_epochs", type=int, help="Number of training epochs")
     parser.add_argument("--max_length", type=int, help="Maximum sequence length")
+    
+    # GPU settings
     parser.add_argument("--multi_gpu", action="store_true", help="Enable multi-GPU training")
+    parser.add_argument("--gpu_ids", type=int, nargs="+", help="Specific GPU IDs to use (e.g., 0 1 2)")
+    
+    # Advanced training settings
+    parser.add_argument("--learning_rate", type=float, help="Learning rate for training")
+    parser.add_argument("--weight_decay", type=float, help="Weight decay for training")
+    parser.add_argument("--warmup_steps", type=int, help="Number of warmup steps")
+    parser.add_argument("--gradient_accumulation_steps", type=int, help="Gradient accumulation steps")
+    parser.add_argument("--fp16", action="store_true", help="Enable FP16 training")
+    parser.add_argument("--bf16", action="store_true", help="Enable BF16 training")
     
     args = parser.parse_args()
+    
+    # Verify that dataset split ratios sum to 1.0
+    total_ratio = args.train_ratio + args.test_ratio + args.validation_ratio
+    if not 0.999 <= total_ratio <= 1.001:  # Allow for small floating-point errors
+        logger.error(f"Train, test, and validation ratios must sum to 1.0, got {total_ratio}")
+        sys.exit(1)
     
     # Create directories if they don't exist
     os.makedirs(args.data_dir, exist_ok=True)
@@ -225,6 +380,12 @@ def main():
     logger = setup_logging(log_file)
     
     logger.info(f"Starting pipeline with arguments: {args}")
+    
+    # Set up GPU environment
+    gpu_available = setup_gpu_environment(args.multi_gpu, args.gpu_ids, logger)
+    
+    if args.multi_gpu and not gpu_available:
+        logger.warning("Multi-GPU training requested but no GPUs detected. Falling back to CPU.")
     
     # Get categories to process
     categories = []

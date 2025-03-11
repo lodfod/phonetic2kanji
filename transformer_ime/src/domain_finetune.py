@@ -15,26 +15,39 @@ import wandb
 from accelerate import Accelerator
 
 def main():
-    parser = argparse.ArgumentParser(description="Train a kana to kanji model using Transformers")
+    parser = argparse.ArgumentParser(description="Domain-specific fine-tuning for kana to kanji model")
     
     # Training type
     parser.add_argument("--multi_gpu", action="store_true", default=False,
                        help="Enable multi-GPU training using Accelerator")
 
     # Dataset and model arguments
-    parser.add_argument("--dataset_dir", required=True, help="Directory with the formatted dataset")
-    parser.add_argument("--output_dir", required=True, help="Directory to save the model")
-    parser.add_argument("--model_name", default="google/mt5-small", 
-                        help="Base model to fine-tune. Options include: google/mt5-small, google/mt5-base"
-                        "google/mt5-large, google/mt5-xl, google/mt5-xxl")
+    parser.add_argument("--dataset_dir", required=True, 
+                        help="Directory with the domain-specific dataset")
+    parser.add_argument("--output_dir", required=True, 
+                        help="Directory to save the fine-tuned model")
+    parser.add_argument("--model_name", required=True,
+                        help="HuggingFace model ID or path to the pre-trained model")
     parser.add_argument("--max_length", type=int, default=128,
                         help="Maximum sequence length")
     
-    # Add training hyperparameters
-    parser.add_argument("--batch_size", type=int, default=64,
+    # Fine-tuning specific hyperparameters
+    parser.add_argument("--batch_size", type=int, default=16,
                         help="Per device batch size for training and evaluation")
-    parser.add_argument("--num_epochs", type=int, default=10,
-                        help="Number of training epochs")
+    parser.add_argument("--num_epochs", type=int, default=3,
+                        help="Number of fine-tuning epochs")
+    parser.add_argument("--learning_rate", type=float, default=5e-6,
+                        help="Learning rate for fine-tuning")
+    parser.add_argument("--warmup_ratio", type=float, default=0.1,
+                        help="Portion of training to perform learning rate warmup")
+    parser.add_argument("--weight_decay", type=float, default=0.01,
+                        help="Weight decay to apply during fine-tuning")
+    parser.add_argument("--gradient_accumulation_steps", type=int, default=2,
+                        help="Number of updates steps to accumulate before backward pass")
+    parser.add_argument("--freeze_encoder", action="store_true", default=False,
+                        help="Freeze encoder parameters and only fine-tune the decoder")
+    parser.add_argument("--domain_prefix", type=str, default="",
+                        help="Optional domain prefix to add to inputs (e.g., 'medical: ')")
     
     args = parser.parse_args()
 
@@ -57,25 +70,26 @@ def main():
             print("No accelerated device found, using CPU")
 
     # Initialize wandb with run name from output_dir
-    run_name = os.path.basename(args.output_dir)
+    run_name = f"domain-finetune-{os.path.basename(args.output_dir)}"
     if args.multi_gpu:
         if accelerator.is_main_process:
-            wandb.init(project="kana-to-kanji", name=run_name)
+            wandb.init(project="kana-to-kanji-domain-finetune", name=run_name)
     else:
-        wandb.init(project="kana-to-kanji", name=run_name)
+        wandb.init(project="kana-to-kanji-domain-finetune", name=run_name)
 
-    # Load dataset
+    # Load domain-specific dataset
     dataset = load_from_disk(args.dataset_dir)
     print("Dataset structure:", dataset)
     print("First example:", dataset["train"][0] if "train" in dataset else dataset[0])
    
-    # Load pretrained tokenizer 
+    # Load pretrained tokenizer from the fine-tuned model
     tokenizer = AutoTokenizer.from_pretrained(args.model_name)
 
-    # Define the preprocessing function
+    # Define the preprocessing function with optional domain prefix
     def preprocess_function(examples):
-        # Create inputs and targets
-        inputs = ["translate kana to kanji: " + item["source"] for item in examples["translation"]]
+        # Create inputs and targets with optional domain prefix
+        prefix = f"{args.domain_prefix} " if args.domain_prefix else ""
+        inputs = [f"translate kana to kanji: {prefix}{item['source']}" for item in examples["translation"]]
         targets = [item["target"] for item in examples["translation"]]
 
         # Tokenize inputs
@@ -91,10 +105,10 @@ def main():
     # Preprocess the dataset
     tokenized_dataset = dataset.map(preprocess_function, batched=True)
    
-    # Load CER metric only
+    # Load CER metric
     cer_metric = evaluate.load("cer")
    
-    # Define compute metrics function for CER only
+    # Define compute metrics function
     def compute_metrics(eval_preds):
         preds, labels = eval_preds
         
@@ -129,27 +143,38 @@ def main():
         
         return {"cer": cer_score}
    
-    # Initialize model
+    # Initialize model from pre-trained checkpoint
     model = AutoModelForSeq2SeqLM.from_pretrained(args.model_name)
+
+    # Optionally freeze encoder parameters
+    if args.freeze_encoder:
+        print("Freezing encoder parameters")
+        for param in model.encoder.parameters():
+            param.requires_grad = False
 
     # Add this code to make all parameters contiguous before DeepSpeed initialization
     for param in model.parameters():
         if not param.data.is_contiguous():
             param.data = param.data.contiguous()
 
-    # Define training arguments
+    # Calculate warmup steps based on warmup ratio
+    total_steps = len(tokenized_dataset["train"]) // (args.batch_size * args.gradient_accumulation_steps) * args.num_epochs
+    warmup_steps = int(total_steps * args.warmup_ratio)
+
+    # Define training arguments optimized for fine-tuning
     training_args = Seq2SeqTrainingArguments(
         output_dir=args.output_dir,
         num_train_epochs=args.num_epochs,
         per_device_train_batch_size=args.batch_size,
         per_device_eval_batch_size=args.batch_size,
+        gradient_accumulation_steps=args.gradient_accumulation_steps,
         auto_find_batch_size=True,
         eval_strategy="epoch",
         save_strategy="epoch",
-        learning_rate=2e-5,
-        weight_decay=0.01,
+        learning_rate=args.learning_rate,
+        weight_decay=args.weight_decay,
         save_total_limit=3,
-        warmup_steps=500,
+        warmup_steps=warmup_steps,
         bf16=True,
         group_by_length=True,
         report_to=["wandb", "tensorboard"],
@@ -159,6 +184,11 @@ def main():
         load_best_model_at_end=True,
         max_grad_norm=1.0,
         ddp_find_unused_parameters=False,
+        # Fine-tuning specific parameters
+        fp16_full_eval=True,
+        optim="adamw_torch",
+        lr_scheduler_type="cosine",
+        generation_max_length=args.max_length,
     )
    
     # Create data collator
@@ -222,4 +252,4 @@ def setup_multi_GPU_training_environment():
     os.environ["TOKENIZERS_PARALLELISM"] = "false" 
 
 if __name__ == "__main__":
-    main()
+    main() 
