@@ -2,6 +2,7 @@ import argparse
 from pathlib import Path
 import re
 from tqdm import tqdm
+import unicodedata
 
 def clean_and_filter_files(kana_file, output_file, kanji_file):
     # List of unnecessary characters to remove
@@ -11,6 +12,13 @@ def clean_and_filter_files(kana_file, output_file, kanji_file):
     MIN_CHAR = ord('ァ')  # Start of katakana range
     MAX_CHAR = ord('ー')  # End of katakana range
     
+    # Regex patterns for filtering
+    url_pattern = r'https?://\S+'
+    isbn_pattern = r'ISBN\s+[\d\-]+'
+    email_pattern = r'\S+@\S+\.\S+'
+    english_word_pattern = r'[a-zA-Z]+'
+    number_sequence_pattern = r'\d+'
+    
     def is_valid_kana(line):
         # Check if all characters are within valid range after cleaning
         for char in line:
@@ -18,6 +26,58 @@ def clean_and_filter_files(kana_file, output_file, kanji_file):
             if not (char == '\n' or MIN_CHAR <= char_code <= MAX_CHAR):
                 return False
         return True
+    
+    def is_kanji(char):
+        # Check if a character is a kanji
+        return 'CJK UNIFIED IDEOGRAPH' in unicodedata.name(char, '')
+    
+    def is_hiragana(char):
+        # Check if a character is hiragana
+        return ord('ぁ') <= ord(char) <= ord('ゖ')
+    
+    def is_katakana(char):
+        # Check if a character is katakana
+        return ord('ァ') <= ord(char) <= ord('ヶ')
+    
+    def is_japanese_punctuation(char):
+        # Common Japanese punctuation
+        jpn_punct = '　、。，．・：；？！゛゜´｀¨＾￣＿ヽヾゝゞ〃仝々〆〇ー―‐／＼～∥｜…‥''""（）〔〕［］｛｝〈〉《》「」『』【】＋－±×÷＝≠＜＞≦≧∞∴♂♀°′″℃￥＄￠￡％＃＆＊＠§☆★○●◎◇◆□■△▲▽▼※〒→←↑↓〓'
+        return char in jpn_punct
+    
+    def is_acceptable_in_japanese_text(char):
+        # Check if a character is acceptable in Japanese text
+        # This includes kanji, hiragana, katakana, Japanese punctuation, 
+        # digits, and some common symbols
+        return (is_kanji(char) or 
+                is_hiragana(char) or 
+                is_katakana(char) or 
+                is_japanese_punctuation(char) or
+                char.isdigit() or
+                char in ',.!?;:()[]{} ')
+    
+    def clean_kanji_line(line):
+        # Remove URLs
+        line = re.sub(url_pattern, '', line)
+        
+        # Remove ISBN numbers
+        line = re.sub(isbn_pattern, '', line)
+        
+        # Remove email addresses
+        line = re.sub(email_pattern, '', line)
+        
+        # Remove English words
+        line = re.sub(english_word_pattern, '', line)
+        
+        # Remove number sequences (optional, might want to keep some numbers)
+        # line = re.sub(number_sequence_pattern, '', line)
+        
+        # Remove special characters
+        line = re.sub(chars_to_remove_regex, '', line)
+        
+        # Filter out characters that aren't acceptable in Japanese text
+        filtered_chars = [char for char in line if is_acceptable_in_japanese_text(char)]
+        
+        return ''.join(filtered_chars).strip()
     
     # Read all lines from both files
     with open(kana_file, 'r', encoding='utf-8') as f_kana, \
@@ -48,11 +108,13 @@ def clean_and_filter_files(kana_file, output_file, kanji_file):
     valid_kanji_lines = []
     
     for kana_line, kanji_line in tqdm(non_blank_pairs, desc="Processing lines"):
-        # Remove special characters from both kana and kanji
+        # Clean the kana line (remove special characters)
         cleaned_kana = re.sub(chars_to_remove_regex, '', kana_line).strip()
-        cleaned_kanji = re.sub(chars_to_remove_regex, '', kanji_line).strip()
         
-        # Check if kana line contains only valid characters
+        # Clean the kanji line (remove non-Japanese content)
+        cleaned_kanji = clean_kanji_line(kanji_line)
+        
+        # Check if kana line contains only valid characters and both lines are non-empty after cleaning
         if cleaned_kana and cleaned_kanji and is_valid_kana(cleaned_kana):
             valid_kana_lines.append(cleaned_kana)
             valid_kanji_lines.append(cleaned_kanji)
@@ -84,6 +146,9 @@ def main():
                        help="Path to output cleaned kana file")
     parser.add_argument("--clean_kanji", required=True,
                        help="Path to output cleaned kanji file")
+    # Additional options
+    parser.add_argument("--keep_numbers", action="store_true", default=False,
+                       help="Keep numeric sequences in the output")
     
     args = parser.parse_args()
     

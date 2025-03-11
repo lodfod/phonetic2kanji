@@ -16,6 +16,7 @@ The pipeline consists of the following steps:
 
 - Python 3.7+
 - MeCab with a Japanese dictionary (optional but recommended)
+- PyTorch (for GPU acceleration)
 - Required Python packages (see `requirements.txt`)
 
 ## Usage
@@ -56,6 +57,8 @@ This will:
 #### Dataset Settings
 
 - `--train_ratio`: Ratio of data to use for training (default: 0.8)
+- `--test_ratio`: Ratio of data to use for testing (default: 0.1)
+- `--validation_ratio`: Ratio of data to use for validation (default: 0.1)
 
 #### Training Settings
 
@@ -65,7 +68,20 @@ This will:
 - `--batch_size`: Per device batch size for training
 - `--num_epochs`: Number of training epochs
 - `--max_length`: Maximum sequence length
-- `--multi_gpu`: Enable multi-GPU training
+
+#### GPU Settings
+
+- `--multi_gpu`: Enable multi-GPU training using distributed data parallel
+- `--gpu_ids`: Specific GPU IDs to use (e.g., `--gpu_ids 0 2 3` to use GPUs 0, 2, and 3)
+
+#### Advanced Training Settings
+
+- `--learning_rate`: Learning rate for training
+- `--weight_decay`: Weight decay for training
+- `--warmup_steps`: Number of warmup steps
+- `--gradient_accumulation_steps`: Gradient accumulation steps
+- `--fp16`: Enable FP16 (mixed precision) training
+- `--bf16`: Enable BF16 training (faster on newer GPUs)
 
 ### Examples
 
@@ -99,6 +115,24 @@ python run_pipeline.py --mecab_path /opt/homebrew/lib/mecab/dic/mecab-ipadic-neo
 python run_pipeline.py --model_name "google/mt5-small" --batch_size 32 --num_epochs 5
 ```
 
+#### Multi-GPU Training
+
+```bash
+python run_pipeline.py --multi_gpu
+```
+
+#### Multi-GPU Training with Specific GPUs
+
+```bash
+python run_pipeline.py --multi_gpu --gpu_ids 0 2
+```
+
+#### Advanced Training Configuration
+
+```bash
+python run_pipeline.py --multi_gpu --batch_size 16 --learning_rate 3e-5 --warmup_steps 500 --fp16
+```
+
 ## Output Structure
 
 The pipeline creates the following directory structure:
@@ -111,8 +145,9 @@ data/
     ├── clean_Category1.kanji           # Filtered kanji text
     ├── clean_Category1.kana            # Filtered kana text
     └── formatted_Category1/            # HuggingFace dataset
-        ├── train/
-        └── test/
+        ├── train/                      # Training split (80% by default)
+        ├── test/                       # Testing split (10% by default)
+        └── validation/                 # Validation split (10% by default)
 
 models/
 └── category1/                          # Trained model for Category1
@@ -123,6 +158,27 @@ logs/
 └── pipeline-YYYYMMDD-HHMMSS.log        # Log file
 ```
 
+## Multi-GPU Training
+
+The pipeline supports multi-GPU training to accelerate the model training process. When using multi-GPU training:
+
+1. The script automatically detects available GPUs on your system
+2. It sets up the necessary environment variables for distributed training
+3. The training process uses PyTorch's Distributed Data Parallel (DDP) to parallelize training across GPUs
+
+### Requirements for Multi-GPU Training
+
+- Multiple CUDA-capable GPUs
+- PyTorch installed with CUDA support
+- Sufficient system memory
+
+### Tips for Multi-GPU Training
+
+- Start with a smaller batch size per GPU and increase if memory allows
+- Use `--fp16` or `--bf16` to reduce memory usage and increase training speed
+- For very large models, consider using gradient accumulation with `--gradient_accumulation_steps`
+- Monitor GPU usage with tools like `nvidia-smi` during training
+
 ## Troubleshooting
 
 ### Common Issues
@@ -130,6 +186,8 @@ logs/
 1. **MeCab Not Found**: Ensure MeCab is installed and the path is correct.
 2. **Memory Issues**: Reduce batch size or max_pages if you encounter memory problems.
 3. **Failed Downloads**: Check your internet connection and try again.
+4. **GPU Out of Memory**: Reduce batch size, use gradient accumulation, or enable mixed precision training.
+5. **NCCL Errors**: These are related to GPU communication. Try setting `NCCL_DEBUG=INFO` environment variable for more information.
 
 ### Resuming Failed Runs
 
