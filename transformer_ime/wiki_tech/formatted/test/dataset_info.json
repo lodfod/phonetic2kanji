@@ -1,0 +1,18 @@
+{
+  "citation": "",
+  "description": "",
+  "features": {
+    "translation": {
+      "source": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "target": {
+        "dtype": "string",
+        "_type": "Value"
+      }
+    }
+  },
+  "homepage": "",
+  "license": ""
+}
