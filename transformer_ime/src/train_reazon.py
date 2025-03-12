@@ -35,6 +35,8 @@ def main():
                         help="Per device batch size for training and evaluation")
     parser.add_argument("--num_epochs", type=int, default=10,
                         help="Number of training epochs")
+    parser.add_argument("--learning_rate", type=float, default=2e-5,
+                        help="Learning rate for training")
     
     args = parser.parse_args()
 
@@ -146,7 +148,7 @@ def main():
         auto_find_batch_size=True,
         eval_strategy="epoch",
         save_strategy="epoch",
-        learning_rate=2e-5,
+        learning_rate=args.learning_rate,
         weight_decay=0.01,
         save_total_limit=3,
         warmup_steps=500,
