@@ -1,5 +1,6 @@
 import argparse
 from datasets import load_from_disk
+from tqdm import tqdm
 
 def main():
     # Set up argument parser
@@ -15,10 +16,13 @@ def main():
 
     # Extract the test dataset
     test_dataset = dataset['test']
+    
+    print(f"Extracting {len(test_dataset)} examples from test dataset...")
 
     # Open files to write the kana and kanji data
     with open(args.kana_output, 'w', encoding='utf-8') as kana_file, open(args.kanji_output, 'w', encoding='utf-8') as kanji_file:
-        for i, example in enumerate(test_dataset):
+        # Add tqdm progress bar
+        for i, example in tqdm(enumerate(test_dataset), total=len(test_dataset), desc="Writing files"):
             # Extract the source (kana) and target (kanji) from each example
             kana = example['translation']['source']
             kanji = example['translation']['target']

@@ -1,9 +1,0 @@
-logs/
-__pycache__/
-*/__pycache__/
-mecab-ipadic-neologd/
-wikipedia_articles/
-wiki_articles/
-**/wikipedia_articles/
-**/wiki_articles/
-**/*wiki*/

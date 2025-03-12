@@ -1,11 +1,5 @@
-.env
-venv
-/venv
-/data
-*/data/
-*/data/formatted
-*/data/formatted/*
-*/models/
-*/models/*
-*/pycache/*
-*/__pycache__/*
+data/
+mecab-ipadic-neologd/
+models/
+wandb/
+**/__pycache__/

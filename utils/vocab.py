@@ -19,10 +19,6 @@ def extract_unique_chars(file_path):
     # Create vocabulary dictionary with indices
     vocab_dict = {char: idx for idx, char in enumerate(char_list)}
     
-    # Add special tokens
-    vocab_dict["[PAD]"] = len(vocab_dict)
-    vocab_dict["[UNK]"] = len(vocab_dict)
-    
     return vocab_dict
 
 def main():
