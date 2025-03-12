@@ -156,7 +156,8 @@ if __name__ == "__main__":
     avg_metrics = evaluate_model(kana_file, kanji_file, model, tokenizer, device, args.max_length, args.debug)
     
     # Print overall results
-    print("\n" + "=" * 80)
+    print(f"\n\nEvaluating {args.model_name} on {args.kana} and {args.kanji} dataset")
+    print("=" * 80)
     print("Overall Results:")
     print(f"Precision: {avg_metrics['precision']:.4f}")
     print(f"Recall: {avg_metrics['recall']:.4f}")

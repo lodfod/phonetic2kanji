@@ -175,7 +175,7 @@ def main():
         model=model,
         args=training_args,
         train_dataset=tokenized_dataset["train"],
-        eval_dataset=tokenized_dataset["validation"] if "validation" in tokenized_dataset else tokenized_dataset["test"],
+        eval_dataset=tokenized_dataset["validation"],
         data_collator=data_collator,
         compute_metrics=compute_metrics,
         processing_class=tokenizer,

@@ -1,6 +1,6 @@
 # Benchmark Results 
 
-## Base model performances
+## General-context fine-tune performances
 
 ### mt5_small_medium 
 #### Evaluated on jsut_basic
@@ -107,7 +107,7 @@ Sentence Accuracy: 64.2105
 ================================================================================
 ```
 
-### mt5_small_all 
+### mt5_base_all 
 #### Evaluated on jsut_basic
 ```bash
 ================================================================================
@@ -139,5 +139,107 @@ Recall: 97.3430
 F-score: 97.3863
 Character Error Rate (CER): 3.0969
 Sentence Accuracy: 75.0239
+================================================================================
+```
+
+## Domain-specific fine-tune performances
+### Evaluating models/wiki_technology_epoch_4/final_model/ on data/wiki_tech/test.kana and data/wiki_tech/test.kanji dataset
+```bash
+================================================================================
+Overall Results:
+Precision: 94.7156
+Recall: 95.6532
+F-score: 95.0620
+Character Error Rate (CER): 7.2833
+Sentence Accuracy: 37.5819
+================================================================================
+```
+### Evaluating models/wiki_technology_epoch_6/final_model/ on data/wiki_tech/test.kana and data/wiki_tech/test.kanji dataset
+```bash
+================================================================================
+Overall Results:
+Precision: 95.2187
+Recall: 96.1013
+F-score: 95.5515
+Character Error Rate (CER): 6.5075
+Sentence Accuracy: 40.0583
+================================================================================
+```
+### Evaluating models/wiki_technology_epoch_8/final_model/ on data/wiki_tech/test.kana and data/wiki_tech/test.kanji dataset
+```bash
+================================================================================
+Overall Results:
+Precision: 95.3977
+Recall: 96.2504
+F-score: 95.7191
+Character Error Rate (CER): 6.2356
+Sentence Accuracy: 41.8791
+================================================================================
+```
+### Evaluating models/wiki_technology_epoch_10/final_model/ on data/wiki_tech/test.kana and data/wiki_tech/test.kanji dataset
+```bash
+================================================================================
+Overall Results:
+Precision: 95.5529
+Recall: 96.3570
+F-score: 95.8542
+Character Error Rate (CER): 6.0429
+Sentence Accuracy: 43.4086
+================================================================================
+```
+### Evaluating models/mt5_base_all/final_model/ on data/wiki_tech/test.kana and data/wiki_tech/test.kanji dataset
+```bash
+================================================================================
+Overall Results:
+Precision: 91.0769
+Recall: 94.1588
+F-score: 92.4057
+Character Error Rate (CER): 11.5789
+Sentence Accuracy: 24.3263
+================================================================================
+```
+## Effects of domain-specific fine tuning on general-context performance
+### Evaluating models/wiki_technology_epoch_10/final_model/ on data/common_voice/clean_data.kana and data/common_voice/clean_data.kanji dataset
+```bash
+================================================================================
+Overall Results:
+Precision: 94.1304
+Recall: 93.6995
+F-score: 93.8673
+Character Error Rate (CER): 7.1828
+Sentence Accuracy: 50.8882
+================================================================================
+```
+### Evaluating models/wiki_technology_epoch_8/final_model/ on data/common_voice/clean_data.kana and data/common_voice/clean_data.kanji dataset
+```bash
+================================================================================
+Overall Results:
+Precision: 94.1540
+Recall: 93.7124
+F-score: 93.8856
+Character Error Rate (CER): 7.1693
+Sentence Accuracy: 50.9332
+================================================================================
+```
+### Evaluating models/wiki_technology_epoch_6/final_model/ on data/common_voice/clean_data.kana and data/common_voice/clean_data.kanji dataset
+```bash
+================================================================================
+Overall Results:
+Precision: 94.2379
+Recall: 93.7748
+F-score: 93.9591
+Character Error Rate (CER): 7.0945
+Sentence Accuracy: 51.0007
+================================================================================
+```
+### Evaluating models/wiki_technology_epoch_4/final_model/ on data/common_voice/clean_data.kana and data/common_voice/clean_data.kanji dataset
+```bash
+================================================================================
+Overall Results:
+Precision: 94.2614
+Recall: 93.7702
+F-score: 93.9683
+Character Error Rate (CER): 7.0770
+Sentence Accuracy: 50.8882
 ================================================================================
 ```

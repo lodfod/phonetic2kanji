@@ -25,7 +25,7 @@ def create_hf_dataset(kana_lines, kanji_lines, train_ratio=0.8, test_ratio=0.1, 
         validation_ratio: Ratio of data to use for validation (default: 0.1)
         
     Returns:
-        DatasetDict with 'train', 'test', and 'validation' splits
+        DatasetDict with 'train', 'test' (if test_ratio > 0), and 'validation' splits
     """
     # Verify that ratios sum to 1.0
     total_ratio = train_ratio + test_ratio + validation_ratio
@@ -42,31 +42,39 @@ def create_hf_dataset(kana_lines, kanji_lines, train_ratio=0.8, test_ratio=0.1, 
     # Create dataset directly with the translation format
     dataset = Dataset.from_dict(data)
     
-    # First split into train and temp (test + validation)
-    train_temp = dataset.train_test_split(train_size=train_ratio, seed=42)
+    final_dataset = DatasetDict()
     
-    # Calculate the ratio of test to (test + validation)
-    remaining_ratio = test_ratio + validation_ratio
-    test_ratio_of_temp = test_ratio / remaining_ratio if remaining_ratio > 0 else 0
-    
-    # Split the temp into test and validation
-    test_validation = train_temp['test'].train_test_split(
-        train_size=test_ratio_of_temp, 
-        seed=42
-    )
-    
-    # Create the final dataset dictionary
-    final_dataset = DatasetDict({
-        'train': train_temp['train'],
-        'test': test_validation['train'],
-        'validation': test_validation['test']
-    })
+    if test_ratio > 0:
+        # First split into train and temp (test + validation)
+        train_temp = dataset.train_test_split(train_size=train_ratio, seed=42)
+        final_dataset['train'] = train_temp['train']
+        
+        # Calculate the ratio of test to (test + validation)
+        remaining_ratio = test_ratio + validation_ratio
+        test_ratio_of_temp = test_ratio / remaining_ratio
+        
+        # Split the temp into test and validation
+        test_validation = train_temp['test'].train_test_split(
+            train_size=test_ratio_of_temp, 
+            seed=42
+        )
+        
+        final_dataset['test'] = test_validation['train']
+        final_dataset['validation'] = test_validation['test']
+    else:
+        # Just split into train and validation
+        splits = dataset.train_test_split(train_size=train_ratio, seed=42)
+        final_dataset['train'] = splits['train']
+        final_dataset['validation'] = splits['test']
     
     # Print split statistics
     print(f"Dataset split statistics:")
     print(f"  Total examples: {len(dataset)}")
     print(f"  Train split: {len(final_dataset['train'])} examples ({len(final_dataset['train'])/len(dataset):.1%})")
-    print(f"  Test split: {len(final_dataset['test'])} examples ({len(final_dataset['test'])/len(dataset):.1%})")
+    
+    if 'test' in final_dataset:
+        print(f"  Test split: {len(final_dataset['test'])} examples ({len(final_dataset['test'])/len(dataset):.1%})")
+    
     print(f"  Validation split: {len(final_dataset['validation'])} examples ({len(final_dataset['validation'])/len(dataset):.1%})")
     
     return final_dataset
@@ -90,7 +98,7 @@ def main():
     # Load data
     kana_lines, kanji_lines = load_kana_kanji_files(args.kana_file, args.kanji_file)
     
-    # Create dataset with direct translation format and 3-way split
+    # Create dataset with direct translation format and splits
     dataset = create_hf_dataset(
         kana_lines, 
         kanji_lines, 
