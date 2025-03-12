@@ -3,3 +3,6 @@ mecab-ipadic-neologd/
 models/
 wandb/
 **/__pycache__/
+.DS_Store
+venv/
+*/venv/
