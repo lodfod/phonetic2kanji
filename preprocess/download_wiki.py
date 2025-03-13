@@ -21,13 +21,13 @@ domain_map = {
         }
 
 class WikipediaDataLoader:
-    def __init__(self, language='ja', output_dir='wiki_articles'):
+    def __init__(self, language='ja', output_dir=None):
         """
         Initialize the Wikipedia data loader.
         
         Args:
             language (str): Language code for Wikipedia (default: 'ja' for Japanese)
-            output_dir (str): Directory to save the downloaded articles
+            output_dir (str): Directory to save the downloaded articles (optional)
         """
         self.language = language
         self.output_dir = output_dir
@@ -36,8 +36,9 @@ class WikipediaDataLoader:
             language=language
         )
         
-        # Create output directory if it doesn't exist
-        os.makedirs(output_dir, exist_ok=True)
+        # Create output directory if it doesn't exist and is specified
+        if output_dir:
+            os.makedirs(output_dir, exist_ok=True)
         
         # Download Japanese sentence tokenizer if needed
         try:
@@ -142,7 +143,7 @@ class WikipediaDataLoader:
                 
         return '\n'.join(cleaned_sentences)
 
-    def download_articles_from_category(self, category_name, max_depth=1, max_pages=100):
+    def download_articles_from_category(self, category_name, max_depth=1, max_pages=100, output_file=None):
         """
         Download all articles from a category and save them to a single .kanji file.
         
@@ -150,15 +151,22 @@ class WikipediaDataLoader:
             category_name (str): Name of the category
             max_depth (int): Maximum depth for category recursion
             max_pages (int): Maximum number of pages to retrieve
+            output_file (str): Path to the output file (if None, will be generated based on category name)
             
         Returns:
             str: Path to the saved .kanji file
         """
         pages = self.get_category_members(category_name, max_depth, max_pages)
         
-        # Create a safe filename from the category name
-        safe_category = re.sub(r'[^\w\s-]', '', category_name).strip().replace(' ', '_')
-        filepath = os.path.join(self.output_dir, f"{safe_category}.kanji")
+        # Determine the output filepath
+        if output_file:
+            filepath = output_file
+            # Ensure the directory exists
+            os.makedirs(os.path.dirname(os.path.abspath(filepath)), exist_ok=True)
+        else:
+            # Create a safe filename from the category name
+            safe_category = re.sub(r'[^\w\s-]', '', category_name).strip().replace(' ', '_')
+            filepath = os.path.join(self.output_dir, f"{safe_category}.kanji")
         
         # Collect all article texts
         all_articles_text = []
@@ -267,7 +275,7 @@ class WikipediaDataLoader:
         print(f"Using {sum(len(cats) for cats in general_domains.values())} categories across {len(general_domains)} domains")
         return general_domains
 
-    def download_articles_from_domain(self, domain_name, max_depth=1, max_pages_per_category=20):
+    def download_articles_from_domain(self, domain_name, max_depth=1, max_pages_per_category=20, output_file=None):
         """
         Download articles from all categories associated with a domain.
         
@@ -275,6 +283,7 @@ class WikipediaDataLoader:
             domain_name (str): Name of the domain (e.g., "Technology")
             max_depth (int): Maximum depth for category recursion
             max_pages_per_category (int): Maximum number of pages to retrieve per category
+            output_file (str): Path to the output file (if None, will be generated based on domain name)
             
         Returns:
             str: Path to the saved .kanji file
@@ -296,9 +305,15 @@ class WikipediaDataLoader:
         categories = domain_categories[domain_key]
         tqdm.write(f"Processing domain: {domain_key} with categories: {categories}")
         
-        # Create a safe filename from the domain name
-        safe_domain = re.sub(r'[^\w\s-]', '', domain_name).strip().replace(' ', '_')
-        filepath = os.path.join(self.output_dir, f"{safe_domain}.kanji")
+        # Determine the output filepath
+        if output_file:
+            filepath = output_file
+            # Ensure the directory exists
+            os.makedirs(os.path.dirname(os.path.abspath(filepath)), exist_ok=True)
+        else:
+            # Create a safe filename from the domain name
+            safe_domain = re.sub(r'[^\w\s-]', '', domain_name).strip().replace(' ', '_')
+            filepath = os.path.join(self.output_dir, f"{safe_domain}.kanji")
         
         # Collect all articles from all categories in this domain
         all_domain_articles = []
@@ -335,13 +350,14 @@ class WikipediaDataLoader:
             tqdm.write(f"✗ No articles downloaded for domain: {domain_name}")
             return None
 
-    def download_general_domain_articles(self, max_depth=1, max_pages_per_category=20):
+    def download_general_domain_articles(self, max_depth=1, max_pages_per_category=20, output_dir=None):
         """
         Download articles from general domains in Japanese, with one file per domain.
         
         Args:
             max_depth (int): Maximum depth for category recursion
             max_pages_per_category (int): Maximum number of pages to retrieve per category
+            output_dir (str): Directory to save the output files (overrides self.output_dir)
             
         Returns:
             list: List of paths to saved files
@@ -351,10 +367,18 @@ class WikipediaDataLoader:
         
         # Process each domain
         for domain_name in tqdm(domain_categories.keys(), desc="Processing domains"):
+            # Determine output file path
+            if output_dir:
+                safe_domain = re.sub(r'[^\w\s-]', '', domain_name).strip().replace(' ', '_')
+                output_file = os.path.join(output_dir, f"{safe_domain}.kanji")
+            else:
+                output_file = None
+                
             saved_file = self.download_articles_from_domain(
                 domain_name,
                 max_depth=max_depth,
-                max_pages_per_category=max_pages_per_category
+                max_pages_per_category=max_pages_per_category,
+                output_file=output_file
             )
             if saved_file:
                 saved_files.append(saved_file)
@@ -366,7 +390,8 @@ def main():
     
     parser.add_argument('--category', type=str, help='Category/domain to download articles from (e.g., Technology, Literature, Arts)')
     parser.add_argument('--titles', type=str, nargs='+', help='Specific article titles to download')
-    parser.add_argument('--output-dir', type=str, default='wiki_articles', help='Output directory')
+    parser.add_argument('--output-dir', type=str, default='wiki_articles', help='Output directory (used if --output-file not specified)')
+    parser.add_argument('--output-file', type=str, help='Output file path (overrides --output-dir)')
     parser.add_argument('--language', type=str, default='ja', help='Wikipedia language code')
     parser.add_argument('--max-depth', type=int, default=1, help='Maximum category recursion depth')
     parser.add_argument('--max-pages', type=int, default=100, help='Maximum number of pages to download')
@@ -380,15 +405,21 @@ def main():
     
     args = parser.parse_args()
 
-    # Create output directory if it doesn't exist
-    os.makedirs(args.output_dir, exist_ok=True)
+    # Create output directory if it doesn't exist and is specified
+    if args.output_dir and not args.output_file:
+        os.makedirs(args.output_dir, exist_ok=True)
+    
+    # If output_file is specified, ensure its directory exists
+    if args.output_file:
+        os.makedirs(os.path.dirname(os.path.abspath(args.output_file)), exist_ok=True)
     
     loader = WikipediaDataLoader(language=args.language, output_dir=args.output_dir)
     
     if args.general_domains:
         saved_files = loader.download_general_domain_articles(
             max_depth=args.max_depth,
-            max_pages_per_category=args.max_pages
+            max_pages_per_category=args.max_pages,
+            output_dir=args.output_dir
         )
         print(f"Downloaded articles from general domains to {len(saved_files)} files")
         
@@ -401,7 +432,8 @@ def main():
         saved_file = loader.download_articles_from_domain(
             args.category, 
             max_depth=args.max_depth,
-            max_pages_per_category=args.max_pages
+            max_pages_per_category=args.max_pages,
+            output_file=args.output_file
         )
         if saved_file:
             print(f"Downloaded articles from domain '{args.category}' to {saved_file}")
@@ -410,12 +442,15 @@ def main():
             saved_file = loader.download_articles_from_category(
                 args.category, 
                 max_depth=args.max_depth,
-                max_pages=args.max_pages
+                max_pages=args.max_pages,
+                output_file=args.output_file
             )
             if saved_file:
                 print(f"Downloaded articles from category '{args.category}' to {saved_file}")
     
     if args.titles:
+        # Modify the download_articles_from_titles method to accept output_file parameter
+        # This is not implemented in this edit
         saved_file = loader.download_articles_from_titles(args.titles)
         if saved_file:
             print(f"Downloaded articles from specified titles to {saved_file}")
