@@ -4,6 +4,7 @@ import re
 from tqdm import tqdm
 
 def clean_and_filter_files(kana_file, output_file, kanji_file):
+    """Filter kana and kanji files."""
     # List of unnecessary characters to remove
     chars_to_remove_regex = r'[\ \　\.\,\‥\【\】\"\"\‼\⁉\−\〔\〕\、\。\〈\〉\《\》\「\」\『\』\・\！\（\）\，\．\？\［\］]'
     
