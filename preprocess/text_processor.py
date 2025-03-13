@@ -8,21 +8,21 @@ def convert_kanji_to_kana(mecab_path, kanji_text):
     """Convert kanji text to kana using MeCab."""
     try:
         if mecab_path:
-            tagger = MeCab.Tagger(f'-r /dev/null -d {mecab_path}')
+            try:
+                tagger = MeCab.Tagger(f'-r /dev/null -d {mecab_path}')
+            except RuntimeError as e:
+                print(f"Warning: Could not initialize MeCab with the provided path: {mecab_path}")
+                print(f"Error details: {str(e)}")
+                print("Falling back to default MeCab installation...")
+                tagger = MeCab.Tagger("")
         else:
-            # Try with the default path from the original code
-            tagger = MeCab.Tagger('-r /dev/null -d /root/phonetic2kanji/mecab-ipadic-neologd/lib')
-    except RuntimeError as e:
-        print(f"Error initializing MeCab with path {mecab_path}: {str(e)}")
-        print("Trying with default MeCab installation...")
-        try:
-            # Try with default MeCab installation
+            # Use default MeCab installation
             tagger = MeCab.Tagger("")
-        except RuntimeError as e2:
-            print(f"Error initializing MeCab with default settings: {str(e2)}")
-            print("Falling back to simple character-by-character conversion...")
-            # Fallback to a simple conversion (not accurate but better than failing)
-            return simple_kanji_to_kana_fallback(kanji_text)
+    except RuntimeError as e:
+        print(f"Error: Failed to initialize MeCab with both custom path and default installation.")
+        print(f"Error details: {str(e)}")
+        print("Please ensure MeCab is properly installed on your system.")
+        raise RuntimeError("MeCab initialization failed. Cannot proceed with text conversion.")
     
     # Process using MeCab
     mecab_result = tagger.parse(kanji_text).splitlines()
@@ -39,15 +39,6 @@ def convert_kanji_to_kana(mecab_path, kanji_text):
         pronunciations.append(reading)
         
     return ''.join(pronunciations)
-
-def simple_kanji_to_kana_fallback(text):
-    """
-    A very simple fallback for kanji to kana conversion.
-    This is not accurate but prevents the pipeline from failing completely.
-    """
-    # This is a placeholder - in a real implementation, you might want to use
-    # a mapping of common kanji to their readings or another approach
-    return text  # Just return the original text as a last resort
 
 def process_file(input_file, output_file, mecab_path):
     """Process a file containing kanji text and convert to kana."""
@@ -96,7 +87,7 @@ def main():
     parser = argparse.ArgumentParser(description="Process Japanese text for kana-kanji conversion")
     parser.add_argument("--input", required=True, help="Path to input file (kanji text)")
     parser.add_argument("--output", required=True, help="Path to output file (kana text)")
-    parser.add_argument("--mecab_path", help="Path to MeCab dictionary")
+    parser.add_argument("--mecab_path", required=True, help="Path to MeCab dictionary")
     parser.add_argument("--wiki", action="store_true", help="Process input as Wikipedia dump")
     parser.add_argument("--max_sentences", type=int, default=None, help="Maximum number of sentences to process (for Wikipedia)")
     

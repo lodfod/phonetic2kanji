@@ -40,7 +40,8 @@ python preprocess/download_reazon.py --output data/reazon_medium/data.kanji --si
 ### 2. Convert kanji to kana
 
 ```bash
-python preprocess/text_processor.py --input data/reazon_medium/data.kanji --output data/reazon_medium/data.kana
+python preprocess/text_processor.py --input data/reazon_medium/data.kanji --output data/reazon_medium/data.kana \
+--mecab_path "$(pwd)/mecab-ipadic-neologd/lib"
 ```
 
 ### 3. Remove and filter unwanted data
@@ -98,7 +99,8 @@ Choose between jsut_basic5000 or common_voice_8_0
 
 #### 2. Convert Kanji to Kana
 ```bash
-python preprocess/text_processor.py --input data/jsut_basic/data.kanji --output data/jsut_basic/data.kana
+python preprocess/text_processor.py --input data/jsut_basic/data.kanji --output data/jsut_basic/data.kana \
+--mecab_path "$(pwd)/mecab-ipadic-neologd/lib
 ```
 
 #### 3. Remove and filter unwanted data
@@ -138,7 +140,8 @@ python preprocess/download_wiki.py --category technology --max-pages 200 --outpu
 ### 2. Convert kanji to kana
 
 ```bash
-python preprocess/text_processor.py --input data/wiki_tech/data.kanji --output data/wiki_tech/data.kana
+python preprocess/text_processor.py --input data/wiki_tech/data.kanji --output data/wiki_tech/data.kana \
+--mecab_path "$(pwd)/mecab-ipadic-neologd/lib
 ```
 
 ### 3. Remove and filter unwanted data
@@ -191,7 +194,7 @@ Note: model_name can be hugging face directory or local model path
 
 Add --debug arguement to see sample preditions and references
 
-#### Sample output: Evaluating models/wiki_technology_epoch_4/final_model/ on data/wiki_tech/test.kana and data/wiki_tech/test.kanji dataset
+#### TODO: Sample output: Evaluating models/wiki_technology_epoch_4/final_model/ on data/wiki_tech/test.kana and data/wiki_tech/test.kanji dataset
 ```bash
 ================================================================================
 Overall Results:
