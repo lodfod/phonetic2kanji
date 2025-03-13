@@ -194,15 +194,15 @@ Note: model_name can be hugging face directory or local model path
 
 Add --debug arguement to see sample preditions and references
 
-#### TODO: Sample output: Evaluating models/wiki_technology_epoch_4/final_model/ on data/wiki_tech/test.kana and data/wiki_tech/test.kanji dataset
+#### Sample output: Evaluating models/wiki_technology_epoch_4/final_model/ on data/wiki_tech/test.kana and data/wiki_tech/test.kanji dataset
 ```bash
 ================================================================================
 Overall Results:
-Precision: 84.2160
-Recall: 84.4955
-F-score: 84.2909
-Character Error Rate (CER): 18.2989
-Sentence Accuracy: 13.5528
+Precision: 94.7934
+Recall: 94.4910
+F-score: 94.6089
+Character Error Rate (CER): 6.5217
+Sentence Accuracy: 38.9658
 ================================================================================
 ```
 
