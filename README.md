@@ -11,7 +11,7 @@ The implementation provides a complete pipeline from data preprocessing to model
 - `preprocess/` - Scripts for data preprocessing
 - `train_and_eval/` - Source code for model training and evaluation
 - `utils/` - Other important utility functions for data handling and management
-- `analysis.md` - Sample output of our models
+- `analysis.md` - Sample output analysis of our models
 - `result_benchmark.md` - All benchmark results
 
 ## Setup
