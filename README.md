@@ -216,7 +216,6 @@ python utils/upload_model.py --model_path models/mt5_small_medium/final_model --
 ### Validate dataset
 ```bash
 python utils/data_validator.py --dataset_path data/reazon_tiny/formatted
-python utils/vocab.py --input data/reazon_tiny/clean_data.kana --output data/reazon_tiny/vocab.json
 ```
 
 ### Dictionary of unique characters in given data file
@@ -225,7 +224,11 @@ python utils/vocab.py --input data/reazon_tiny/clean_data.kana --output data/rea
 ```
 
 ### Run benchmark on non neural model
+#### 1. Generate kanji file using non neural IME
 ```bash
 python utils/non_neural_ime.py --kana_input data/common_voice/clean_data.kana --kanji_output data/common_voice/non_neural.kanji
+```
+#### 2. Run direct benchmark given the prediction and reference 
+```bash
 python utils/non_neural_benchmark.py --prediction data/common_voice/non_neural.kanji --reference data/common_voice/clean_data.kanji
 ```
