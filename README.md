@@ -158,7 +158,7 @@ python preprocess/dataset_formatter.py --kana_file data/wiki_tech/clean_data.kan
 ### 5. Fine-tune model
 
 ```bash
-python train_and_eval/train.py --dataset_dir data/wiki_tech/formatted --model_name ryos17/mt5-base-all \
+python train_and_eval/train.py --dataset_dir data/wiki_tech/formatted --model_name ryos17/mt5_base_all \
 --output_dir models/wiki_technology_epoch_4 --num_epochs 4
 ```
 For `--model_name`, choose genral-context fine-tuned model. Note: model_name can be hugging face directory or local model path.
@@ -219,4 +219,10 @@ python utils/vocab.py --input data/reazon_tiny/clean_data.kana --output data/rea
 ### Dictionary of unique characters in given data file
 ```bash
 python utils/vocab.py --input data/reazon_tiny/clean_data.kana --output data/reazon_tiny/vocab.json
+```
+
+### Run benchmark on non neural model
+```bash
+python utils/non_neural_ime.py --kana_input data/common_voice/clean_data.kana --kanji_output data/common_voice/non_neural.kanji
+python utils/non_neural_benchmark.py --prediction data/common_voice/non_neural.kanji --reference data/common_voice/clean_data.kanji
 ```
