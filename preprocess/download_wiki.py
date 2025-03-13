@@ -8,6 +8,17 @@ import nltk
 from nltk.tokenize import sent_tokenize
 
 
+domain_map = {
+            # "Physics": ["物理学", "物理現象", "力学", "電磁気学", "量子力学", "相対性理論"],
+            # "Medical": ["医学", "医療", "疾患", "解剖学", "薬学", "公衆衛生学"],
+            "Technology": ["技術", "工学", "コンピュータ", "ソフトウェア", "人工知能", "ロボット工学"],
+            "Literature": ["文学", "小説", "詩", "文学作品", "文学理論", "作家"],
+            # "History": ["歴史", "古代史", "中世史", "近代史", "考古学", "文明"],
+            # "Companies": ["企業", "会社", "ビジネス", "多国籍企業", "スタートアップ企業"],
+            # "Finance": ["金融", "経済学", "投資", "銀行", "株式市場", "保険"],
+            # "Industry": ["産業", "製造業", "農業", "鉱業", "エネルギー産業", "自動車産業"],
+            "Arts": ["芸術", "絵画", "彫刻", "建築", "音楽", "演劇", "映画"]
+        }
 
 class WikipediaDataLoader:
     def __init__(self, language='ja', output_dir='wiki_articles'):
@@ -252,20 +263,77 @@ class WikipediaDataLoader:
             dict: Dictionary mapping domain names to lists of category names
         """
         # Map of general domains to their Japanese Wikipedia category names
-        general_domains = {
-            # "Physics": ["物理学", "物理現象", "力学", "電磁気学", "量子力学", "相対性理論"],
-            # "Medical": ["医学", "医療", "疾患", "解剖学", "薬学", "公衆衛生学"],
-            "Technology": ["技術", "工学", "コンピュータ", "ソフトウェア", "人工知能", "ロボット工学"],
-            "Literature": ["文学", "小説", "詩", "文学作品", "文学理論", "作家"],
-            # "History": ["歴史", "古代史", "中世史", "近代史", "考古学", "文明"],
-            # "Companies": ["企業", "会社", "ビジネス", "多国籍企業", "スタートアップ企業"],
-            # "Finance": ["金融", "経済学", "投資", "銀行", "株式市場", "保険"],
-            # "Industry": ["産業", "製造業", "農業", "鉱業", "エネルギー産業", "自動車産業"],
-            "Arts": ["芸術", "絵画", "彫刻", "建築", "音楽", "演劇", "映画"]
-        }
-        
+        general_domains = domain_map
         print(f"Using {sum(len(cats) for cats in general_domains.values())} categories across {len(general_domains)} domains")
         return general_domains
+
+    def download_articles_from_domain(self, domain_name, max_depth=1, max_pages_per_category=20):
+        """
+        Download articles from all categories associated with a domain.
+        
+        Args:
+            domain_name (str): Name of the domain (e.g., "Technology")
+            max_depth (int): Maximum depth for category recursion
+            max_pages_per_category (int): Maximum number of pages to retrieve per category
+            
+        Returns:
+            str: Path to the saved .kanji file
+        """
+        # Get the domain categories mapping
+        domain_categories = self.find_general_domain_categories()
+        
+        # Check if the domain exists in our mapping
+        domain_key = None
+        for key in domain_categories.keys():
+            if key.lower() == domain_name.lower():
+                domain_key = key
+                break
+        
+        if not domain_key:
+            tqdm.write(f"Domain '{domain_name}' not found in domain map. Available domains: {list(domain_categories.keys())}")
+            return None
+        
+        categories = domain_categories[domain_key]
+        tqdm.write(f"Processing domain: {domain_key} with categories: {categories}")
+        
+        # Create a safe filename from the domain name
+        safe_domain = re.sub(r'[^\w\s-]', '', domain_name).strip().replace(' ', '_')
+        filepath = os.path.join(self.output_dir, f"{safe_domain}.kanji")
+        
+        # Collect all articles from all categories in this domain
+        all_domain_articles = []
+        
+        # Process each category in this domain
+        for category in tqdm(categories, desc=f"Categories in {domain_key}", leave=False):
+            tqdm.write(f"  Category: {category}")
+            
+            # Get pages from this category
+            pages = self.get_category_members(category, max_depth, max_pages_per_category)
+            
+            # Download each article
+            for page in tqdm(pages, desc=f"Articles in {category}", leave=False):
+                # Get article text with one sentence per line
+                article_text = self.download_article(page.title)
+                
+                if article_text:
+                    # Add article title and category as a header
+                    article_with_header = f"# {page.title} (Category: {category})\n{article_text}\n\n"
+                    all_domain_articles.append(article_with_header)
+                else:
+                    tqdm.write(f"Failed to download article: {page.title}")
+                
+                # Add a small delay to avoid hitting rate limits
+                time.sleep(0.2)
+        
+        # Save all articles to a single .kanji file
+        if all_domain_articles:
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write(''.join(all_domain_articles))
+            tqdm.write(f"✓ Saved {len(all_domain_articles)} articles to {filepath}")
+            return filepath
+        else:
+            tqdm.write(f"✗ No articles downloaded for domain: {domain_name}")
+            return None
 
     def download_general_domain_articles(self, max_depth=1, max_pages_per_category=20):
         """
@@ -282,53 +350,21 @@ class WikipediaDataLoader:
         saved_files = []
         
         # Process each domain
-        for domain_name, categories in tqdm(domain_categories.items(), desc="Processing domains"):
-            tqdm.write(f"Processing domain: {domain_name}")
-            
-            # Create a safe filename from the domain name
-            safe_domain = re.sub(r'[^\w\s-]', '', domain_name).strip().replace(' ', '_')
-            filepath = os.path.join(self.output_dir, f"{safe_domain}.kanji")
-            
-            # Collect all articles from all categories in this domain
-            all_domain_articles = []
-            
-            # Process each category in this domain
-            for category in tqdm(categories, desc=f"Categories in {domain_name}", leave=False):
-                tqdm.write(f"  Category: {category}")
-                
-                # Get pages from this category
-                pages = self.get_category_members(category, max_depth, max_pages_per_category)
-                
-                # Download each article
-                for page in tqdm(pages, desc=f"Articles in {category}", leave=False):
-                    # Get article text with one sentence per line
-                    article_text = self.download_article(page.title)
-                    
-                    if article_text:
-                        # Add article title and category as a header
-                        article_with_header = f"# {page.title} (Category: {category})\n{article_text}\n\n"
-                        all_domain_articles.append(article_with_header)
-                    else:
-                        tqdm.write(f"Failed to download article: {page.title}")
-                    
-                    # Add a small delay to avoid hitting rate limits
-                    time.sleep(0.2)
-            
-            # Save all articles for this domain to a single .kanji file
-            if all_domain_articles:
-                with open(filepath, 'w', encoding='utf-8') as f:
-                    f.write(''.join(all_domain_articles))
-                tqdm.write(f"✓ Saved {len(all_domain_articles)} articles to {filepath}")
-                saved_files.append(filepath)
-            else:
-                tqdm.write(f"✗ No articles downloaded for domain: {domain_name}")
+        for domain_name in tqdm(domain_categories.keys(), desc="Processing domains"):
+            saved_file = self.download_articles_from_domain(
+                domain_name,
+                max_depth=max_depth,
+                max_pages_per_category=max_pages_per_category
+            )
+            if saved_file:
+                saved_files.append(saved_file)
         
         return saved_files
 
 def main():
     parser = argparse.ArgumentParser(description='Download Wikipedia articles with one sentence per line')
     
-    parser.add_argument('--category', type=str, help='Category to download articles from')
+    parser.add_argument('--category', type=str, help='Category/domain to download articles from (e.g., Technology, Literature, Arts)')
     parser.add_argument('--titles', type=str, nargs='+', help='Specific article titles to download')
     parser.add_argument('--output-dir', type=str, default='wiki_articles', help='Output directory')
     parser.add_argument('--language', type=str, default='ja', help='Wikipedia language code')
@@ -344,6 +380,9 @@ def main():
     
     args = parser.parse_args()
 
+    # Create output directory if it doesn't exist
+    os.makedirs(args.output_dir, exist_ok=True)
+    
     loader = WikipediaDataLoader(language=args.language, output_dir=args.output_dir)
     
     if args.general_domains:
@@ -358,13 +397,23 @@ def main():
         parser.error("One of --category, --titles, --popular, --categories-file, --discover-categories, or --general-domains must be specified")
     
     if args.category:
-        saved_file = loader.download_articles_from_category(
+        # Use the domain-based download for categories that match our domain map
+        saved_file = loader.download_articles_from_domain(
             args.category, 
             max_depth=args.max_depth,
-            max_pages=args.max_pages
+            max_pages_per_category=args.max_pages
         )
         if saved_file:
-            print(f"Downloaded articles from category '{args.category}' to {saved_file}")
+            print(f"Downloaded articles from domain '{args.category}' to {saved_file}")
+        else:
+            # Fallback to single category download if not a known domain
+            saved_file = loader.download_articles_from_category(
+                args.category, 
+                max_depth=args.max_depth,
+                max_pages=args.max_pages
+            )
+            if saved_file:
+                print(f"Downloaded articles from category '{args.category}' to {saved_file}")
     
     if args.titles:
         saved_file = loader.download_articles_from_titles(args.titles)
@@ -372,12 +421,14 @@ def main():
             print(f"Downloaded articles from specified titles to {saved_file}")
     
     if args.popular:
-        saved_files = loader.download_popular_categories(
-            num_categories=args.num_categories,
-            max_depth=args.max_depth,
-            max_pages_per_category=args.max_pages
-        )
-        print(f"Downloaded articles from popular categories to {len(saved_files)} files")
+        # This function doesn't exist in the provided code, so we'll comment it out
+        # saved_files = loader.download_popular_categories(
+        #     num_categories=args.num_categories,
+        #     max_depth=args.max_depth,
+        #     max_pages_per_category=args.max_pages
+        # )
+        # print(f"Downloaded articles from popular categories to {len(saved_files)} files")
+        print("The --popular option is not implemented in this version.")
     
     if args.categories_file:
         with open(args.categories_file, 'r', encoding='utf-8') as f:
